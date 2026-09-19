@@ -141,6 +141,53 @@
     @media (max-width: 1000px) { .svc__grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 700px)  { .svc__grid, .ind__grid { grid-template-columns: 1fr; } }
 
+    /* ============ STATS BAR ============ */
+    .stats { position: relative; z-index: 45; background: #05070c; padding: clamp(28px, 5vh, 56px) clamp(20px, 6vw, 80px); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .stats__grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; text-align: center; }
+    .stat__num { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.5rem, 3vw, 2.1rem); color: #22d3ee; letter-spacing: -.01em; }
+    .stat__label { font-size: .78rem; color: #8898ac; margin-top: 4px; letter-spacing: .02em; }
+    @media (max-width: 700px) { .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 26px; } }
+
+    /* ============ NETWORK / DISPATCH ============ */
+    .network { position: relative; z-index: 45; background: #05070c; color: #f2f6fc; padding: clamp(60px, 9vh, 110px) clamp(20px, 6vw, 80px); }
+    .network__head { max-width: 720px; margin: 0 auto 44px; text-align: center; }
+    .network__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9; }
+    .network__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin: 12px 0 0; letter-spacing: -.01em; }
+    .network__lead { margin: 16px auto 0; max-width: 56ch; color: #aab6c8; line-height: 1.6; }
+    .network__grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .network__item { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 24px 22px; text-align: center; }
+    .network__icon { font-size: 1.6rem; }
+    .network__item h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1rem; margin: 12px 0 6px; }
+    .network__item p { font-size: .87rem; line-height: 1.55; color: #aab6c8; margin: 0; }
+    @media (max-width: 760px) { .network__grid { grid-template-columns: 1fr; } }
+
+    /* ============ LAST MILE ============ */
+    .lastmile { position: relative; z-index: 45; background: linear-gradient(180deg, #05070c, #071016, #05070c); padding: clamp(60px, 9vh, 110px) clamp(20px, 6vw, 80px); text-align: center; }
+    .lastmile__inner { max-width: 640px; margin: 0 auto; }
+    .lastmile__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9; }
+    .lastmile__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin: 12px 0 0; letter-spacing: -.01em; color: #f2f6fc; }
+    .lastmile__body { margin: 16px auto 0; color: #aab6c8; line-height: 1.6; }
+    .lastmile__callout { margin: 28px auto 0; max-width: 44ch; font-family: var(--sw-font-display); font-size: 1.05rem; font-weight: 600; color: #22d3ee; border-left: 3px solid #22d3ee; padding: 4px 0 4px 18px; text-align: left; }
+
+    /* ============ TRACKING / STATUS ============ */
+    .tracking { position: relative; z-index: 45; background: #05070c; padding: clamp(60px, 9vh, 110px) clamp(20px, 6vw, 80px); max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 70px); align-items: center; }
+    .tracking__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9; }
+    .tracking__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin: 12px 0 0; letter-spacing: -.01em; color: #f2f6fc; }
+    .tracking__body { margin: 16px 0 0; color: #aab6c8; line-height: 1.6; max-width: 42ch; }
+    .tracking__list { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+    .tracking__list li { font-size: .9rem; color: #d7deea; padding-left: 22px; position: relative; }
+    .tracking__list li::before { content: "▸"; position: absolute; left: 0; color: #22d3ee; }
+    .tracking__panel { background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), #0b1220; border: 1px solid color-mix(in srgb, #22d3ee 30%, transparent); border-radius: 18px; padding: 22px; box-shadow: 0 0 40px -20px color-mix(in srgb, #22d3ee 50%, transparent); }
+    .tracking__panel-head { font-family: ui-monospace, Menlo, monospace; font-size: .72rem; letter-spacing: .1em; color: #67e8f9; text-transform: uppercase; margin-bottom: 18px; }
+    .tracking__timeline { display: grid; gap: 18px; }
+    .tt-step { display: flex; gap: 12px; align-items: flex-start; font-size: .88rem; color: #8898ac; }
+    .tt-step strong { color: #f2f6fc; font-size: .92rem; }
+    .tt-dot { width: 10px; height: 10px; border-radius: 50%; background: #1c2536; border: 2px solid #3a4658; margin-top: 4px; flex: 0 0 auto; }
+    .tt-step--done .tt-dot { background: #22d3ee; border-color: #22d3ee; }
+    .tt-step--active .tt-dot { background: #22d3ee; border-color: #22d3ee; box-shadow: 0 0 0 4px color-mix(in srgb, #22d3ee 25%, transparent); }
+    .tt-step--active strong { color: #22d3ee; }
+    @media (max-width: 860px) { .tracking { grid-template-columns: 1fr; } }
+
     /* when the outro (trust + services + tiers) is on screen, get the flight's fixed chrome out of the way */
     body.past-flight .sw-route,
     body.past-flight .sw-hint { opacity: 0 !important; pointer-events: none; }
@@ -405,6 +452,16 @@
     <div class="hud-stat">San Antonio, TX &middot; Same-Day Dispatch &middot; Insured &amp; Tracked</div>
   </div>
 
+  <!-- ============ LIVE STATS ============ -->
+  <section id="stats" class="stats" aria-label="At a glance">
+    <div class="stats__grid">
+      <div class="stat"><div class="stat__num">30&ndash;60</div><div class="stat__label">Min Pickup Window</div></div>
+      <div class="stat"><div class="stat__num">7</div><div class="stat__label">Days a Week</div></div>
+      <div class="stat"><div class="stat__num">15</div><div class="stat__label">Min Response Time</div></div>
+      <div class="stat"><div class="stat__num">15mi</div><div class="stat__label">Service Radius</div></div>
+    </div>
+  </section>
+
   <!-- ============ TRUST + HOW IT WORKS (below the flight) ============ -->
   <section id="trust" class="trust" aria-label="Why OPM Courier">
     <span class="trust__eyebrow">San Antonio's Same-Day Courier</span>
@@ -432,6 +489,42 @@
         <h3>Delivered &amp; confirmed</h3>
         <p>You receive proof of delivery — time-stamped, recipient confirmed. Done.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ NETWORK / DISPATCH ============ -->
+  <section id="network" class="network" aria-label="How dispatch works">
+    <div class="network__head">
+      <span class="network__eyebrow">Behind every pickup</span>
+      <h2 class="network__title">One dispatch. Total visibility.</h2>
+      <p class="network__lead">From the moment you call to the moment it's signed for, every handoff is tracked and confirmed — so you're never left guessing where your delivery stands.</p>
+    </div>
+    <div class="network__grid">
+      <div class="network__item">
+        <span class="network__icon">📞</span>
+        <h3>Live Dispatch</h3>
+        <p>A real person answers, confirms pickup details, and assigns a driver within minutes — no ticket queue, no chatbot.</p>
+      </div>
+      <div class="network__item">
+        <span class="network__icon">🛰️</span>
+        <h3>Status Updates</h3>
+        <p>Text or call updates at pickup, en route, and drop-off, so you always know where things stand.</p>
+      </div>
+      <div class="network__item">
+        <span class="network__icon">🧭</span>
+        <h3>Traffic-Aware Routing</h3>
+        <p>Drivers reroute around delays in real time to protect your delivery window.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LAST MILE ============ -->
+  <section id="lastmile" class="lastmile" aria-label="Last-mile delivery">
+    <div class="lastmile__inner">
+      <span class="lastmile__eyebrow">The final handoff</span>
+      <h2 class="lastmile__title">The last mile, perfected.</h2>
+      <p class="lastmile__body">Fewer failed drop-offs, tighter windows, and a signature-confirmed handoff every time — because the last few minutes of a delivery are the ones that matter most.</p>
+      <div class="lastmile__callout">&ldquo;Proof of delivery — time-stamped and recipient-confirmed — on every single run.&rdquo;</div>
     </div>
   </section>
 
@@ -503,6 +596,29 @@
       <div class="ind">
         <span class="ind__icon">🏢</span>
         <div><h4>Corporate Offices</h4><p>Contracts, HR documents, check deliveries, and anything your business needs moved fast.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRACKING / STATUS ============ -->
+  <section id="tracking" class="tracking" aria-label="How you stay updated">
+    <div class="tracking__text">
+      <span class="tracking__eyebrow">What you get</span>
+      <h2 class="tracking__title">Updates, without the guesswork.</h2>
+      <p class="tracking__body">No app to download, no portal to log into. You get a real update at every stage, straight to your phone.</p>
+      <ul class="tracking__list">
+        <li>Pickup confirmation the moment we arrive</li>
+        <li>En-route updates on STAT / Rush runs</li>
+        <li>Time-stamped proof of delivery, every time</li>
+        <li>A dispatcher you can call back — not a bot</li>
+      </ul>
+    </div>
+    <div class="tracking__panel">
+      <div class="tracking__panel-head">LIVE STATUS &middot; UNIT NX-0442-SA</div>
+      <div class="tracking__timeline">
+        <div class="tt-step tt-step--done"><span class="tt-dot"></span><div><strong>Picked up</strong><br>Downtown clinic</div></div>
+        <div class="tt-step tt-step--done"><span class="tt-dot"></span><div><strong>En route</strong><br>~8 min to destination</div></div>
+        <div class="tt-step tt-step--active"><span class="tt-dot"></span><div><strong>Delivered</strong><br>Signature pending</div></div>
       </div>
     </div>
   </section>
@@ -1735,7 +1851,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
        (founder + tiers) scrolls into view, and back when you scroll up into the flight. */
     (function () {
       if (!('IntersectionObserver' in window)) return;
-      var outro = ['trust', 'services', 'industries', 'tiers', 'contact'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      var outro = ['stats', 'trust', 'network', 'lastmile', 'services', 'industries', 'tracking', 'tiers', 'contact'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
       if (!outro.length) return;
       var seen = new Set();
       var io = new IntersectionObserver(function (entries) {
