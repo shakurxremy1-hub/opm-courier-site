@@ -1,0 +1,1903 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>OPM Courier — San Antonio's Same-Day Courier Service</title>
+  <meta name="description" content="Reliable same-day courier service for medical labs, law firms, title companies, and corporate clients across San Antonio, TX. Same-day delivery, HIPAA-aware, insured." />
+  <meta property="og:title" content="OPM Courier — Same-Day Courier, San Antonio TX" />
+  <meta property="og:description" content="Your documents. On time. Every time. Medical, legal, title, and corporate courier service across San Antonio." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shakurxremy1-hub.github.io/opm-courier-site/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OPM Courier — Same-Day Courier, San Antonio TX" />
+  <meta name="twitter:description" content="Your documents. On time. Every time." />
+  <meta name="theme-color" content="#05070c" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png" />
+  <link rel="apple-touch-icon" href="assets/img/favicon-180.png" />
+  <style>
+    :root, .sw-root {
+      --sw-bg: #05070c;          /* == generated scene background */
+      --sw-ink: #f2f6fc;
+      --sw-ink-soft: #93a2b8;
+      --sw-accent: #c9a84c;      /* per-section accents override at runtime */
+      --sw-font-display: "Chakra Petch", "Inter", system-ui, sans-serif;
+      --sw-font-body: "Inter", system-ui, sans-serif;
+    }
+    html, body { background: #05070c; }
+
+    /* --- dark-theme fixes for engine chrome that bakes in #fff / --sw-ink-as-dark --- */
+    .sw-nav {
+      background: color-mix(in srgb, #0c1220 78%, transparent);
+      border-color: color-mix(in srgb, var(--sw-accent) 30%, transparent);
+    }
+    .sw-nav__item { color: #aab6c8; }
+    .sw-nav__item:hover { color: #fff; }
+    .sw-nav__item.is-active { color: #05070c; background: var(--sw-accent); }
+
+    .sw-topcta {
+      color: #05070c;
+      background: var(--sw-accent);
+      box-shadow: 0 8px 24px -10px color-mix(in srgb, var(--sw-accent) 70%, transparent);
+    }
+
+    .sw-copy__tags li {
+      color: color-mix(in srgb, var(--sw-accent) 78%, #fff);
+      background: color-mix(in srgb, var(--sw-accent) 16%, transparent);
+      border-color: color-mix(in srgb, var(--sw-accent) 34%, transparent);
+    }
+
+    .sw-btn--primary { color: #05070c; background: var(--sw-accent); }
+    .sw-btn--ghost   { color: var(--sw-ink); border-color: color-mix(in srgb, var(--sw-ink) 34%, transparent); }
+
+    .sw-route__label {
+      color: var(--sw-ink);
+      background: color-mix(in srgb, #0c1220 88%, transparent);
+      border-color: color-mix(in srgb, var(--sw-accent) 24%, transparent);
+    }
+
+    .sw-sky__glow { opacity: .5; }
+
+    /* ============ TRUST + HOW IT WORKS ============ */
+    .trust {
+      position: relative; z-index: 45;
+      background:
+        linear-gradient(180deg, transparent 0, rgba(5,7,12,.55) 16vh, #05070c 40vh),
+        radial-gradient(62% 58% at 50% 10%, color-mix(in srgb, #c9a84c 14%, transparent), transparent 64%);
+      color: #f2f6fc;
+      padding: clamp(120px, 22vh, 240px) clamp(20px, 6vw, 80px) clamp(72px, 10vh, 130px);
+      text-align: center;
+    }
+    .trust__eyebrow {
+      display: block; font-family: var(--sw-font-display); font-weight: 700;
+      font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #e8c96b;
+    }
+    .trust__title {
+      font-family: var(--sw-font-display); font-weight: 700;
+      font-size: clamp(1.7rem, 3.6vw, 2.7rem); line-height: 1.08;
+      margin: 14px auto 0; max-width: 26ch; letter-spacing: -.01em;
+    }
+    .trust__bar {
+      max-width: 1080px; margin: 40px auto 0; display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 12px;
+    }
+    .trust__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .84rem; color: #d7deea; background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 9px 16px;
+    }
+    .trust__steps {
+      max-width: 900px; margin: 64px auto 0; display: grid;
+      grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left;
+    }
+    .trust__step {
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), #0b1220;
+      border: 1px solid rgba(255,255,255,.10); border-radius: 18px; padding: 24px 20px;
+    }
+    .trust__step-num {
+      font-family: var(--sw-font-display); font-weight: 700; font-size: .85rem;
+      color: #05070c; background: #c9a84c; width: 30px; height: 30px; border-radius: 50%;
+      display: grid; place-items: center; margin-bottom: 14px;
+    }
+    .trust__step h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.05rem; margin: 0 0 6px; }
+    .trust__step p { font-size: .88rem; line-height: 1.5; color: #aab6c8; margin: 0; }
+    @media (max-width: 760px) { .trust__steps { grid-template-columns: 1fr; } }
+
+    /* ============ SERVICES + INDUSTRIES ============ */
+    .services, .industries {
+      position: relative; z-index: 45; background: #05070c; color: #f2f6fc;
+      padding: clamp(50px, 8vh, 100px) clamp(20px, 6vw, 80px);
+    }
+    .svc__head, .ind__head { max-width: 1140px; margin: 0 auto 36px; }
+    .svc__eyebrow, .ind__eyebrow {
+      font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem;
+      letter-spacing: .16em; text-transform: uppercase; color: #e8c96b;
+    }
+    .svc__title, .ind__title {
+      font-family: var(--sw-font-display); font-weight: 700;
+      font-size: clamp(1.6rem, 3.2vw, 2.3rem); line-height: 1.08; margin: 12px 0 0; letter-spacing: -.01em;
+    }
+    .svc__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .svc {
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), #0b1220;
+      border: 1px solid rgba(255,255,255,.10); border-radius: 18px; padding: 24px 22px;
+      position: relative; overflow: hidden; transition: transform .35s cubic-bezier(.22,1,.36,1);
+    }
+    .svc:hover { transform: translateY(-4px); }
+    .svc__icon { font-size: 1.6rem; }
+    .svc h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.05rem; margin: 12px 0 6px; }
+    .svc p { font-size: .86rem; line-height: 1.5; color: #aab6c8; margin: 0 0 12px; }
+    .svc__price { font-size: .8rem; font-weight: 700; color: #e8c96b; }
+    .ind__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .ind {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 20px;
+    }
+    .ind__icon { font-size: 1.4rem; flex: 0 0 auto; }
+    .ind h4 { font-family: var(--sw-font-display); font-weight: 700; font-size: .98rem; margin: 0 0 6px; }
+    .ind p { font-size: .85rem; line-height: 1.5; color: #aab6c8; margin: 0; }
+    @media (max-width: 1000px) { .svc__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px)  { .svc__grid, .ind__grid { grid-template-columns: 1fr; } }
+
+    /* when the outro (trust + services + tiers) is on screen, get the flight's fixed chrome out of the way */
+    body.past-flight .sw-route,
+    body.past-flight .sw-hint { opacity: 0 !important; pointer-events: none; }
+    body.past-flight .mv-bg { opacity: 0 !important; transition: opacity .4s ease; }
+
+    /* ============ TIERS ============ */
+    .tiers {
+      position: relative; z-index: 45;
+      background: #05070c; color: #f2f6fc;
+      padding: clamp(64px, 10vh, 130px) clamp(20px, 6vw, 80px) clamp(80px, 12vh, 150px);
+
+    }
+    .tiers__head { max-width: 1140px; margin: 0 auto 44px; }
+    .tiers__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #e8c96b; }
+    .tiers__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.06; margin: 12px 0 0; letter-spacing: -.01em; }
+    .tiers__grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .tier {
+      display: flex; flex-direction: column;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)) , #0b1220;
+      border: 1px solid rgba(255,255,255,.10); border-radius: 18px;
+      padding: 26px 22px;
+    }
+    .tier--feature {
+      border-color: color-mix(in srgb, #c9a84c 55%, transparent);
+      background: linear-gradient(180deg, color-mix(in srgb, #c9a84c 12%, transparent), rgba(255,255,255,.02)), #0b1424;
+      box-shadow: 0 0 0 1px color-mix(in srgb, #c9a84c 35%, transparent), 0 30px 70px -40px color-mix(in srgb, #c9a84c 60%, transparent);
+      position: relative;
+    }
+    .tier__badge {
+      align-self: flex-start; margin: -2px 0 12px;
+      font-family: var(--sw-font-display); font-size: 10px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase; color: #05070c;
+      background: linear-gradient(100deg, #c9a84c, #e8c96b);
+      padding: 5px 12px; border-radius: 999px;
+      box-shadow: 0 6px 18px -8px color-mix(in srgb, #c9a84c 80%, transparent);
+    }
+    .tier:not(.tier--feature) .tier__badge { display: none; }
+    @media (min-width: 1001px) {
+      .tier--feature { margin-top: -14px; }
+    }
+    .tier h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 4px; }
+    .tier__blurb { font-size: 13px; color: #8898ac; min-height: 50px; margin-bottom: 4px; }
+    .tier__price { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.6rem; margin: 14px 0 2px; }
+    .tier__price small { font-family: var(--sw-font-body); font-size: 11px; color: #8898ac; font-weight: 400; }
+    .tier__sub { font-size: 11px; color: #d9b26a; min-height: 15px; margin-bottom: 16px; }
+    .tier ul { list-style: none; margin: 2px 0 20px; padding: 0; flex: 1; }
+    .tier li { font-size: 13px; color: #aab6c8; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; gap: 9px; }
+    .tier li::before { content: "▪"; color: #e8c96b; flex: 0 0 auto; }
+    .tier li em { color: #f2f6fc; font-style: normal; }
+    .tier__btn {
+      display: block; text-align: center; text-decoration: none;
+      padding: 12px 10px; border-radius: 999px; font-weight: 600; font-size: .9rem;
+      background: var(--sw-accent, #c9a84c); color: #05070c; transition: transform .2s ease;
+    }
+    .tier__btn:hover { transform: translateY(-2px); }
+    .tier__btn--ghost { background: transparent; color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.26); }
+    .tier__mini { font-size: 10px; color: #8898ac; margin-top: 10px; text-align: center; }
+    .tier__mini a { color: #d9b26a; }
+    .tiers__note { max-width: 1140px; margin: 30px auto 0; font-size: 12px; color: #8898ac; }
+
+    /* ============ CONTACT ============ */
+    .contact {
+      position: relative; z-index: 45; overflow: hidden;
+      background:
+        radial-gradient(70% 60% at 50% 0%, color-mix(in srgb, #c9a84c 10%, transparent), transparent 70%),
+        #05070c;
+      color: #f2f6fc;
+      padding: clamp(72px, 12vh, 150px) clamp(20px, 6vw, 80px);
+      text-align: center;
+    }
+    .contact::before {   /* slow aurora drift behind the headline */
+      content: ""; position: absolute; left: 50%; top: -10%;
+      width: min(760px, 92vw); height: 340px; transform: translateX(-50%);
+      background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, #c9a84c 16%, transparent), transparent 70%);
+      pointer-events: none; filter: blur(20px);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .contact::before { animation: contact-aurora 12s ease-in-out infinite; }
+      @keyframes contact-aurora {
+        0%,100% { transform: translateX(-50%) translateY(0) scale(1); opacity: .9; }
+        50%     { transform: translateX(-50%) translateY(22px) scale(1.12); opacity: 1; }
+      }
+    }
+    .contact__inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .contact__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: #e8c96b; }
+    .contact__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.04; margin: 14px 0 0; letter-spacing: -.015em; }
+    .contact__lead { margin: 18px auto 0; max-width: 40ch; font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.55; color: color-mix(in srgb, #f2f6fc 80%, #8898ac); }
+    .contact__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
+    .contact__btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 28px; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: .98rem;
+      color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.24); transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .contact__btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.5); }
+    .contact__btn--primary { background: #d9b26a; color: #05070c; border-color: transparent; }
+    .contact__btn--primary:hover { background: #e6c485; }
+    .contact__fine { margin-top: 40px; font-size: 12px; letter-spacing: .04em; color: #7c899f; }
+    .contact__fine a { color: #9fb0c6; }
+    .contact__top {
+      position: absolute; right: clamp(16px, 4vw, 40px); bottom: clamp(20px, 5vh, 44px);
+      width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+      color: #f2f6fc; text-decoration: none; font-size: 1.1rem;
+      border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.04);
+    }
+
+    /* ============ PREMIUM DETAILS ============ */
+    /* fine film grain over everything — static, no blend mode (cheap) */
+    #fx-grain {
+      position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 140px 140px;
+    }
+    /* cursor-follow glow on the dark ground (desktop, fine pointer) */
+    #fx-glow {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .5s ease;
+      background: radial-gradient(360px circle at var(--fx-x, 50%) var(--fx-y, 40%),
+        color-mix(in srgb, var(--df-accent, #c9a84c) 12%, transparent), transparent 62%);
+    }
+    @media (hover: hover) and (pointer: fine) { #fx-glow { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { #fx-grain, #fx-glow { display: none; } }
+
+    /* tier cards: top sheen + cursor specular */
+    .tier { position: relative; overflow: hidden; }
+    .tier::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 0; height: 42%; pointer-events: none;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .tier::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s ease;
+      background: radial-gradient(200px circle at var(--gx, 50%) var(--gy, 0%),
+        rgba(255,255,255,.14), transparent 60%);
+    }
+    .tier:hover::after { opacity: 1; }
+    .tier { transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s ease; }
+    .tier:hover { transform: translateY(-4px); }
+
+    /* magnetic buttons return smoothly */
+    .df-bar__cta, .tier__btn, .contact__btn, .founder__btn { transition: transform .3s cubic-bezier(.22,1,.36,1), background .2s ease, border-color .2s ease; will-change: transform; }
+    /* tactile press */
+    .df-bar__cta:active, .tier__btn:active, .contact__btn:active, .founder__btn:active,
+    .mv2-btn:active, .contact__top:active { transform: translateY(0) scale(.96); }
+    /* brand-tinted text selection + a clean keyboard focus ring */
+    ::selection { background: color-mix(in srgb, #c9a84c 42%, transparent); color: #fff; }
+    :focus-visible { outline: 2px solid #d9b26a; outline-offset: 3px; border-radius: 4px; }
+    :focus:not(:focus-visible) { outline: none; }
+    @media (max-width: 1000px) { .tiers__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px)  { .tiers__grid { grid-template-columns: 1fr; } .tier__blurb, .tier__sub { min-height: 0; } }
+
+    /* --- living grain: a slow shimmer instead of a frozen tile --- */
+    @media (prefers-reduced-motion: no-preference) {
+      #fx-grain { animation: fx-grain-shift .9s steps(1) infinite; }
+      @keyframes fx-grain-shift {
+        0%{background-position:0 0} 20%{background-position:-38px 22px} 40%{background-position:24px -34px}
+        60%{background-position:-18px -20px} 80%{background-position:32px 18px} 100%{background-position:0 0}
+      }
+    }
+
+    /* --- metal shine sweep on the logo + primary buttons --- */
+    .fx-shine { position: relative; overflow: hidden; isolation: isolate; }
+    .fx-shine::after {
+      content: ""; position: absolute; top: -60%; bottom: -60%; left: -30%; width: 40%;
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+      transform: translateX(-260%) skewX(-18deg); pointer-events: none; z-index: 2;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .fx-shine::after { animation: fx-sweep 7s ease-in-out infinite; }
+      .fx-shine:hover::after { animation-duration: 1.1s; }
+      @keyframes fx-sweep { 0%,72%{transform:translateX(-260%) skewX(-18deg)} 88%,100%{transform:translateX(520%) skewX(-18deg)} }
+    }
+    .df-brand__logo.fx-shine::after, .sw-brand__logo.fx-shine::after, .mv2-brand__logo.fx-shine::after { border-radius: 50%; }
+
+    /* --- rotating gradient ring on the Recommended (Growth) tier --- */
+    @property --fx-ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+    .tier__ring {
+      position: absolute; inset: -2px; border-radius: calc(18px + 2px); z-index: -1; pointer-events: none;
+      background: conic-gradient(from var(--fx-ang),
+        color-mix(in srgb, var(--sw-accent, #c9a84c) 96%, #fff) 0deg,
+        transparent 70deg, transparent 180deg,
+        color-mix(in srgb, #e8c96b 96%, #fff) 250deg, transparent 320deg,
+        color-mix(in srgb, var(--sw-accent, #c9a84c) 96%, #fff) 360deg);
+    }
+    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #c9a84c) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #c9a84c) 65%, transparent); }
+    @media (prefers-reduced-motion: no-preference) {
+      .tier__ring { animation: fx-ring 5.5s linear infinite; }
+      @keyframes fx-ring { to { --fx-ang: 360deg; } }
+    }
+
+    /* --- founder portrait: 3D tilt toward cursor --- */
+    .founder__portrait { transition: transform .35s cubic-bezier(.22,1,.36,1); transform-style: preserve-3d; will-change: transform; }
+
+    /* --- dust motes (per-section canvas, injected by JS) --- */
+    @media (prefers-reduced-motion: reduce) { .fx-motes-layer { display: none; } }
+
+    /* --- desktop: gentle reveal for the outro content as it enters view --- */
+    @media (min-width: 861px) and (prefers-reduced-motion: no-preference) {
+      .fx-rise {
+        opacity: 0; transform: translateY(26px);
+        transition: opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);
+        transition-delay: calc(var(--i, 0) * 70ms);
+      }
+      .fx-rise.fx-in { opacity: 1; transform: none; }
+    }
+
+    /* hide the "01 / 06" scene counter in the flythrough */
+    .df-copy__num, .sw-copy__num, .mv2-panel__num { display: none !important; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- fonts load non-render-blocking so the first scene paints immediately -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
+  <!-- paint the first scene's poster instantly while the engine boots -->
+  <link rel="preload" as="image" href="assets/frames/f0001.jpg?v=1" media="(min-width: 861px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames/f0002.jpg?v=1" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0003.jpg?v=1" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0004.jpg?v=1" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0005.jpg?v=1" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0006.jpg?v=1" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0001.webp?v=1" media="(max-width: 860px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames-m/f0002.webp?v=1" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0003.webp?v=1" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0004.webp?v=1" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0005.webp?v=1" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0006.webp?v=1" media="(max-width: 860px)" />
+</head>
+<body>
+  <div id="top"></div>
+  <div id="fx-glow" aria-hidden="true"></div>
+  <div id="fx-grain" aria-hidden="true"></div>
+  <div id="world"></div>
+
+  <!-- ============ TRUST + HOW IT WORKS (below the flight) ============ -->
+  <section id="trust" class="trust" aria-label="Why OPM Courier">
+    <span class="trust__eyebrow">San Antonio's Same-Day Courier</span>
+    <h2 class="trust__title">Your documents. On time. Every time.</h2>
+    <div class="trust__bar">
+      <span class="trust__badge">🏥 Medical &amp; HIPAA-Aware</span>
+      <span class="trust__badge">⚖️ Legal Document Specialists</span>
+      <span class="trust__badge">🏠 Title Company Closings</span>
+      <span class="trust__badge">📍 San Antonio, TX</span>
+      <span class="trust__badge">🔒 Insured &amp; Reliable</span>
+    </div>
+    <div class="trust__steps">
+      <div class="trust__step">
+        <div class="trust__step-num">1</div>
+        <h3>Call or text</h3>
+        <p>Tell us what you need picked up, where it's going, and how urgent it is.</p>
+      </div>
+      <div class="trust__step">
+        <div class="trust__step-num">2</div>
+        <h3>We pick up</h3>
+        <p>We're at your location within 30–60 minutes. You get a confirmation when we're en route.</p>
+      </div>
+      <div class="trust__step">
+        <div class="trust__step-num">3</div>
+        <h3>Delivered &amp; confirmed</h3>
+        <p>You receive proof of delivery — time-stamped, recipient confirmed. Done.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="services" aria-label="Courier services">
+    <div class="svc__head">
+      <span class="svc__eyebrow">What we deliver</span>
+      <h2 class="svc__title">Courier services built for business.</h2>
+    </div>
+    <div class="svc__grid">
+      <div class="svc">
+        <span class="svc__icon">🧪</span>
+        <h3>Medical Lab Courier</h3>
+        <p>Specimen transport, lab reports, and medical records delivered with care, speed, and discretion between clinics, hospitals, and laboratories.</p>
+        <span class="svc__price">From $30/pickup</span>
+      </div>
+      <div class="svc">
+        <span class="svc__icon">⚖️</span>
+        <h3>Legal Document Delivery</h3>
+        <p>Court filings, contracts, deposition packages, and confidential legal documents delivered same-day to attorneys and courthouses.</p>
+        <span class="svc__price">From $25/delivery</span>
+      </div>
+      <div class="svc">
+        <span class="svc__icon">🏠</span>
+        <h3>Title &amp; Real Estate</h3>
+        <p>Closing packages, title commitments, and escrow documents handled for title companies, lenders, and real estate offices.</p>
+        <span class="svc__price">From $25/delivery</span>
+      </div>
+      <div class="svc">
+        <span class="svc__icon">📦</span>
+        <h3>Corporate Same-Day</h3>
+        <p>Rush deliveries, inter-office transfers, and business documents for companies that need reliable local courier service in San Antonio.</p>
+        <span class="svc__price">From $20/delivery</span>
+      </div>
+      <div class="svc">
+        <span class="svc__icon">🔁</span>
+        <h3>Monthly Route Contracts</h3>
+        <p>Dedicated daily or weekly pickup routes for businesses with consistent courier needs. Flat-rate monthly billing. No surprises.</p>
+        <span class="svc__price">From $300/month</span>
+      </div>
+      <div class="svc">
+        <span class="svc__icon">⚡</span>
+        <h3>STAT / Rush Courier</h3>
+        <p>Time-critical pickups dispatched within 30 minutes. Guaranteed on-time delivery for urgent situations.</p>
+        <span class="svc__price">From $50/run</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INDUSTRIES ============ -->
+  <section id="industries" class="industries" aria-label="Industries we serve">
+    <div class="ind__head">
+      <span class="ind__eyebrow">Who we serve</span>
+      <h2 class="ind__title">Industries we specialize in.</h2>
+    </div>
+    <div class="ind__grid">
+      <div class="ind">
+        <span class="ind__icon">🏥</span>
+        <div><h4>Medical Labs &amp; Clinics</h4><p>Specimen transport, lab results, prescriptions, and medical records between providers and labs.</p></div>
+      </div>
+      <div class="ind">
+        <span class="ind__icon">⚖️</span>
+        <div><h4>Law Firms</h4><p>Court filings, subpoenas, evidence packages, client documents, and inter-firm transfers.</p></div>
+      </div>
+      <div class="ind">
+        <span class="ind__icon">🏦</span>
+        <div><h4>Title &amp; Escrow Companies</h4><p>Closing packages, lender documents, title insurance commitments, and deed recordings.</p></div>
+      </div>
+      <div class="ind">
+        <span class="ind__icon">🏢</span>
+        <div><h4>Corporate Offices</h4><p>Contracts, HR documents, check deliveries, and anything your business needs moved fast.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TIERS ============ -->
+  <section id="tiers" class="tiers" aria-label="Pricing">
+    <div class="tiers__head">
+      <span class="tiers__eyebrow">Transparent pricing</span>
+      <h2 class="tiers__title">No hidden fees. Flat rates.</h2>
+    </div>
+    <div class="tiers__grid">
+
+      <div class="tier">
+        <h3>Standard</h3>
+        <div class="tier__blurb">Within 15 miles of pickup, 1–3 hour window.</div>
+        <div class="tier__price">$20–$30 <small>per run</small></div>
+        <div class="tier__sub">&nbsp;</div>
+        <ul>
+          <li>Documents &amp; small packages</li>
+          <li>Proof of delivery included</li>
+          <li>Text/call updates</li>
+          <li>Same-day service</li>
+        </ul>
+        <a class="tier__btn" href="tel:+16466883442">Call to book</a>
+        <div class="tier__mini">No contract required.</div>
+      </div>
+
+      <div class="tier tier--feature">
+        <span class="tier__badge">Most Popular</span>
+        <h3>STAT / Rush</h3>
+        <div class="tier__blurb">Within 30 minutes dispatch, priority handling.</div>
+        <div class="tier__price">$45–$60 <small>per run</small></div>
+        <div class="tier__sub">30-min dispatch guarantee</div>
+        <ul>
+          <li>Medical &amp; legal priority</li>
+          <li>Real-time tracking updates</li>
+          <li>Signature confirmation</li>
+          <li>After-hours available</li>
+        </ul>
+        <a class="tier__btn" href="sms:+16466883442">Text to dispatch</a>
+        <div class="tier__mini">Fastest way to reach us.</div>
+      </div>
+
+      <div class="tier">
+        <h3>Monthly Contract</h3>
+        <div class="tier__blurb">Dedicated daily/weekly routes, flat monthly rate.</div>
+        <div class="tier__price">$300+ <small>/ month</small></div>
+        <div class="tier__sub">discounted per-run rate</div>
+        <ul>
+          <li>Dedicated route driver</li>
+          <li>Priority scheduling</li>
+          <li>Monthly invoice billing</li>
+          <li>Account manager contact</li>
+        </ul>
+        <a class="tier__btn tier__btn--ghost" href="mailto:shakur@opmventuresllc.com?subject=Monthly%20route%20contract%20%E2%80%94%20OPM%20Courier">Request a quote</a>
+        <div class="tier__mini">Volume discounts available.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="contact" aria-label="Get in touch">
+    <div class="contact__inner">
+      <span class="contact__eyebrow">Get started</span>
+      <h2 class="contact__title">Let&rsquo;s move something.</h2>
+      <p class="contact__lead">Serving San Antonio and surrounding areas, 7 days a week. Response within 15 minutes during business hours.</p>
+      <div class="contact__actions">
+        <a class="contact__btn contact__btn--primary" href="tel:+16466883442">📞 Call Now</a>
+        <a class="contact__btn" href="sms:+16466883442">💬 Text Us</a>
+        <a class="contact__btn" href="mailto:shakur@opmventuresllc.com?subject=OPM%20Courier%20%E2%80%94%20pickup%20request">Email</a>
+      </div>
+      <p class="contact__fine">(646) 688-3442 &nbsp;·&nbsp; shakur@opmventuresllc.com &nbsp;·&nbsp; San Antonio, TX 78200<br />Mon–Fri 7AM–7PM · Sat 8AM–5PM</p>
+      <p class="contact__fine">OPM&nbsp;Courier &nbsp;·&nbsp; a division of OPM&nbsp;Ventures&nbsp;LLC</p>
+    </div>
+    <a class="contact__top" href="#top" aria-label="Back to top">&uarr;</a>
+  </section>
+
+  <script>
+/* ==== scrub-engine.js (inlined) ==== */
+/* ============================================================================
+   scroll-world — portable scroll-scrubbed camera-flight engine
+   ----------------------------------------------------------------------------
+   Framework-agnostic. Vanilla JS, zero dependencies. It builds its own DOM and
+   injects its own (namespaced) CSS into a container you give it, so it drops into
+   plain HTML, Next.js (call from a ref/useEffect), Vue (onMounted), a server-
+   rendered page, anything.
+
+   USAGE
+     mountScrollWorld(document.getElementById('world'), {
+       brand: { name: 'Pearl & Co.', href: '#top' },
+       diveScroll: 1.3,   // viewport-heights of scroll per dive clip
+       connScroll: 0.9,   // ...per connector clip
+       hint: 'scroll to fly in',
+       nav: true,         // show the top section nav
+       atmosphere: true,  // subtle gradient + drifting particles behind the clips
+       sections: [
+         { id, label, still, stillMobile, clip, clipMobile, accent,
+           scroll: 1.6,   // optional per-section override of diveScroll — more scroll
+                          // distance = a slower, longer dwell in this scene
+           linger: 0.5,   // optional 0..1 — remaps time so the camera settles mid-scene
+                          // (exactly where the copy peaks) and moves quicker at the
+                          // edges. 0 = linear (default). Keep ≤ 0.6; 1 = full pause.
+           eyebrow, title, body, tags:[…],
+           cta:{ primary:{label,href}, secondary:{label,href} } }, // last section only
+         …
+       ],
+       connectors: [clipUrl, …],          // length = sections.length - 1 (nulls allowed)
+       connectorsMobile: [clipUrl, …],    // optional lighter connectors for phones (same length)
+
+   MOBILE (the clipMobile/connectorsMobile variants are the opt-in mobile version;
+   the rest of the phone handling below is always on)
+     The engine is phone-aware out of the box: on a coarse-pointer / ≤860px viewport it
+       - loads `clipMobile` / `connectorsMobile` when provided (encode these smaller +
+         tighter-GOP — seek cost on a phone decoder is dominated by frames-from-keyframe,
+         so a 720p, -g 4 file scrubs far smoother than the 1080p desktop master; see
+         pipeline.md). Falls back to the desktop `clip` if no mobile variant is given.
+       - uses `stillMobile` as the scene poster when provided (pair it with native 9:16
+         clipMobile renders so the poster matches the portrait video's first frame instead
+         of flashing from a landscape crop). Chosen once at mount; a desktop resize into
+         phone width keeps the desktop poster (clips still switch via isMobile()).
+       - coalesces seeks (never issues a new currentTime while the decoder is still
+         `seeking`) so fast flicks can't pile up and freeze the video.
+       - keeps the still as a live poster until the clip actually paints its first frame,
+         and primes each video (muted play→pause) on first touch — this is what stops iOS
+         from showing a blank scene before the first seek.
+       - drops the drifting particles and ignores URL-bar-only resizes (no scroll jump).
+     Nothing here is required — a config with only `clip`/`connectors` still works on
+     phones; the mobile variants just make it lighter and smoother.
+
+   THEME (CSS custom properties; set on the container or :root to override)
+     --sw-bg         page background (match your scene bg for seamless posters)
+     --sw-ink        primary text
+     --sw-ink-soft   secondary text
+     --sw-accent     default accent (each section overrides via its `accent`)
+     --sw-font-display / --sw-font-body
+
+   REQUIREMENTS ON YOUR ASSETS
+     - clips encoded native-res, crf~20, -g 8, +faststart, no audio (see pipeline.md)
+     - connectors' endpoints are the neighbouring dives' ACTUAL frames (see SKILL Step 5)
+     - (optional) mobile variants at ~720p, -g 4 for smoother phone scrubbing
+   The engine loads each clip as a Blob (always seekable) and scrubs currentTime; it does
+   NOT depend on HTTP byte-range support.
+   ========================================================================== */
+
+/* ============================================================================
+   mountMobileStory — the phone experience: full-bleed cinematic panels.
+   One 100svh panel per scene: the scene image full-bleed with a slow Ken-Burns
+   push and scroll parallax, its short clip autoplaying once as you arrive (a
+   single <video> at a time — the pattern iOS actually allows), a kinetic
+   word-mask headline, chips and CTAs over a scrim. Scroll-snap between panels,
+   a dot rail down the side. Founder + tiers + contact flow after.
+   ========================================================================== */
+function mountMobileStory(container, config) {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const S = config.sections || [];
+  if (!S.length) return;
+  const N = S.length;
+  injectMobileCSS();
+  container.classList.add('mv2-root');
+  try { document.documentElement.style.scrollSnapType = 'y proximity'; } catch (e) {}
+
+  const ids = S.map((s, i) => s.id || ('s' + (i + 1)));
+  const kinetic = t => '<span class="mv2-kt">' + String(t).split(' ')
+    .map(w => '<span class="mv2-kt__w"><span class="mv2-kt__i">' + msesc(w) + '</span></span>').join(' ') + '</span>';
+
+  // top bar + menu
+  const bar = mel('div', 'mv2-bar');
+  const brand = mel('a', 'mv2-brand'); brand.href = '#top';
+  if (config.brand && config.brand.logo) { const lg = mel('img', 'mv2-brand__logo'); lg.src = config.brand.logo; lg.alt = config.brand.name || ''; brand.appendChild(lg); }
+  const bn = mel('span', 'mv2-brand__name'); bn.textContent = (config.brand && config.brand.name) || ''; brand.appendChild(bn);
+  bar.appendChild(brand);
+  const menuBtn = mel('button', 'mv2-menu-btn'); menuBtn.setAttribute('aria-label', 'Menu'); menuBtn.innerHTML = '<i></i><i></i><i></i>';
+  bar.appendChild(menuBtn);
+  const menu = mel('nav', 'mv2-menu');
+  const links = S.map((s, i) => ({ href: '#' + ids[i], label: s.label || ('0' + (i + 1)) }))
+    .concat([{ href: '#services', label: 'Services' }, { href: '#tiers', label: 'Pricing' }, { href: '#contact', label: 'Contact' }]);
+  menu.innerHTML = links.map(l => '<a href="' + l.href + '">' + msesc(l.label) + '</a>').join('');
+  const closeMenu = () => document.body.classList.remove('mv2-menu-open');
+  menuBtn.addEventListener('click', () => document.body.classList.toggle('mv2-menu-open'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  container.appendChild(bar); container.appendChild(menu);
+
+  // dot rail
+  const rail = mel('div', 'mv2-rail');
+  const dots = S.map(() => { const d = mel('i'); rail.appendChild(d); return d; });
+  container.appendChild(rail);
+
+  // panels
+  const panels = S.map((s, i) => {
+    const sec = mel('section', 'mv2-panel' + (i === 0 ? ' mv2-panel--hero' : '') + (i === N - 1 ? ' mv2-panel--last' : ''));
+    sec.id = ids[i];
+    sec.style.setProperty('--mv2-accent', s.accent || '#c9a84c');
+    const bg = mel('div', 'mv2-panel__bg');
+    const img = mel('img', 'mv2-panel__img');
+    img.src = s.stillMobile && i === 0 ? s.stillMobile : (s.still || s.stillMobile || '');
+    img.alt = ''; img.decoding = 'async'; img.loading = i < 2 ? 'eager' : 'lazy';
+    bg.appendChild(img);
+    const scrim = mel('div', 'mv2-panel__scrim');
+    const copy = mel('div', 'mv2-panel__copy');
+    let html = '<div class="mv2-panel__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</div>';
+    if (s.eyebrow) html += '<span class="mv2-eyebrow">' + msesc(s.eyebrow) + '</span>';
+    if (s.title) html += (i === 0 ? '<h1 class="mv2-panel__title">' : '<h2 class="mv2-panel__title">') + kinetic(s.title) + (i === 0 ? '</h1>' : '</h2>');
+    if (s.body) html += '<p class="mv2-panel__body">' + msesc(s.body) + '</p>';
+    if (s.tags && s.tags.length) html += '<ul class="mv2-chips">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>';
+    if (s.cta) html += '<div class="mv2-panel__cta">' +
+      (s.cta.primary ? '<a class="mv2-btn mv2-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
+      (s.cta.secondary ? '<a class="mv2-btn mv2-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') + '</div>';
+    if (i === 0) html += '<a class="mv2-scrollcue" href="#' + ids[1] + '"><span>Scroll</span><i></i></a>';
+    copy.innerHTML = html;
+    sec.appendChild(bg); sec.appendChild(scrim); sec.appendChild(copy);
+    container.appendChild(sec);
+    return { sec, bg, img, video: null, clip: 'assets/vid/scene' + (i + 1) + '.mp4', vis: false };
+  });
+
+  // one video at a time, played on arrival
+  let playing = null;
+  function enter(o, i) {
+    o.sec.classList.add('mv2-live', 'mv2-vis'); o.vis = true;
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+    if (reduce) return;
+    if (playing && playing !== o && playing.video) { try { playing.video.pause(); playing.video.currentTime = 0; } catch (e) {} }
+    playing = o;
+    if (!o.video) {
+      const v = mel('video', 'mv2-panel__video');
+      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = false; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('preload', 'auto');
+      v.src = o.clip;
+      v.addEventListener('loadeddata', () => o.sec.classList.add('mv2-hasvid'));
+      o.bg.appendChild(v); o.video = v;
+    }
+    try { o.video.currentTime = 0; } catch (e) {}
+    const pr = o.video.play(); if (pr && pr.catch) pr.catch(() => {});
+  }
+  function leave(o) { o.vis = false; o.sec.classList.remove('mv2-vis'); if (o.video) { try { o.video.pause(); o.video.currentTime = 0; } catch (e) {} } }
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      const i = panels.findIndex(x => x.sec === e.target); if (i < 0) return;
+      if (e.isIntersecting && e.intersectionRatio >= 0.55) enter(panels[i], i);
+      else if (!e.isIntersecting) leave(panels[i]);
+    }), { threshold: [0, 0.55, 0.9] });
+    panels.forEach(o => io.observe(o.sec));
+  } else {
+    panels.forEach((o, i) => enter(o, i));
+  }
+  enter(panels[0], 0);
+
+  // parallax on the live panel's background
+  let tick = false;
+  function onScroll() {
+    if (tick) return; tick = true;
+    requestAnimationFrame(() => {
+      const vh = window.innerHeight;
+      panels.forEach(o => {
+        if (!o.vis) return;
+        const r = o.sec.getBoundingClientRect();
+        const prog = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
+        o.bg.style.transform = 'translateY(' + (prog * 6).toFixed(2) + '%) scale(1.06)';
+      });
+      tick = false;
+    });
+  }
+  if (!reduce) window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+
+function copyHTML(s, i, N, px) {
+  px = px || 'mv';
+  if (px === 'df') return copyHTMLGiant(s, i, N, px);
+  return '<span class="' + px + '-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
+    (s.eyebrow ? '<span class="' + px + '-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
+    (s.title ? '<h2 class="' + px + '-copy__title">' + msesc(s.title) + '</h2>' : '') +
+    (s.body ? '<p class="' + px + '-copy__body">' + msesc(s.body) + '</p>' : '') +
+    (s.tags && s.tags.length ? '<ul class="' + px + '-copy__tags">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>' : '') +
+    (s.cta ? '<div class="' + px + '-copy__cta">' +
+      (s.cta.primary ? '<a class="' + px + '-btn ' + px + '-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
+      (s.cta.secondary ? '<a class="' + px + '-btn ' + px + '-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
+      '</div>' : '');
+}
+
+// Desktop/phone-flight copy: a massive outline wordmark (the section's `label`)
+// that brightens into focus as you scroll into it, over the straight network
+// flythrough, plus a compact eyebrow/title/body/tags/cta block pinned
+// bottom-left that cascades in.
+function copyHTMLGiant(s, i, N, px) {
+  const word = (s.label || s.title || '').toUpperCase();
+  return '<span class="' + px + '-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
+    '<div class="' + px + '-copy__stage">' +
+      (word ? '<h2 class="' + px + '-copy__word">' + msesc(word) + '</h2>' : '') +
+    '</div>' +
+    '<div class="' + px + '-copy__meta">' +
+      (s.eyebrow ? '<span class="' + px + '-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
+      (s.title ? '<h3 class="' + px + '-copy__title">' + msesc(s.title) + '</h3>' : '') +
+      (s.body ? '<p class="' + px + '-copy__body">' + msesc(s.body) + '</p>' : '') +
+      (s.tags && s.tags.length ? '<ul class="' + px + '-copy__tags">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>' : '') +
+      (s.cta ? '<div class="' + px + '-copy__cta">' +
+        (s.cta.primary ? '<a class="' + px + '-btn ' + px + '-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
+        (s.cta.secondary ? '<a class="' + px + '-btn ' + px + '-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
+        '</div>' : '') +
+    '</div>';
+}
+
+function msesc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function mel(t, c) { const n = document.createElement(t); if (c) n.className = c; return n; }
+function injectMobileCSS() {
+  if (document.getElementById('mv-css')) return;
+  const st = document.createElement('style'); st.id = 'mv-css';
+  st.textContent = `
+  .mv2-root{position:relative;z-index:1;--mv2-accent:#c9a84c;}
+  .mv2-bar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:linear-gradient(180deg,rgba(5,7,12,.66),transparent);}
+  .mv2-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2f6fc;}
+  .mv2-brand__logo{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 3px 10px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.16);}
+  .mv2-brand__name{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.98rem;}
+  .mv2-menu-btn{width:42px;height:42px;border:0;background:rgba(255,255,255,.06);border-radius:12px;display:grid;place-items:center;gap:4px;cursor:pointer;}
+  .mv2-menu-btn i{display:block;width:18px;height:2px;background:#f2f6fc;border-radius:2px;transition:transform .3s,opacity .3s;}
+  body.mv2-menu-open .mv2-menu-btn i:nth-child(1){transform:translateY(6px) rotate(45deg);}
+  body.mv2-menu-open .mv2-menu-btn i:nth-child(2){opacity:0;}
+  body.mv2-menu-open .mv2-menu-btn i:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+  .mv2-menu{position:fixed;inset:0;z-index:69;background:rgba(5,7,12,.97);backdrop-filter:blur(6px);
+    display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 30px;
+    opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .3s,transform .3s;}
+  body.mv2-menu-open .mv2-menu{opacity:1;pointer-events:auto;transform:none;}
+  .mv2-menu a{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.55rem;color:#f2f6fc;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);}
+  .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#c9a84c);}
+  .mv2-rail{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:65;display:flex;flex-direction:column;gap:9px;pointer-events:none;}
+  .mv2-rail i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.24);transition:all .35s ease;}
+  .mv2-rail i.on{background:var(--mv2-accent);height:20px;border-radius:3px;box-shadow:0 0 12px color-mix(in srgb,var(--mv2-accent) 70%,transparent);}
+  .mv2-eyebrow{display:block;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mv2-accent);}
+  .mv2-chips{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
+  .mv2-chips li{font-size:.76rem;font-weight:600;padding:7px 13px;border-radius:999px;color:#eef3f9;
+    background:color-mix(in srgb,var(--mv2-accent) 16%,rgba(255,255,255,.03));border:1px solid color-mix(in srgb,var(--mv2-accent) 38%,transparent);
+    opacity:0;transform:translateY(10px);transition:opacity .5s ease .25s,transform .5s ease .25s;}
+  .mv2-live .mv2-chips li{opacity:1;transform:none;}
+
+  .mv2-panel{position:relative;min-height:100svh;min-height:100vh;overflow:hidden;display:flex;align-items:flex-end;scroll-snap-align:start;}
+  .mv2-panel__bg{position:absolute;inset:-3% -3%;will-change:transform;transform:scale(1.06);}
+  .mv2-panel__img,.mv2-panel__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;}
+  .mv2-panel__video{opacity:0;transition:opacity .5s ease;}
+  .mv2-panel.mv2-hasvid .mv2-panel__video{opacity:1;}
+  @media (prefers-reduced-motion:no-preference){
+    .mv2-panel.mv2-live .mv2-panel__img{animation:mv2-kb 14s ease-out both;}
+    .mv2-panel:not(.mv2-vis) .mv2-panel__img{animation-play-state:paused;}
+  }
+  @keyframes mv2-kb{from{transform:scale(1.16)}to{transform:scale(1)}}
+  .mv2-panel__scrim{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(5,7,12,.42) 0%,rgba(5,7,12,0) 24%,rgba(5,7,12,0) 46%,rgba(5,7,12,.66) 72%,rgba(5,7,12,.96) 100%);}
+  .mv2-panel__copy{position:relative;z-index:2;width:100%;padding:0 20px calc(40px + env(safe-area-inset-bottom));}
+  .mv2-panel--hero .mv2-panel__copy{padding-bottom:calc(56px + env(safe-area-inset-bottom));}
+  .mv2-panel__num{font-family:ui-monospace,Menlo,monospace;font-size:.68rem;letter-spacing:.14em;color:#9aa7b8;margin-bottom:8px;
+    opacity:0;transition:opacity .5s ease;} .mv2-live .mv2-panel__num{opacity:1;}
+  .mv2-panel__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f8fbff;margin:10px 0 0;
+    font-size:clamp(2.3rem,10.5vw,3.4rem);line-height:1.02;letter-spacing:-.015em;text-shadow:0 3px 30px rgba(5,7,12,.85);}
+  .mv2-kt__w{display:inline-block;overflow:hidden;vertical-align:top;}
+  .mv2-kt__i{display:inline-block;transform:translateY(112%);transition:transform .7s cubic-bezier(.2,1,.3,1);}
+  .mv2-live .mv2-kt__i{transform:none;}
+  .mv2-kt__w:nth-child(2) .mv2-kt__i{transition-delay:.06s}
+  .mv2-kt__w:nth-child(3) .mv2-kt__i{transition-delay:.12s}
+  .mv2-kt__w:nth-child(4) .mv2-kt__i{transition-delay:.18s}
+  .mv2-kt__w:nth-child(n+5) .mv2-kt__i{transition-delay:.24s}
+  .mv2-panel__body{margin:16px 0 0;font-size:1.05rem;line-height:1.5;color:#d7deea;max-width:32ch;text-shadow:0 1px 12px rgba(5,7,12,.9);
+    opacity:0;transform:translateY(12px);transition:opacity .55s ease .18s,transform .55s ease .18s;}
+  .mv2-live .mv2-panel__body{opacity:1;transform:none;}
+  .mv2-panel__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;opacity:0;transform:translateY(12px);transition:opacity .55s ease .3s,transform .55s ease .3s;}
+  .mv2-live .mv2-panel__cta{opacity:1;transform:none;}
+  .mv2-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;}
+  .mv2-btn--primary{background:var(--mv2-accent);color:#05070c;}
+  .mv2-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.34);}
+  .mv2-scrollcue{display:inline-flex;align-items:center;gap:10px;margin-top:24px;text-decoration:none;color:#9aa7b8;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;}
+  .mv2-scrollcue i{width:20px;height:32px;border-radius:11px;border:2px solid rgba(255,255,255,.3);position:relative;}
+  .mv2-scrollcue i::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:7px;border-radius:2px;background:var(--mv2-accent);transform:translateX(-50%);animation:mv2-wheel 1.7s ease-in-out infinite;}
+  @keyframes mv2-wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,9px)}}
+  @media (prefers-reduced-motion:reduce){ .mv2-kt__i{transform:none;} .mv2-panel__body,.mv2-panel__cta,.mv2-chips li,.mv2-panel__num{opacity:1;transform:none;} }
+  `;
+  document.head.appendChild(st);
+}
+
+/* ============================================================================
+   mountDesktopFlight — desktop: ONE continuous flight video, scroll-scrubbed.
+   Six separate clips meant the camera couldn't move until a whole ~2 MB clip
+   buffered (and stalled again at every scene boundary). One faststart video is
+   seekable from its first few hundred KB, so the flight is scrollable almost
+   immediately and there are no per-scene stalls — the rest streams by range as
+   you scrub. Keeps the desktop chrome: logo bar, nav, route rail, pinned copy,
+   blue→gold accent, scroll hint.
+   ========================================================================== */
+function mountDesktopFlight(container, config) {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const S = config.sections || [];
+  const FRAMES = config.frameCount | 0;
+  const FDIR = config.frameDir || 'assets/frames/';
+  const N = S.length;
+  if (!N || !FRAMES) return false;
+  injectDFCSS();
+  container.classList.add('df-root');
+  container.style.setProperty('--df-accent', S[0].accent || '#c9a84c');
+  const FEXT = config.frameExt || 'jpg';
+  const FIT = config.fit || 'contain';   // 'contain' = whole frame in view (letterboxed); 'cover' = fill + crop
+  // cache-bust: the frame files keep the same names across content updates, so
+  // browsers/CDNs will happily keep serving stale bytes at the same URL forever
+  // unless the URL itself changes — bump config.assetVersion whenever frames change.
+  const AV = config.assetVersion ? ('?v=' + config.assetVersion) : '';
+  const frameURL = i => FDIR + 'f' + String(i + 1).padStart(4, '0') + '.' + FEXT + AV;
+
+  // fixed background — a <canvas> we blit pre-rendered JPEG frames onto (Apple-style).
+  // No <video>: setting video.currentTime triggers a slow decoder seek and needs the
+  // file to buffer first. drawImage() of an already-decoded frame is instant, so the
+  // flight is scrubbable the moment frame 1 (a ~40 KB jpg, preloaded in <head>) lands.
+  const bg = mel('div', 'df-bg');
+  const poster = mel('img', 'df-poster'); poster.src = frameURL(0); poster.alt = '';
+  const canvas = mel('canvas', 'df-canvas'); const ctx = canvas.getContext('2d', { alpha: false });
+  bg.appendChild(poster); bg.appendChild(canvas); bg.appendChild(mel('div', 'df-veil'));
+
+  // ---- branded preloader: gates first paint on the frame sequence being ready,
+  // a percent counter in the corner (noomoagency.com-style) instead of a pop-in flight ----
+  const pre = mel('div', 'df-preload');
+  pre.innerHTML = '<div class="df-preload__mark">' + msesc((config.brand && config.brand.name) || '') + '</div><div class="df-preload__pct">0%</div>';
+  document.body.appendChild(pre);
+  const prePct = pre.querySelector('.df-preload__pct');
+  let preDone = false;
+  function preFinish() {
+    if (preDone) return;
+    preDone = true;
+    pre.classList.add('is-done');
+    setTimeout(() => pre.remove(), 700);
+  }
+  function preTick() {
+    if (preDone) return;
+    let n = 0; for (let k = 0; k < FRAMES; k++) if (state[k] === 2) n++;
+    const pct = Math.min(100, Math.round((n / FRAMES) * 100));
+    prePct.textContent = pct + '%';
+    if (pct >= 100) preFinish();
+  }
+  setTimeout(preFinish, 5000);   // safety net: never block the site past 5s
+
+  // ---- progressive frame loader ----
+  const imgs = new Array(FRAMES), state = new Uint8Array(FRAMES);   // 0 idle · 1 loading · 2 done
+  let inflight = 0, seq = 0, firstDrawn = false;
+  const MAXP = config.maxParallel || 12;    // browsers cap HTTP/2 streams generously; keep the pipe full
+  const AHEAD = config.lookAhead || 14;     // frames to prefetch in the scroll direction
+  function want(i) {
+    i = Math.max(0, Math.min(FRAMES - 1, i));
+    if (state[i]) return;
+    state[i] = 1; inflight++;
+    const im = new Image(); im.decoding = 'async';
+    const done = () => { imgs[i] = im; state[i] = 2; inflight--; if (i === 0 && !firstDrawn) draw(0); pump(); preTick(); };
+    im.onload = () => {
+      // Decode off the main thread first so the later ctx.drawImage can't stall a scroll frame.
+      if (im.decode) im.decode().then(done, done); else done();
+    };
+    im.onerror = () => { state[i] = 0; inflight--; if (i < seq) seq = i; pump(); };
+    im.src = frameURL(i);
+  }
+  function pump() {                        // keep the pipe full, in ascending order
+    while (inflight < MAXP && seq < FRAMES) { if (!state[seq]) want(seq); seq++; }
+  }
+  function nearestLoaded(i) {
+    if (state[i] === 2) return i;
+    for (let d = 1; d < FRAMES; d++) {
+      if (i - d >= 0 && state[i - d] === 2) return i - d;
+      if (i + d < FRAMES && state[i + d] === 2) return i + d;
+    }
+    return -1;
+  }
+  let cw = 0, chh = 0, dpr = 1;
+  function sizeCanvas() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    cw = window.innerWidth; chh = window.innerHeight;
+    canvas.width = Math.round(cw * dpr); canvas.height = Math.round(chh * dpr);
+    canvas.style.width = cw + 'px'; canvas.style.height = chh + 'px';
+    drawIdx(lastIdx, true);
+  }
+  let lastIdx = -1;
+  function draw(i) { drawIdx(i, false); }
+  function drawIdx(i, force) {
+    if (i < 0) return;
+    const use = nearestLoaded(i);
+    if (use < 0) return;
+    if (!force && use === lastIdx) return;
+    lastIdx = use;
+    const im = imgs[use]; if (!im) return;
+    const cvW = canvas.width, cvH = canvas.height;
+    const ir = im.width / im.height, cr = cvW / cvH;
+    let w, h, x, y;
+    if (FIT === 'contain') {
+      // show the whole frame, letterboxed into the (matching) #05070c backdrop
+      if (ir > cr) { w = cvW; h = w / ir; } else { h = cvH; w = h * ir; }
+      x = (cvW - w) / 2; y = (cvH - h) * 0.42;
+      if (w < cvW - 1 || h < cvH - 1) { ctx.fillStyle = '#05070c'; ctx.fillRect(0, 0, cvW, cvH); }
+    } else {
+      if (ir > cr) { h = cvH; w = h * ir; } else { w = cvW; h = w / ir; }
+      x = (cvW - w) / 2; y = (cvH - h) / 2 - h * 0.06;   // bias up a touch
+    }
+    ctx.drawImage(im, x, y, w, h);
+    if (!firstDrawn) { firstDrawn = true; bg.classList.add('df-on'); }
+  }
+
+  // top bar
+  const bar = mel('div', 'df-bar');
+  const brand = mel('a', 'df-brand'); brand.href = (config.brand && config.brand.href) || '#top';
+  if (config.brand && config.brand.logo) { const lg = mel('img', 'df-brand__logo'); lg.src = config.brand.logo; lg.alt = config.brand.name || ''; brand.appendChild(lg); }
+  const bnm = mel('span', 'df-brand__name'); bnm.textContent = (config.brand && config.brand.name) || ''; brand.appendChild(bnm);
+  bar.appendChild(brand);
+  const nav = mel('nav', 'df-nav');
+  const navItems = S.map((s, i) => { const t = mel('button', 'df-nav__item'); t.textContent = s.label || ('0' + (i + 1)); t.addEventListener('click', () => jumpTo(i)); nav.appendChild(t); return t; });
+  bar.appendChild(nav);
+  if (config.cta && config.cta.label) { const c = mel('a', 'df-bar__cta'); c.href = config.cta.href || '#'; c.textContent = config.cta.label; bar.appendChild(c); }
+
+  const prog = mel('div', 'df-progress'); const progFill = mel('i'); prog.appendChild(progFill);
+
+  // copy + route
+  const copylayer = mel('div', 'df-copylayer');
+  const copies = S.map((s, i) => { const c = mel('article', 'df-copy'); c.innerHTML = copyHTML(s, i, N, 'df'); copylayer.appendChild(c); return c; });
+  const wordEls = copies.map(c => c.querySelector('.df-copy__word'));
+  const metaKids = copies.map(c => Array.from(c.querySelector('.df-copy__meta').children));
+  const route = mel('div', 'df-route');
+  const dots = S.map((s, i) => { const d = mel('button', 'df-route__dot'); d.innerHTML = '<span>' + msesc(s.label || '') + '</span><i></i>'; d.addEventListener('click', () => jumpTo(i)); route.appendChild(d); return d; });
+  const hint = mel('div', 'df-hint'); hint.innerHTML = '<span>' + msesc(config.hint || 'scroll') + '</span><i></i>';
+
+  const track = mel('div', 'df-track');
+  [bg, bar, prog, copylayer, route, hint, track].forEach(n => container.appendChild(n));
+
+  const PER = config.scrollPer || 1.5;     // viewport-heights of scroll per scene
+  track.style.height = (N * PER * 100) + 'vh';
+
+  let cur = 0, tgt = 0, ticking = false, active = -1, lastP = 0;
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
+  const lerpColor = (c1, c2, t) => {
+    const p = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+    const a = p(c1), b = p(c2);
+    return 'rgb(' + a.map((v, k) => Math.round(v + (b[k] - v) * t)).join(',') + ')';
+  };
+
+  function jumpTo(i) { window.scrollTo({ top: track.offsetTop + (i + 0.5) / N * (track.offsetHeight - window.innerHeight), behavior: reduce ? 'auto' : 'smooth' }); }
+
+  // kick off loading: frame 1 first (also preloaded in <head> → warm cache), then stream the rest
+  want(0); pump();
+
+  function read() {
+    const vh = window.innerHeight;
+    const h = track.offsetHeight - vh;
+    const p = h > 0 ? clamp((window.scrollY - track.offsetTop) / h) : 0;
+    tgt = p;
+    // prioritise frames around where the reader actually is
+    const ti = Math.round(p * (FRAMES - 1));
+    // prioritise a run of frames in the direction of travel so scrubbing stays ahead of the loader
+    const dir = p >= lastP ? 1 : -1; lastP = p;
+    for (let k = -2; k <= AHEAD; k++) want(ti + k * dir);
+    const pn = p * N;
+    const near = Math.min(N - 1, Math.max(0, Math.round(pn - 0.5)));
+    for (let i = 0; i < N; i++) {
+      let op = 0, ty = 10;
+      if (i === near) {
+        const d = Math.abs(pn - (i + 0.5)); op = 0.6 + 0.4 * smooth(1 - d / 0.5); ty = (0.5 - d) * 8;
+        // one-directional "coming into focus": ramps 0->1 over the first 40% of this
+        // section's scroll span and then holds, independent of the symmetric fade
+        // above (which stays >=0.6 the whole time the section is near) — otherwise
+        // the brightening rides the same narrow band as the fade and never reads.
+        const local = clamp(pn - i, 0, 1);
+        const wb = smooth(Math.min(1, local / 0.4));
+        if (wordEls[i]) wordEls[i].style.setProperty('--wb', wb.toFixed(3));
+        metaKids[i].forEach((el, j) => {
+          const kt = smooth(clamp((local - j * 0.09) / 0.28, 0, 1));
+          el.style.opacity = kt.toFixed(3);
+          el.style.transform = 'translateY(' + ((1 - kt) * 16).toFixed(1) + 'px)';
+        });
+      }
+      copies[i].style.opacity = op.toFixed(3);
+      copies[i].style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
+      copies[i].style.pointerEvents = op > 0.6 ? 'auto' : 'none';
+    }
+    if (near !== active) {
+      active = near;
+      dots.forEach((d, k) => d.classList.toggle('is-active', k === near));
+      navItems.forEach((d, k) => d.classList.toggle('is-active', k === near));
+      // accent eases between the outgoing and incoming scene colours
+    }
+    const a0 = S[near].accent || '#c9a84c';
+    const a1 = S[Math.min(N - 1, near + 1)].accent || a0;
+    const frac = clamp(pn - near - 0.5);
+    container.style.setProperty('--df-accent', lerpColor(a0, a1, smooth(frac)));
+    progFill.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    hint.style.opacity = clamp(1 - pn * 2);
+    bar.style.setProperty('--df-barbg', p > 0.01 ? '.66' : '.32');
+    ticking = false;
+  }
+  function raf() {
+    cur += (tgt - cur) * (config.chase || 0.16);
+    drawIdx(Math.round(clamp(cur) * (FRAMES - 1)), false);
+    requestAnimationFrame(raf);
+  }
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
+  window.addEventListener('resize', () => { sizeCanvas(); read(); });
+  sizeCanvas();
+  read();
+  requestAnimationFrame(raf);
+  return true;
+}
+
+function injectDFCSS() {
+  if (document.getElementById('df-css')) return;
+  const st = document.createElement('style'); st.id = 'df-css';
+  st.textContent = `
+  .df-root{position:relative;z-index:1;--df-accent:#c9a84c;}
+  .df-bg{position:fixed;inset:0;z-index:0;background:#05070c;overflow:hidden;}
+  .df-poster,.df-canvas{position:absolute;inset:0;width:100%;height:100%;}
+  .df-poster{object-fit:cover;object-position:center 44%;}
+  .df-canvas{opacity:0;transition:opacity .4s ease;}
+  .df-on .df-canvas{opacity:1;} .df-on .df-poster{opacity:0;transition:opacity .5s ease;}
+  .df-veil{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(90deg,rgba(5,7,12,.82) 0%,rgba(5,7,12,.45) 32%,rgba(5,7,12,.08) 60%,transparent 100%),
+      linear-gradient(180deg,rgba(5,7,12,.5) 0%,transparent 22%,transparent 70%,rgba(5,7,12,.6) 100%);}
+  .df-bar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:clamp(14px,2.2vw,24px) clamp(20px,4vw,56px);
+    background:linear-gradient(180deg,rgba(5,7,12,var(--df-barbg,.32)),transparent);transition:background .3s;}
+  .df-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#f2f6fc;}
+  .df-brand__logo{width:42px;height:42px;border-radius:50%;object-fit:cover;box-shadow:0 4px 16px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.16);}
+  .df-brand__name{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.08rem;}
+  .df-nav{display:flex;gap:4px;padding:5px;border-radius:999px;background:color-mix(in srgb,#0c1220 78%,transparent);
+    border:1px solid color-mix(in srgb,var(--df-accent) 30%,transparent);}
+  .df-nav__item{font:inherit;font-size:.8rem;color:#aab6c8;border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
+  .df-nav__item:hover{color:#fff;} .df-nav__item.is-active{color:#05070c;background:var(--df-accent);}
+  .df-bar__cta{text-decoration:none;font-weight:600;font-size:.9rem;color:#05070c;background:var(--df-accent);
+    padding:10px 20px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 26px -12px color-mix(in srgb,var(--df-accent) 70%,transparent);}
+  .df-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:61;background:color-mix(in srgb,var(--df-accent) 14%,transparent);}
+  .df-progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--df-accent);}
+  .df-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;}
+  .df-copy{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .4s ease,transform .4s ease;}
+  .df-copy__num{position:absolute;top:clamp(78px,11vh,110px);left:clamp(20px,4vw,56px);
+    font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:#93a2b8;}
+  .df-copy__stage{position:absolute;inset:0;display:grid;place-items:center;}
+  .df-copy__word{position:absolute;max-width:92vw;margin:0;padding:0 2vw;text-align:center;
+    font-family:var(--sw-font-display,system-ui);font-weight:800;text-transform:uppercase;
+    font-size:clamp(3.6rem,12vw,12.5rem);line-height:.84;letter-spacing:-.02em;
+    color:rgba(247,250,254,calc(.05 + .82 * var(--wb,0)));
+    -webkit-text-stroke:1.5px rgba(247,250,254,calc(.5 + .45 * var(--wb,0)));
+    text-shadow:0 0 60px rgba(5,7,12,.4);user-select:none;pointer-events:none;}
+  .df-copy__meta{position:absolute;left:0;bottom:0;width:min(46vw,520px);
+    padding:0 clamp(20px,4vw,56px) clamp(48px,8vh,110px);}
+  .df-copy__meta>*{opacity:0;transform:translateY(16px);}
+  .df-copy__eyebrow{display:block;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--df-accent);}
+  .df-copy__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f7fafe;
+    font-size:clamp(1.3rem,1.9vw,1.7rem);line-height:1.15;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 3px 30px rgba(5,7,12,.9);}
+  .df-copy__body{margin-top:14px;font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.55;color:#dbe2ec;max-width:42ch;text-shadow:0 2px 14px rgba(5,7,12,.92);}
+  .df-copy__tags{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:9px;}
+  .df-copy__tags li{font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:999px;color:#eef3f9;
+    background:color-mix(in srgb,var(--df-accent) 20%,rgba(5,7,12,.4));border:1px solid color-mix(in srgb,var(--df-accent) 40%,transparent);}
+  .df-copy__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px;}
+  .df-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 26px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;pointer-events:auto;}
+  .df-btn--primary{background:var(--df-accent);color:#05070c;}
+  .df-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.34);}
+  .df-route{position:fixed;right:clamp(16px,2.4vw,30px);top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:20px;}
+  .df-route__dot{position:relative;border:0;background:transparent;cursor:pointer;width:14px;height:14px;display:grid;place-items:center;}
+  .df-route__dot i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--df-accent) 40%,transparent);transition:transform .3s,background .3s,box-shadow .3s;}
+  .df-route__dot.is-active i{background:var(--df-accent);transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--df-accent) 22%,transparent);}
+  .df-route__dot span{position:absolute;right:24px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;font-size:.76rem;font-weight:600;color:#f2f6fc;
+    background:color-mix(in srgb,#0c1220 88%,transparent);padding:5px 11px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;}
+  .df-route__dot:hover span,.df-route__dot.is-active span{opacity:1;transform:translateY(-50%);}
+  .df-hint{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:30;display:flex;flex-direction:column;align-items:center;gap:9px;
+    font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#93a2b8;transition:opacity .3s;}
+  .df-hint i{width:22px;height:34px;border-radius:12px;border:2px solid rgba(255,255,255,.28);position:relative;}
+  .df-hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:2px;background:var(--df-accent);transform:translateX(-50%);animation:df-wheel 1.7s ease-in-out infinite;}
+  @keyframes df-wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}60%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
+  .df-track{position:relative;z-index:1;width:100%;pointer-events:none;}
+  body.past-flight .df-route,body.past-flight .df-hint,body.past-flight .df-copylayer{opacity:0!important;pointer-events:none;transition:opacity .5s ease;}
+  @media (prefers-reduced-motion:reduce){ .df-hint i::after{animation:none;} .df-copy__meta>*{opacity:1!important;transform:none!important;transition:none!important;} }
+
+  /* ---- phone: same flight, portrait chrome ---- */
+  .df-root--m .df-veil{
+    background:linear-gradient(180deg,rgba(5,7,12,.34) 0%,transparent 20%,transparent 42%,rgba(5,7,12,.62) 74%,rgba(5,7,12,.9) 100%);}
+  .df-root--m .df-bar{padding:11px 14px;gap:10px;}
+  .df-root--m .df-brand__logo{width:34px;height:34px;}
+  .df-root--m .df-brand__name{font-size:.98rem;}
+  .df-root--m .df-nav{display:none;}
+  .df-root--m .df-bar__cta{font-size:.8rem;padding:9px 15px;}
+  .df-root--m .df-copy__num{top:calc(env(safe-area-inset-top,0px) + 64px);left:16px;}
+  .df-root--m .df-copy__word{font-size:clamp(2.6rem,15vw,4.6rem);}
+  .df-root--m .df-copy__meta{width:auto;right:0;padding:0 20px calc(env(safe-area-inset-bottom,0px) + clamp(84px,15vh,140px));}
+  .df-root--m .df-copy__title{font-size:clamp(1.15rem,5vw,1.4rem);line-height:1.15;}
+  .df-root--m .df-copy__body{font-size:.94rem;max-width:34ch;}
+  .df-root--m .df-copy__cta{margin-top:20px;}
+  .df-root--m .df-btn{padding:13px 22px;font-size:.94rem;}
+  .df-root--m .df-route{right:9px;gap:13px;}
+  .df-root--m .df-route__dot span{display:none;}
+  .df-root--m .df-hint{bottom:calc(env(safe-area-inset-bottom,0px) + 14px);font-size:.68rem;}
+  .df-preload{position:fixed;inset:0;z-index:200;background:#05070c;display:flex;flex-direction:column;
+    align-items:flex-start;justify-content:flex-end;padding:0 0 clamp(28px,6vh,64px) clamp(20px,4vw,56px);
+    gap:8px;transition:opacity .6s ease;}
+  .df-preload__mark{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.85rem;
+    letter-spacing:.18em;text-transform:uppercase;color:#93a2b8;}
+  .df-preload__pct{font-family:ui-monospace,Menlo,monospace;font-size:1.7rem;color:#f7fafe;letter-spacing:.03em;}
+  .df-preload.is-done{opacity:0;pointer-events:none;}
+  @media (prefers-reduced-motion:reduce){ .df-preload{transition:none;} }
+  `;
+  document.head.appendChild(st);
+}
+
+function mountScrollWorld(container, config) {
+  // Decide once at load from the pointer type / width — a device does not change mid-session.
+  const isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
+
+  // Phones run the SAME canvas frame-sequence flight as desktop, just pointed at a
+  // portrait (720×1280) frame set. Canvas blitting has none of the iOS <video>
+  // autoplay / currentTime-seek limits that made the old per-scene clips freeze.
+  if (isPhone && config.frameCountMobile) {
+    container.classList.add('df-root--m');
+    const mcfg = Object.assign({}, config, {
+      frameDir: config.frameDirMobile || 'assets/frames-m/',
+      frameCount: config.frameCountMobile,
+      frameExt: config.frameExtMobile || 'jpg',
+      scrollPer: config.scrollPerMobile || 1.15,
+      maxParallel: config.maxParallelMobile || 24,
+      lookAhead: config.lookAheadMobile || 26,
+      chase: config.chaseMobile || 0.12,
+      fit: config.fitMobile || 'cover'   // mobile stays fill-and-crop (looks right on the 9:16 frames)
+    });
+    if (mountDesktopFlight(container, mcfg)) return;
+    container.classList.remove('df-root--m');
+  }
+  // Fallback build for phones if the frame set is unavailable (see mountMobileStory).
+  if (isPhone) {
+    return mountMobileStory(container, config);
+  }
+  // Desktop: single continuous flight, scrubbed (see mountDesktopFlight).
+  if (config.frameCount && mountDesktopFlight(container, config)) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Phone detection. `coarse` is captured once (input type doesn't change mid-session);
+  // the ≤860px query is read live via isMobile() so a desktop resize/DevTools toggle
+  // switches sources and seek behaviour without a reload.
+  const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const smallMQ = window.matchMedia('(max-width: 860px)');
+  const isMobile = () => coarse || smallMQ.matches;
+  const SECTIONS = config.sections || [];
+  const CONNECTORS = config.connectors || [];
+  const CONNECTORS_M = config.connectorsMobile || [];
+  const DIVE_W = config.diveScroll || 1.3;
+  const CONN_W = config.connScroll || 0.9;
+  const CROSSFADE = (config.crossfade != null) ? config.crossfade : 0.12;  // seam dissolve width (vh)
+  const N = SECTIONS.length;
+  if (!N) return;
+
+  injectCSS();
+  container.classList.add('sw-root');
+
+  // ---- build the interleaved segment chain: dive0, conn0, dive1, … diveN-1 ----
+  const SEGMENTS = [];
+  SECTIONS.forEach((s, i) => {
+    const dive = { kind: 'dive', si: i, clip: s.clip, clipM: s.clipMobile, still: s.still, stillM: s.stillMobile,
+                   accent: s.accent, w: s.scroll || DIVE_W, linger: s.linger || 0 };
+    SEGMENTS.push(dive);
+    s._seg = dive;
+    // A connector is optional: if connectors[i] is falsy, the two dives simply
+    // crossfade directly (no fly-over). Lets a page complete even when a
+    // connector can't be generated (e.g. a content-filter false-positive).
+    if (i < N - 1 && CONNECTORS[i]) {
+      SEGMENTS.push({ kind: 'conn', si: i, clip: CONNECTORS[i], clipM: CONNECTORS_M[i],
+                      still: SECTIONS[i + 1].still, stillM: SECTIONS[i + 1].stillMobile,
+                      accent: SECTIONS[i + 1].accent, w: CONN_W });
+    }
+  });
+  const NSEG = SEGMENTS.length;
+
+  // ---- DOM ----
+  const sky = el('div', 'sw-sky');
+  if (config.atmosphere !== false) {
+    sky.appendChild(el('div', 'sw-sky__grad'));
+    sky.appendChild(el('div', 'sw-sky__glow'));
+  }
+  const particles = el('div', 'sw-particles'); sky.appendChild(particles);
+
+  const scrollbar = el('div', 'sw-scrollbar');
+  const scrollbarFill = el('span'); scrollbar.appendChild(scrollbarFill);
+
+  const topbar = el('div', 'sw-topbar');
+  if (config.brand) {
+    const brand = el('a', 'sw-brand'); brand.href = (config.brand.href || '#');
+    if (config.brand.logo) {
+      const lg = el('img', 'sw-brand__logo'); lg.src = config.brand.logo; lg.alt = config.brand.name || ''; lg.decoding = 'async';
+      brand.appendChild(lg);
+    } else {
+      brand.appendChild(el('span', 'sw-brand__mark'));
+    }
+    const nm = el('span', 'sw-brand__name'); nm.textContent = config.brand.name || ''; brand.appendChild(nm);
+    topbar.appendChild(brand);
+  }
+  const nav = el('nav', 'sw-nav'); if (config.nav !== false) topbar.appendChild(nav);
+  if (config.cta && config.cta.label) {
+    const c = el('a', 'sw-topcta'); c.href = config.cta.href || '#'; c.textContent = config.cta.label;
+    topbar.appendChild(c);
+  }
+
+  const stage = el('div', 'sw-stage');
+  const copylayer = el('div', 'sw-copylayer');
+  const route = el('div', 'sw-route');
+  const hint = el('div', 'sw-hint');
+  const hintText = el('span'); hintText.textContent = config.hint || 'scroll'; hint.appendChild(hintText);
+  hint.appendChild(el('i'));
+  const track = el('div', 'sw-track');
+
+  [sky, scrollbar, topbar, stage, copylayer, route, hint, track].forEach(n => container.appendChild(n));
+
+  // segment scenes
+  SEGMENTS.forEach(s => {
+    const scene = el('div', 'sw-scene'); scene.style.setProperty('--sw-accent', s.accent || '');
+    const img = el('img', 'sw-scene__still'); img.alt = ''; img.decoding = 'async'; img.loading = 'lazy';
+    const poster = (isMobile() && s.stillM) ? s.stillM : s.still;
+    if (poster) img.src = poster;
+    scene.appendChild(img); stage.appendChild(scene);
+    s.el = scene; s.img = img; s.video = null; s.hasClip = false;
+    s.loading = false; s.ready = false; s.cur = 0; s.target = 0; s.visible = false;
+  });
+
+  // per-section copy / route / nav
+  const copies = [], dots = [];
+  SECTIONS.forEach((s, i) => {
+    const c = el('article', 'sw-copy'); c.style.setProperty('--sw-accent', s.accent || '');
+    c.innerHTML =
+      `<span class="sw-copy__num">${pad(i + 1)} / ${pad(N)}</span>` +
+      (s.eyebrow ? `<span class="sw-copy__eyebrow">${esc(s.eyebrow)}</span>` : '') +
+      (s.title ? `<h2 class="sw-copy__title">${esc(s.title)}</h2>` : '') +
+      (s.body ? `<p class="sw-copy__body">${esc(s.body)}</p>` : '') +
+      (s.tags && s.tags.length ? `<ul class="sw-copy__tags">${s.tags.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : '') +
+      (s.cta ? `<div class="sw-copy__cta">${ctaBtns(s.cta)}</div>` : '');
+    copylayer.appendChild(c); copies.push(c);
+
+    const dot = el('button', 'sw-route__dot'); dot.style.setProperty('--sw-accent', s.accent || '');
+    dot.innerHTML = `<span class="sw-route__label">${esc(s.label || '')}</span><i></i>`;
+    dot.addEventListener('click', () => jumpTo(i)); route.appendChild(dot); dots.push(dot);
+
+    if (config.nav !== false) {
+      const b = el('button', 'sw-nav__item'); b.textContent = s.label || '';
+      b.addEventListener('click', () => jumpTo(i)); nav.appendChild(b);
+    }
+  });
+
+  // ---- math ----
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
+  // Per-section dwell: monotone remap of scroll→time so the camera settles mid-scene
+  // (where the copy peaks) and moves quicker near the seams. L=0 linear, L=1 full
+  // mid-scene pause. f(0)=0, f(1)=1 always, so seam frames are untouched.
+  const lingerEase = (x, L) => { L = clamp(L); const c = x - 0.5; return (1 - L) * x + L * (4 * c * c * c + 0.5); };
+  let vh = window.innerHeight, stageX = 0, totalW = 0, activeIndex = -1, ticking = false;
+  let laidOutW = window.innerWidth;   // width the current layout was computed at (see onResize)
+
+  function layout() {
+    vh = window.innerHeight;
+    laidOutW = window.innerWidth;
+    stageX = window.innerWidth > 860 ? 4 : 0;
+    let off = 0;
+    SEGMENTS.forEach(s => { s.start = off * vh; off += s.w; s.end = off * vh; });
+    totalW = off;
+    track.style.height = (totalW * vh + vh) + 'px';   // +1vh so the last flight completes
+    read();
+  }
+
+  function jumpTo(i) {
+    const seg = SECTIONS[i]._seg;
+    window.scrollTo({ top: seg.start + (seg.end - seg.start) * 0.5, behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  function loadClip(s) {
+    // Under prefers-reduced-motion we never load the clips at all — the stills stay up
+    // and simply cross-dissolve as you scroll. No scrubbed video motion, no decode cost.
+    if (reduce || s.loading || !s.clip) return;
+    s.loading = true;
+    // Serve the lighter mobile encode on phones when one was provided.
+    const url = (isMobile() && s.clipM) ? s.clipM : s.clip;
+    const v = document.createElement('video');
+    v.className = 'sw-scene__video';
+    v.muted = true; v.defaultMuted = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('preload', 'auto');
+
+    const reveal = () => s.el.classList.add('has-clip');
+    v.addEventListener('loadeddata', reveal);
+    v.addEventListener('canplay', reveal);
+    v.addEventListener('seeked', reveal, { once: true });
+
+    // Fast path: point straight at the URL. When the host serves HTTP byte-range
+    // requests (GitHub Pages does) and the file is +faststart, `seekable` covers the
+    // whole clip within a few KB — scrubbable on arrival, no full download.
+    // Safe fallback: if metadata arrives but `seekable` is pinned to ~0 (a host that
+    // ignores Range, e.g. `python -m http.server`), fetch the whole thing as a Blob
+    // and swap to an always-seekable object URL.
+    let blobTried = false;
+    const goBlob = () => {
+      if (blobTried) return; blobTried = true;
+      fetch(url).then(r => r.ok ? r.blob() : Promise.reject())
+        .then(b => { v.src = URL.createObjectURL(b); })
+        .catch(() => { s.loading = false; });
+    };
+    v.addEventListener('loadedmetadata', () => {
+      const end = (v.seekable && v.seekable.length) ? v.seekable.end(0) : 0;
+      if (end < (v.duration || 1) - 0.5 && !blobTried) { goBlob(); return; }
+      s.ready = true;
+      primeVideo(v);   // kick the decoder so frame 0 paints (esp. iOS) — harmless on desktop
+      read();
+    });
+    v.addEventListener('error', () => { if (!blobTried) goBlob(); else s.loading = false; });
+    v.src = url;
+    s.el.appendChild(v); s.video = v; s.hasClip = true;
+  }
+
+  function read() {
+    const y = window.scrollY || window.pageYOffset;
+    const fade = CROSSFADE * vh;
+    let ci = 0;
+    for (let i = 0; i < NSEG; i++) if (y >= SEGMENTS[i].start) ci = i;
+
+    for (let i = 0; i < NSEG; i++) {
+      const s = SEGMENTS[i];
+      if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) loadClip(s);
+      const local = clamp((y - s.start) / (s.end - s.start), 0, 1);
+      s.target = s.linger ? lingerEase(local, s.linger) : local;
+      let outside = 0;
+      if (y < s.start) outside = s.start - y; else if (y > s.end) outside = y - s.end;
+      const op = smooth(1 - outside / fade);
+      s.el.style.opacity = op; s.visible = op > 0.001;
+      s.el.style.zIndex = (i === ci) ? '120' : String(100 + Math.round(op * 10));
+      if (!s.hasClip || !s.ready) {
+        // Only a whisper of scroll-driven zoom before the clip is ready (was 0.14) —
+        // enough that scrolling feels acknowledged, small enough that the still→video
+        // hand-off doesn't visibly jump.
+        const sc = reduce ? 1 : 1.03 + local * 0.05;
+        s.img.style.transform = `translateX(${stageX - 2}vw) scale(${sc.toFixed(3)})`;
+      }
+    }
+
+    for (let i = 0; i < N; i++) {
+      const seg = SECTIONS[i]._seg;
+      const pr = clamp((y - seg.start) / (seg.end - seg.start), 0, 1);
+      const before = y < seg.start, after = y > seg.end;
+      let cop;
+      if (i === 0) cop = after ? 0 : smooth(1 - pr / 0.62);            // greets on landing
+      else if (i === N - 1) cop = before ? 0 : smooth(pr / 0.4);       // holds CTA at the end
+      else cop = (before || after) ? 0 : smooth(1 - Math.abs(pr - 0.5) / 0.5);
+      const c = copies[i];
+      c.style.opacity = cop;
+      c.style.transform = reduce ? 'none' : `translateY(${(0.5 - pr) * 4}vh)`;
+      c.style.pointerEvents = cop > 0.5 ? 'auto' : 'none';
+    }
+
+    const cur = SEGMENTS[ci];
+    const near = clamp(cur.kind === 'dive' ? cur.si
+      : (((y - cur.start) / (cur.end - cur.start)) > 0.5 ? cur.si + 1 : cur.si), 0, N - 1);
+    if (near !== activeIndex) {
+      activeIndex = near;
+      dots.forEach((d, k) => d.classList.toggle('is-active', k === near));
+      nav.querySelectorAll('.sw-nav__item').forEach((n, k) => n.classList.toggle('is-active', k === near));
+      container.style.setProperty('--sw-accent', SECTIONS[near].accent || '');
+    }
+    scrollbarFill.style.transform = `scaleX(${clamp(y / (totalW * vh))})`;
+    hint.style.opacity = clamp(1 - y / (0.5 * vh));
+    if (particles) particles.style.transform = `translate3d(0, ${-y * 0.05}px, 0)`;
+    ticking = false;
+  }
+
+  function raf() {
+    const eps = isMobile() ? 0.013 : 0.008;   // seek step; phones a touch coarser (fewer decodes) but the light 540w encodes let it stay near-desktop-smooth
+    for (let i = 0; i < NSEG; i++) {
+      const s = SEGMENTS[i];
+      if (!s.hasClip || !s.ready || !s.video) continue;
+      // Never queue a seek while the decoder is still resolving the last one.
+      // On phones a fast flick would otherwise pile up seeks and freeze the clip;
+      // cur keeps lerping, so we snap to the latest target the moment it's free.
+      if (s.video.seeking) continue;
+      if (!s.visible && Math.abs(s.cur - s.target) < 0.002) continue;
+      s.cur += (s.target - s.cur) * (reduce ? 1 : 0.18);
+      const dur = s.video.duration || 1;
+      const t = clamp(s.cur, 0, 0.999) * dur;
+      if (Math.abs(s.video.currentTime - t) > eps) { try { s.video.currentTime = t; } catch (e) {} }
+    }
+    requestAnimationFrame(raf);
+  }
+
+  // iOS needs a user gesture before a muted video will decode/paint reliably. On the
+  // first touch we prime every loaded clip (muted play→pause) so the first seek is
+  // instant instead of showing a blank frame. `userReady` also makes freshly-loaded
+  // clips prime themselves (see loadClip).
+  let userReady = false;
+  function primeVideo(v) {
+    if (!v) return;
+    // Muted inline autoplay is allowed on modern iOS/Android; if the browser still
+    // blocks it, onFirstGesture re-primes on the first tap.
+    try {
+      const p = v.play();
+      if (p && p.then) p.then(() => { try { v.pause(); } catch (e) {} }).catch(() => {});
+      else { try { v.pause(); } catch (e) {} }
+    } catch (e) {}
+  }
+  function onFirstGesture() {
+    if (userReady) return;
+    userReady = true;
+    SEGMENTS.forEach(s => { if (s.video) { primeVideo(s.video); s.el.classList.add('has-clip'); } });
+  }
+  window.addEventListener('pointerdown', onFirstGesture, { once: true, passive: true });
+  window.addEventListener('touchstart', onFirstGesture, { once: true, passive: true });
+
+  // Particles are a per-frame cost we can't afford alongside video scrubbing on a phone.
+  seedParticles(particles, reduce || coarse);
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
+  // Mobile browsers fire `resize` every time the URL bar slides in/out. Re-running
+  // layout() there rebuilds the track height and yanks the scroll position, so on
+  // touch we ignore height-only changes and only relayout when the width actually
+  // changes (rotation still comes through orientationchange). layout() records the
+  // width it laid out at.
+  function onResize() {
+    if (coarse && window.innerWidth === laidOutW) return;
+    layout();
+  }
+  window.addEventListener('resize', onResize);
+  window.addEventListener('orientationchange', layout);
+  window.addEventListener('load', layout);
+  layout();
+  requestAnimationFrame(raf);
+
+  // Get scene 1 interactive as fast as possible: load ONLY it on arrival (giving it
+  // the whole pipe), then bring in clip 2 once clip 1 has its metadata or after a
+  // short beat — whichever first. The rest load on scroll approach as before.
+  if (!reduce) {
+    loadClip(SEGMENTS[0]);
+    const kick2 = () => { if (SEGMENTS[1]) loadClip(SEGMENTS[1]); };
+    if (SEGMENTS[0].video) SEGMENTS[0].video.addEventListener('loadedmetadata', kick2, { once: true });
+    setTimeout(kick2, 1400);
+  }
+
+  // ---- helpers ----
+  function el(tag, cls) { const n = document.createElement(tag); if (cls) n.className = cls; return n; }
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  function ctaBtns(cta) {
+    let h = '';
+    if (cta.primary) h += `<a class="sw-btn sw-btn--primary" href="${esc(cta.primary.href || '#')}">${esc(cta.primary.label)}</a>`;
+    if (cta.secondary) h += `<a class="sw-btn sw-btn--ghost" href="${esc(cta.secondary.href || '#')}">${esc(cta.secondary.label)}</a>`;
+    return h;
+  }
+}
+
+function seedParticles(host, reduce) {
+  if (!host || reduce) return;
+  const kinds = ['dot', 'dot', 'ring'];
+  const seeds = [7, 23, 41, 58, 71, 88, 12, 34, 52, 66, 83, 95, 18, 29, 47, 63, 77, 91, 5, 38, 55, 69, 82, 97];
+  for (let k = 0; k < 20; k++) {
+    const s = document.createElement('span');
+    s.className = 'sw-pt sw-pt--' + kinds[k % kinds.length];
+    s.style.left = seeds[k % seeds.length] + 'vw';
+    s.style.top = ((seeds[(k * 3) % seeds.length] * 1.3) % 100) + 'vh';
+    s.style.setProperty('--sw-sc', (0.5 + ((seeds[(k * 5) % seeds.length] % 60) / 60) * 1.1).toFixed(2));
+    const dur = 14 + (seeds[(k * 7) % seeds.length] % 22);
+    s.style.animationDuration = dur + 's';
+    s.style.animationDelay = (-(seeds[(k * 2) % seeds.length] % dur)) + 's';
+    host.appendChild(s);
+  }
+}
+
+function injectCSS() {
+  if (document.getElementById('sw-css')) return;
+  const css = `
+  .sw-root{--sw-bg:#F5EDE0;--sw-ink:#241d2b;--sw-ink-soft:#6a6072;--sw-accent:#8a7bb5;
+    --sw-font-display:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;
+    --sw-font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    color:var(--sw-ink);font-family:var(--sw-font-body);}
+  html,body{margin:0;background:var(--sw-bg,#F5EDE0);overflow-x:hidden;}
+  .sw-sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--sw-bg);}
+  .sw-sky__grad{position:absolute;inset:-10%;background:linear-gradient(178deg,color-mix(in srgb,var(--sw-accent) 12%,var(--sw-bg)) 0%,var(--sw-bg) 55%,color-mix(in srgb,var(--sw-accent) 6%,var(--sw-bg)) 100%);}
+  .sw-sky__glow{position:absolute;inset:0;background:radial-gradient(60% 42% at 74% 16%,color-mix(in srgb,var(--sw-accent) 22%,transparent),transparent 70%),radial-gradient(46% 34% at 50% 50%,color-mix(in srgb,#fff 45%,transparent),transparent 70%);}
+  .sw-particles{position:absolute;inset:-6% -2%;will-change:transform;}
+  .sw-pt{position:absolute;width:13px;height:13px;transform:scale(var(--sw-sc,1));opacity:0;animation:sw-drift linear infinite;}
+  .sw-pt::before{content:"";position:absolute;inset:0;border-radius:50%;}
+  .sw-pt--dot::before{background:radial-gradient(circle at 34% 30%,color-mix(in srgb,var(--sw-accent) 60%,#000),#000 82%);}
+  .sw-pt--ring::before{background:transparent;border:2px solid color-mix(in srgb,var(--sw-accent) 55%,transparent);}
+  @keyframes sw-drift{0%{opacity:0;transform:scale(var(--sw-sc)) translate(0,12vh) rotate(0)}12%{opacity:.5}88%{opacity:.45}100%{opacity:0;transform:scale(var(--sw-sc)) translate(4vw,-22vh) rotate(210deg)}}
+  .sw-scrollbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:color-mix(in srgb,var(--sw-accent) 14%,transparent);}
+  .sw-scrollbar span{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--sw-accent);}
+  .sw-topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(14px,2.4vw,26px) clamp(18px,5vw,64px);}
+  .sw-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--sw-ink);}
+  .sw-brand__mark{width:24px;height:28px;border-radius:7px 7px 10px 10px;background:linear-gradient(160deg,var(--sw-accent),color-mix(in srgb,var(--sw-accent) 60%,#000));box-shadow:0 6px 14px color-mix(in srgb,var(--sw-accent) 40%,transparent);}
+  .sw-brand__logo{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;box-shadow:0 4px 16px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.16);}
+  .sw-brand__name{font-family:var(--sw-font-display);font-weight:700;font-size:1.1rem;}
+  @media(max-width:860px){ .sw-brand__logo{width:36px;height:36px;} .sw-brand__name{font-size:1rem;} }
+  .sw-nav{display:flex;gap:4px;padding:5px;background:color-mix(in srgb,#fff 55%,transparent);backdrop-filter:blur(10px);border:1px solid color-mix(in srgb,var(--sw-accent) 16%,transparent);border-radius:999px;}
+  .sw-nav__item{font:inherit;font-size:.82rem;color:var(--sw-ink-soft);border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
+  .sw-nav__item:hover{color:var(--sw-ink);} .sw-nav__item.is-active{color:#fff;background:var(--sw-accent);}
+  .sw-topcta{text-decoration:none;font-weight:600;font-size:.9rem;color:#fff;background:var(--sw-ink);padding:10px 20px;border-radius:999px;white-space:nowrap;}
+  .sw-stage{position:fixed;inset:0;z-index:10;pointer-events:none;}
+  .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity;}
+  .sw-scene__video,.sw-scene__still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;}
+  .sw-scene__still{will-change:transform;} .sw-scene.has-clip .sw-scene__still{opacity:0;} .sw-scene__video{z-index:1;}
+  .sw-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;}
+  .sw-copylayer::before{content:"";position:absolute;inset:0;width:min(58vw,780px);background:linear-gradient(90deg,var(--sw-bg) 0%,color-mix(in srgb,var(--sw-bg) 82%,transparent) 34%,color-mix(in srgb,var(--sw-bg) 40%,transparent) 62%,transparent 100%);}
+  .sw-copy{position:absolute;left:clamp(18px,5vw,64px);top:50%;transform:translateY(-50%);width:min(42vw,460px);opacity:0;will-change:opacity,transform;}
+  .sw-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:var(--sw-ink-soft);}
+  .sw-copy__eyebrow{display:block;margin-top:18px;font-family:var(--sw-font-display);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sw-accent);}
+  .sw-copy__title{font-family:var(--sw-font-display);font-weight:700;color:var(--sw-ink);font-size:clamp(2rem,4.4vw,3.5rem);line-height:1.03;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 2px 20px color-mix(in srgb,var(--sw-bg) 70%,transparent);}
+  .sw-copy__body{margin-top:18px;font-size:clamp(1rem,1.25vw,1.14rem);line-height:1.55;color:color-mix(in srgb,var(--sw-ink) 78%,var(--sw-ink-soft));max-width:40ch;text-shadow:0 1px 12px color-mix(in srgb,var(--sw-bg) 90%,transparent);}
+  .sw-copy__tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0;padding:0;}
+  .sw-copy__tags li{font-size:.82rem;font-weight:600;color:color-mix(in srgb,var(--sw-accent) 70%,#000);padding:7px 14px;border-radius:999px;background:color-mix(in srgb,var(--sw-accent) 14%,#fff);border:1px solid color-mix(in srgb,var(--sw-accent) 30%,transparent);}
+  .sw-copy__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;pointer-events:auto;}
+  .sw-btn{text-decoration:none;font-weight:600;font-size:.95rem;padding:13px 24px;border-radius:999px;transition:transform .2s;}
+  .sw-btn--primary{color:#fff;background:var(--sw-ink);} .sw-btn--primary:hover{transform:translateY(-2px);}
+  .sw-btn--ghost{color:var(--sw-ink);border:1.5px solid color-mix(in srgb,var(--sw-ink) 25%,transparent);} .sw-btn--ghost:hover{transform:translateY(-2px);}
+  .sw-route{position:fixed;right:clamp(14px,2.4vw,30px);top:50%;z-index:40;transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;padding:18px 10px;}
+  .sw-route::before{content:"";position:absolute;left:50%;top:22px;bottom:22px;width:2px;transform:translateX(-50%);background:var(--sw-accent);opacity:.28;}
+  .sw-route__dot{position:relative;border:0;background:transparent;cursor:pointer;width:14px;height:14px;display:grid;place-items:center;}
+  .sw-route__dot i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--sw-accent) 40%,transparent);transition:transform .3s,background .3s,box-shadow .3s;}
+  .sw-route__dot:hover i{transform:scale(1.25);background:var(--sw-accent);}
+  .sw-route__dot.is-active i{background:var(--sw-accent);transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--sw-accent) 22%,transparent);}
+  .sw-route__label{position:absolute;right:24px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;font-size:.78rem;font-weight:600;color:var(--sw-ink);background:color-mix(in srgb,#fff 85%,transparent);backdrop-filter:blur(6px);padding:5px 11px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;border:1px solid color-mix(in srgb,var(--sw-accent) 14%,transparent);}
+  .sw-route__dot:hover .sw-route__label,.sw-route__dot.is-active .sw-route__label{opacity:1;transform:translateY(-50%) translateX(0);}
+  .sw-hint{position:fixed;left:50%;bottom:26px;z-index:30;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sw-ink-soft);transition:opacity .3s;}
+  .sw-hint i{width:22px;height:34px;border-radius:12px;border:2px solid color-mix(in srgb,var(--sw-ink) 28%,transparent);position:relative;}
+  .sw-hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:2px;background:var(--sw-accent);transform:translateX(-50%);animation:sw-wheel 1.7s ease-in-out infinite;}
+  @keyframes sw-wheel{0%{opacity:0;top:6px}40%{opacity:1}100%{opacity:0;top:17px}}
+  .sw-track{position:relative;z-index:1;width:100%;pointer-events:none;}
+  @media (max-width:860px){
+    .sw-nav{display:none;}
+    .sw-copylayer::before{width:100%;height:60%;top:auto;bottom:0;background:linear-gradient(0deg,var(--sw-bg) 8%,color-mix(in srgb,var(--sw-bg) 70%,transparent) 46%,transparent 100%);}
+    /* Anchor copy to the bottom, clear of the home indicator / collapsing URL bar.
+       dvh + env() are progressive: browsers that lack them keep the vh fallback line. */
+    .sw-copy{left:clamp(18px,5vw,64px);right:clamp(18px,5vw,64px);top:auto;bottom:clamp(64px,14vh,120px);transform:none;width:auto;max-width:560px;}
+    .sw-copy{bottom:calc(clamp(56px,12dvh,110px) + env(safe-area-inset-bottom));}
+    .sw-copy__title{font-size:clamp(1.9rem,7.5vw,2.7rem);}
+    .sw-copy__body{max-width:none;font-size:clamp(.98rem,3.6vw,1.1rem);} .sw-scene__video,.sw-scene__still{object-position:center 46%;}
+    .sw-hint{bottom:calc(20px + env(safe-area-inset-bottom));}
+    .sw-route{gap:16px;right:6px;} .sw-route__label{display:none;}
+  }
+  /* Portrait phones crop a 16:9 clip hard; keep the framing centred so the focal
+     subject (which the camera dives toward) stays in view. */
+  @media (max-width:860px) and (orientation:portrait){
+    .sw-scene__video,.sw-scene__still{object-position:center 44%;}
+  }
+  /* Touch: give the route dots a finger-sized hit area without growing the visible dot. */
+  @media (hover:none) and (pointer:coarse){
+    .sw-route{padding:14px 6px;}
+    .sw-route__dot{width:28px;height:28px;}
+    .sw-btn{padding:15px 26px;}
+  }
+  @media (prefers-reduced-motion:reduce){ .sw-hint i::after{animation:none;} .sw-pt{display:none;} }
+  `;
+  // Wrap in a cascade layer so the page's own theme tokens (unlayered
+  // :root / .sw-root { --sw-bg / --sw-ink / --sw-accent … }) always win over
+  // these defaults, regardless of injection order. Enables clean dark themes.
+  const style = document.createElement('style'); style.id = 'sw-css';
+  style.textContent = '@layer sw {\n' + css + '\n}';
+  document.head.appendChild(style);
+}
+
+// Expose for module + global use.
+if (typeof module !== 'undefined' && module.exports) module.exports = { mountScrollWorld };
+if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
+
+  </script>
+  <script>
+    mountScrollWorld(document.getElementById('world'), {
+      brand: { name: 'OPM Courier', href: '#top' },
+      cta: { label: 'Request a Pickup', href: '#contact' },
+      assetVersion: '1',
+      frameCount: 360,
+      frameDir: 'assets/frames/',
+      frameCountMobile: 360,
+      frameDirMobile: 'assets/frames-m/',
+      frameExtMobile: 'webp',
+      scrollPerMobile: 1.15,
+      hint: 'scroll to start the run',
+      diveScroll: 1.3,
+      sections: [
+        {
+          id: 's1', label: 'Dispatched',
+          accent: '#c9a84c',
+          scroll: 1.7, linger: 0.4,
+          eyebrow: 'Where every delivery starts',
+          title: 'One call. We’re moving.',
+          body: 'Same-day pickup, scheduled in minutes — no apps, no portals, just a call or a text.',
+          tags: ['Call or text', '30–60 min pickup'],
+        },
+        {
+          id: 's2', label: 'In Transit',
+          accent: '#e8c96b',
+          eyebrow: 'On the road',
+          title: 'Your documents, moving.',
+          body: 'Real-time updates from pickup to drop-off, across San Antonio and beyond.',
+          tags: ['Live updates', 'Same-day'],
+        },
+        {
+          id: 's3', label: 'The Stop',
+          accent: '#c9a84c',
+          eyebrow: 'Every handoff matters',
+          title: 'Precise, on schedule.',
+          body: 'Whether it’s a lab, a courthouse, or a warehouse dock — we’re there on time, every time.',
+          tags: ['Time-critical', 'STAT dispatch'],
+        },
+        {
+          id: 's4', label: 'Sorted',
+          accent: '#d9b26a',
+          eyebrow: 'Nothing gets lost',
+          title: 'Tracked, every step.',
+          body: 'Proof of pickup, chain of custody, and confirmation at every stage of the run.',
+          tags: ['Chain of custody', 'Proof of delivery'],
+        },
+        {
+          id: 's5', label: 'Delivered',
+          accent: '#e8c96b',
+          eyebrow: 'The moment that matters',
+          title: 'In the right hands.',
+          body: 'Signature confirmed, time-stamped, done — the way a delivery should feel.',
+          tags: ['Signature confirmed'],
+        },
+        {
+          id: 's6', label: 'Trusted',
+          accent: '#c9a84c',
+          scroll: 1.7, linger: 0.45,
+          eyebrow: 'Why San Antonio businesses call us',
+          title: 'Reliable. Insured. Local.',
+          body: 'Medical labs, law firms, title companies, and corporate offices trust OPM Courier to move what matters.',
+          tags: [],
+          cta: {
+            primary:   { label: 'Call Now', href: 'tel:+16466883442' },
+            secondary: { label: 'See pricing', href: '#tiers' },
+          },
+        },
+      ],
+      /* Architecture A — continuous forward walkthrough. The legs ARE the journey;
+         no fly-over connectors. Empty array = neighbouring scenes crossfade directly. */
+      connectors: [],
+    });
+
+    /* Fade the flight's fixed chrome (route rail, scroll hint) out once the outro
+       (founder + tiers) scrolls into view, and back when you scroll up into the flight. */
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      var outro = ['trust', 'tiers'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      if (!outro.length) return;
+      var seen = new Set();
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { e.isIntersecting ? seen.add(e.target) : seen.delete(e.target); });
+        document.body.classList.toggle('past-flight', seen.size > 0);
+      }, { threshold: 0.1 });
+      outro.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ---- premium micro-details (desktop, fine pointer, motion-ok) ---- */
+    (function () {
+      var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!fine || still) return;
+      var root = document.documentElement, glow = document.getElementById('fx-glow');
+      var gx = 0.5, gy = 0.4, tx = 0.5, ty = 0.4, raf = 0;
+      function loop() {
+        gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12;
+        if (glow) { root.style.setProperty('--fx-x', (gx * 100).toFixed(2) + '%'); root.style.setProperty('--fx-y', (gy * 100).toFixed(2) + '%'); }
+        raf = (Math.abs(tx - gx) > 0.001 || Math.abs(ty - gy) > 0.001) ? requestAnimationFrame(loop) : 0;
+      }
+      window.addEventListener('pointermove', function (e) {
+        tx = e.clientX / window.innerWidth; ty = e.clientY / window.innerHeight;
+        if (!raf) raf = requestAnimationFrame(loop);
+      }, { passive: true });
+
+      // cursor specular on tier cards
+      document.querySelectorAll('.tier').forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          card.style.setProperty('--gx', (e.clientX - r.left) + 'px');
+          card.style.setProperty('--gy', (e.clientY - r.top) + 'px');
+        }, { passive: true });
+      });
+
+      // magnetic pull on the key buttons
+      document.querySelectorAll('.df-bar__cta, .tier__btn, .contact__btn--primary, .founder__btn--primary').forEach(function (btn) {
+        btn.addEventListener('pointermove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+          var dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+          btn.style.transform = 'translate(' + (dx * 5).toFixed(1) + 'px,' + (dy * 5).toFixed(1) + 'px)';
+        }, { passive: true });
+        btn.addEventListener('pointerleave', function () { btn.style.transform = ''; }, { passive: true });
+      });
+
+      // founder portrait — subtle 3D tilt toward the cursor
+      var fp = document.querySelector('.founder__portrait');
+      if (fp) {
+        fp.addEventListener('pointermove', function (e) {
+          var r = fp.getBoundingClientRect();
+          var nx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+          var ny = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+          fp.style.transform = 'perspective(900px) rotateY(' + (nx * 4).toFixed(2) + 'deg) rotateX(' + (-ny * 4).toFixed(2) + 'deg)';
+        }, { passive: true });
+        fp.addEventListener('pointerleave', function () { fp.style.transform = ''; }, { passive: true });
+      }
+    })();
+
+    /* ---- scramble reveal · price count-up · gradient ring · shine · motes ---- */
+    (function () {
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // rotating gradient ring on the Recommended tier
+      var feat = document.querySelector('.tier--feature');
+      if (feat) { var ring = document.createElement('i'); ring.className = 'tier__ring'; feat.prepend(ring); }
+
+      // metal shine on the logo + primary buttons
+      document.querySelectorAll('.df-brand__logo, .sw-brand__logo, .mv2-brand__logo, .df-bar__cta, .mv2-bar__cta, .tier__btn, .contact__btn--primary, .founder__btn--primary, .mv2-btn--primary')
+        .forEach(function (el) { el.classList.add('fx-shine'); });
+
+      if (still) return;
+
+      // scramble-in headlines
+      var GLY = '!<>-_\\/[]{}—=+*^?#01';
+      function scramble(el) {
+        var target = el.getAttribute('data-fx-text') || el.textContent;
+        el.setAttribute('data-fx-text', target);
+        var start = performance.now(), DUR = 620;
+        function frame(now) {
+          var p = Math.min(1, (now - start) / DUR);
+          var settled = Math.floor(p * target.length);
+          var out = '';
+          for (var i = 0; i < target.length; i++) {
+            var c = target[i];
+            out += (c === ' ' || i < settled) ? c : GLY[(Math.random() * GLY.length) | 0];
+          }
+          el.textContent = out;
+          if (p < 1) requestAnimationFrame(frame); else el.textContent = target;
+        }
+        requestAnimationFrame(frame);
+      }
+      var seenS = new WeakSet();
+      var sIO = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting && !seenS.has(e.target)) { seenS.add(e.target); scramble(e.target); sIO.unobserve(e.target); }
+        });
+      }, { threshold: 0.6 });
+      document.querySelectorAll('.df-copy__title, .founder__title, .tiers__title, .contact__title')
+        .forEach(function (el) { sIO.observe(el); });
+
+      // price count-up
+      function countUp(el) {
+        if (!el.firstChild || el.firstChild.nodeType !== 3) return;
+        var raw = el.firstChild.textContent.replace(/,/g, '');
+        var m = raw.match(/^(.*?)(\d[\d]*)(.*)$/);
+        if (!m) return;
+        var pre = m[1], end = +m[2], tail = m[3];
+        var start = performance.now(), DUR = 1100;
+        function frame(now) {
+          var p = Math.min(1, (now - start) / DUR), e = 1 - Math.pow(1 - p, 3);
+          el.firstChild.textContent = pre + Math.round(end * e).toLocaleString('en-US') + tail;
+          if (p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+      var pIO = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { countUp(e.target); pIO.unobserve(e.target); } });
+      }, { threshold: 0.8 });
+      document.querySelectorAll('.tier__price').forEach(function (el) { pIO.observe(el); });
+
+      // dust motes — one small canvas per relevant section, drawn only while visible
+      function mountMotes(sec) {
+        if (!sec) return;
+        if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
+        var cv = document.createElement('canvas'); cv.className = 'fx-motes-layer';
+        cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0;transition:opacity .6s ease';
+        sec.prepend(cv);
+        var ctx = cv.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1), W = 0, Hh = 0, run = 0, vis = false;
+        var motes = [];
+        for (var i = 0; i < 30; i++) motes.push({ x: Math.random(), y: Math.random(), r: (Math.random() * 1.5 + 0.5) * dpr, s: Math.random() * 0.0009 + 0.0003, d: Math.random() * 6.28, a: Math.random() * 0.35 + 0.12 });
+        function size() { var r = sec.getBoundingClientRect(); W = cv.width = Math.max(1, r.width * dpr); Hh = cv.height = Math.max(1, r.height * dpr); }
+        function tick() {
+          if (!vis || document.hidden) { run = 0; return; }
+          ctx.clearRect(0, 0, W, Hh);
+          for (var k = 0; k < motes.length; k++) {
+            var m = motes[k];
+            m.y -= m.s; m.d += 0.012; m.x += Math.sin(m.d) * 0.0004;
+            if (m.y < -0.03) { m.y = 1.03; m.x = Math.random(); }
+            ctx.beginPath(); ctx.arc(m.x * W, m.y * Hh, m.r, 0, 6.283);
+            ctx.fillStyle = 'rgba(170,195,230,' + m.a + ')'; ctx.fill();
+          }
+          run = requestAnimationFrame(tick);
+        }
+        addEventListener('resize', size, { passive: true });
+        new IntersectionObserver(function (es) {
+          vis = es[0].isIntersecting; cv.style.opacity = vis ? '1' : '0';
+          if (vis) { size(); if (!run) run = requestAnimationFrame(tick); }
+        }, { threshold: 0.02 }).observe(sec);
+      }
+      mountMotes(document.getElementById('trust'));
+      mountMotes(document.getElementById('tiers'));
+      mountMotes(document.getElementById('contact'));
+
+      // desktop: rise-in the outro content as it enters view
+      if (window.innerWidth > 860) {
+        var risers = [];
+        var fi = document.querySelector('.founder__inner'); if (fi) risers.push(fi);
+        var th = document.querySelector('.tiers__head'); if (th) risers.push(th);
+        document.querySelectorAll('.tiers__grid > .tier').forEach(function (t, i) { t.style.setProperty('--i', i); risers.push(t); });
+        var ci = document.querySelector('.contact__inner'); if (ci) risers.push(ci);
+        risers.forEach(function (el) { el.classList.add('fx-rise'); });
+        var rIO = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('fx-in'); rIO.unobserve(e.target); } });
+        }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+        risers.forEach(function (el) { rIO.observe(el); });
+      }
+    })();
+
+    /* ---- smooth anchor scrolling ---- */
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var easing = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+      function scrollTo(y, dur) {
+        var s0 = window.scrollY, d = y - s0, t0 = performance.now();
+        function step(now) {
+          var p = Math.min(1, (now - t0) / dur);
+          window.scrollTo(0, s0 + d * easing(p));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!a) return;
+        var id = a.getAttribute('href').slice(1);
+        var el = id === 'top' || id === '' ? document.body : document.getElementById(id);
+        if (!el) return;
+        e.preventDefault();
+        var top = id === 'top' || id === '' ? 0 : el.getBoundingClientRect().top + window.scrollY - 10;
+        scrollTo(top, Math.min(1100, 380 + Math.abs(top - window.scrollY) * 0.35));
+        if (history.replaceState) history.replaceState(null, '', id ? '#' + id : location.pathname);
+      }, { passive: false });
+    })();
+  </script>
+</body>
+</html>
