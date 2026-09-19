@@ -21,7 +21,7 @@
       --sw-bg: #05070c;          /* == generated scene background */
       --sw-ink: #f2f6fc;
       --sw-ink-soft: #93a2b8;
-      --sw-accent: #c9a84c;      /* per-section accents override at runtime */
+      --sw-accent: #22d3ee;      /* per-section accents override at runtime */
       --sw-font-display: "Chakra Petch", "Inter", system-ui, sans-serif;
       --sw-font-body: "Inter", system-ui, sans-serif;
     }
@@ -64,14 +64,14 @@
       position: relative; z-index: 45;
       background:
         linear-gradient(180deg, transparent 0, rgba(5,7,12,.55) 16vh, #05070c 40vh),
-        radial-gradient(62% 58% at 50% 10%, color-mix(in srgb, #c9a84c 14%, transparent), transparent 64%);
+        radial-gradient(62% 58% at 50% 10%, color-mix(in srgb, #22d3ee 14%, transparent), transparent 64%);
       color: #f2f6fc;
       padding: clamp(120px, 22vh, 240px) clamp(20px, 6vw, 80px) clamp(72px, 10vh, 130px);
       text-align: center;
     }
     .trust__eyebrow {
       display: block; font-family: var(--sw-font-display); font-weight: 700;
-      font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #e8c96b;
+      font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9;
     }
     .trust__title {
       font-family: var(--sw-font-display); font-weight: 700;
@@ -97,7 +97,7 @@
     }
     .trust__step-num {
       font-family: var(--sw-font-display); font-weight: 700; font-size: .85rem;
-      color: #05070c; background: #c9a84c; width: 30px; height: 30px; border-radius: 50%;
+      color: #05070c; background: #22d3ee; width: 30px; height: 30px; border-radius: 50%;
       display: grid; place-items: center; margin-bottom: 14px;
     }
     .trust__step h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.05rem; margin: 0 0 6px; }
@@ -112,7 +112,7 @@
     .svc__head, .ind__head { max-width: 1140px; margin: 0 auto 36px; }
     .svc__eyebrow, .ind__eyebrow {
       font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem;
-      letter-spacing: .16em; text-transform: uppercase; color: #e8c96b;
+      letter-spacing: .16em; text-transform: uppercase; color: #67e8f9;
     }
     .svc__title, .ind__title {
       font-family: var(--sw-font-display); font-weight: 700;
@@ -128,7 +128,7 @@
     .svc__icon { font-size: 1.6rem; }
     .svc h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.05rem; margin: 12px 0 6px; }
     .svc p { font-size: .86rem; line-height: 1.5; color: #aab6c8; margin: 0 0 12px; }
-    .svc__price { font-size: .8rem; font-weight: 700; color: #e8c96b; }
+    .svc__price { font-size: .8rem; font-weight: 700; color: #67e8f9; }
     .ind__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .ind {
       display: flex; gap: 14px; align-items: flex-start;
@@ -146,6 +146,31 @@
     body.past-flight .sw-hint { opacity: 0 !important; pointer-events: none; }
     body.past-flight .mv-bg { opacity: 0 !important; transition: opacity .4s ease; }
 
+    /* ============ HUD CHROME (telemetry-panel look, per reference) ============ */
+    #hud-chrome { position: fixed; inset: 0; z-index: 55; pointer-events: none; transition: opacity .5s ease; }
+    .hud-bracket {
+      position: absolute; width: 26px; height: 26px;
+      border: 2px solid color-mix(in srgb, var(--df-accent, #22d3ee) 75%, transparent);
+      opacity: .65; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--df-accent, #22d3ee) 60%, transparent));
+    }
+    .hud-bracket--tl { top: 74px; left: 20px; border-right: 0; border-bottom: 0; }
+    .hud-bracket--tr { top: 74px; right: 20px; border-left: 0; border-bottom: 0; }
+    .hud-bracket--bl { bottom: 26px; left: 20px; border-right: 0; border-top: 0; }
+    .hud-bracket--br { bottom: 26px; right: 20px; border-left: 0; border-top: 0; }
+    .hud-stat {
+      position: absolute; top: 84px; left: 50%; transform: translateX(-50%);
+      font-family: ui-monospace, Menlo, monospace; font-size: .68rem; letter-spacing: .14em;
+      text-transform: uppercase; white-space: nowrap;
+      color: color-mix(in srgb, var(--df-accent, #22d3ee) 88%, #fff); opacity: .8;
+      text-shadow: 0 0 10px color-mix(in srgb, var(--df-accent, #22d3ee) 60%, transparent);
+    }
+    body.past-flight #hud-chrome { opacity: 0 !important; pointer-events: none; }
+    @media (max-width: 860px) {
+      .hud-stat { display: none; }
+      .hud-bracket { width: 18px; height: 18px; }
+      .hud-bracket--tl, .hud-bracket--tr { top: 60px; }
+    }
+
     /* ============ TIERS ============ */
     .tiers {
       position: relative; z-index: 45;
@@ -154,7 +179,7 @@
 
     }
     .tiers__head { max-width: 1140px; margin: 0 auto 44px; }
-    .tiers__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #e8c96b; }
+    .tiers__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9; }
     .tiers__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.06; margin: 12px 0 0; letter-spacing: -.01em; }
     .tiers__grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .tier {
@@ -164,18 +189,18 @@
       padding: 26px 22px;
     }
     .tier--feature {
-      border-color: color-mix(in srgb, #c9a84c 55%, transparent);
-      background: linear-gradient(180deg, color-mix(in srgb, #c9a84c 12%, transparent), rgba(255,255,255,.02)), #0b1424;
-      box-shadow: 0 0 0 1px color-mix(in srgb, #c9a84c 35%, transparent), 0 30px 70px -40px color-mix(in srgb, #c9a84c 60%, transparent);
+      border-color: color-mix(in srgb, #22d3ee 55%, transparent);
+      background: linear-gradient(180deg, color-mix(in srgb, #22d3ee 12%, transparent), rgba(255,255,255,.02)), #0b1424;
+      box-shadow: 0 0 0 1px color-mix(in srgb, #22d3ee 35%, transparent), 0 30px 70px -40px color-mix(in srgb, #22d3ee 60%, transparent);
       position: relative;
     }
     .tier__badge {
       align-self: flex-start; margin: -2px 0 12px;
       font-family: var(--sw-font-display); font-size: 10px; font-weight: 700;
       letter-spacing: .16em; text-transform: uppercase; color: #05070c;
-      background: linear-gradient(100deg, #c9a84c, #e8c96b);
+      background: linear-gradient(100deg, #22d3ee, #67e8f9);
       padding: 5px 12px; border-radius: 999px;
-      box-shadow: 0 6px 18px -8px color-mix(in srgb, #c9a84c 80%, transparent);
+      box-shadow: 0 6px 18px -8px color-mix(in srgb, #22d3ee 80%, transparent);
     }
     .tier:not(.tier--feature) .tier__badge { display: none; }
     @media (min-width: 1001px) {
@@ -185,27 +210,27 @@
     .tier__blurb { font-size: 13px; color: #8898ac; min-height: 50px; margin-bottom: 4px; }
     .tier__price { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.6rem; margin: 14px 0 2px; }
     .tier__price small { font-family: var(--sw-font-body); font-size: 11px; color: #8898ac; font-weight: 400; }
-    .tier__sub { font-size: 11px; color: #d9b26a; min-height: 15px; margin-bottom: 16px; }
+    .tier__sub { font-size: 11px; color: #06b6d4; min-height: 15px; margin-bottom: 16px; }
     .tier ul { list-style: none; margin: 2px 0 20px; padding: 0; flex: 1; }
     .tier li { font-size: 13px; color: #aab6c8; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; gap: 9px; }
-    .tier li::before { content: "▪"; color: #e8c96b; flex: 0 0 auto; }
+    .tier li::before { content: "▪"; color: #67e8f9; flex: 0 0 auto; }
     .tier li em { color: #f2f6fc; font-style: normal; }
     .tier__btn {
       display: block; text-align: center; text-decoration: none;
       padding: 12px 10px; border-radius: 999px; font-weight: 600; font-size: .9rem;
-      background: var(--sw-accent, #c9a84c); color: #05070c; transition: transform .2s ease;
+      background: var(--sw-accent, #22d3ee); color: #05070c; transition: transform .2s ease;
     }
     .tier__btn:hover { transform: translateY(-2px); }
     .tier__btn--ghost { background: transparent; color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.26); }
     .tier__mini { font-size: 10px; color: #8898ac; margin-top: 10px; text-align: center; }
-    .tier__mini a { color: #d9b26a; }
+    .tier__mini a { color: #06b6d4; }
     .tiers__note { max-width: 1140px; margin: 30px auto 0; font-size: 12px; color: #8898ac; }
 
     /* ============ CONTACT ============ */
     .contact {
       position: relative; z-index: 45; overflow: hidden;
       background:
-        radial-gradient(70% 60% at 50% 0%, color-mix(in srgb, #c9a84c 10%, transparent), transparent 70%),
+        radial-gradient(70% 60% at 50% 0%, color-mix(in srgb, #22d3ee 10%, transparent), transparent 70%),
         #05070c;
       color: #f2f6fc;
       padding: clamp(72px, 12vh, 150px) clamp(20px, 6vw, 80px);
@@ -214,7 +239,7 @@
     .contact::before {   /* slow aurora drift behind the headline */
       content: ""; position: absolute; left: 50%; top: -10%;
       width: min(760px, 92vw); height: 340px; transform: translateX(-50%);
-      background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, #c9a84c 16%, transparent), transparent 70%);
+      background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, #22d3ee 16%, transparent), transparent 70%);
       pointer-events: none; filter: blur(20px);
     }
     @media (prefers-reduced-motion: no-preference) {
@@ -225,7 +250,7 @@
       }
     }
     .contact__inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
-    .contact__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: #e8c96b; }
+    .contact__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: #67e8f9; }
     .contact__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.04; margin: 14px 0 0; letter-spacing: -.015em; }
     .contact__lead { margin: 18px auto 0; max-width: 40ch; font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.55; color: color-mix(in srgb, #f2f6fc 80%, #8898ac); }
     .contact__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
@@ -235,7 +260,7 @@
       color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.24); transition: transform .2s ease, border-color .2s ease, background .2s ease;
     }
     .contact__btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.5); }
-    .contact__btn--primary { background: #d9b26a; color: #05070c; border-color: transparent; }
+    .contact__btn--primary { background: #06b6d4; color: #05070c; border-color: transparent; }
     .contact__btn--primary:hover { background: #e6c485; }
     .contact__fine { margin-top: 40px; font-size: 12px; letter-spacing: .04em; color: #7c899f; }
     .contact__fine a { color: #9fb0c6; }
@@ -257,7 +282,7 @@
     #fx-glow {
       position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .5s ease;
       background: radial-gradient(360px circle at var(--fx-x, 50%) var(--fx-y, 40%),
-        color-mix(in srgb, var(--df-accent, #c9a84c) 12%, transparent), transparent 62%);
+        color-mix(in srgb, var(--df-accent, #22d3ee) 12%, transparent), transparent 62%);
     }
     @media (hover: hover) and (pointer: fine) { #fx-glow { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { #fx-grain, #fx-glow { display: none; } }
@@ -283,8 +308,8 @@
     .df-bar__cta:active, .tier__btn:active, .contact__btn:active, .founder__btn:active,
     .mv2-btn:active, .contact__top:active { transform: translateY(0) scale(.96); }
     /* brand-tinted text selection + a clean keyboard focus ring */
-    ::selection { background: color-mix(in srgb, #c9a84c 42%, transparent); color: #fff; }
-    :focus-visible { outline: 2px solid #d9b26a; outline-offset: 3px; border-radius: 4px; }
+    ::selection { background: color-mix(in srgb, #22d3ee 42%, transparent); color: #fff; }
+    :focus-visible { outline: 2px solid #06b6d4; outline-offset: 3px; border-radius: 4px; }
     :focus:not(:focus-visible) { outline: none; }
     @media (max-width: 1000px) { .tiers__grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px)  { .tiers__grid { grid-template-columns: 1fr; } .tier__blurb, .tier__sub { min-height: 0; } }
@@ -317,12 +342,12 @@
     .tier__ring {
       position: absolute; inset: -2px; border-radius: calc(18px + 2px); z-index: -1; pointer-events: none;
       background: conic-gradient(from var(--fx-ang),
-        color-mix(in srgb, var(--sw-accent, #c9a84c) 96%, #fff) 0deg,
+        color-mix(in srgb, var(--sw-accent, #22d3ee) 96%, #fff) 0deg,
         transparent 70deg, transparent 180deg,
-        color-mix(in srgb, #e8c96b 96%, #fff) 250deg, transparent 320deg,
-        color-mix(in srgb, var(--sw-accent, #c9a84c) 96%, #fff) 360deg);
+        color-mix(in srgb, #67e8f9 96%, #fff) 250deg, transparent 320deg,
+        color-mix(in srgb, var(--sw-accent, #22d3ee) 96%, #fff) 360deg);
     }
-    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #c9a84c) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #c9a84c) 65%, transparent); }
+    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #22d3ee) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #22d3ee) 65%, transparent); }
     @media (prefers-reduced-motion: no-preference) {
       .tier__ring { animation: fx-ring 5.5s linear infinite; }
       @keyframes fx-ring { to { --fx-ang: 360deg; } }
@@ -354,24 +379,31 @@
         onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
   <!-- paint the first scene's poster instantly while the engine boots -->
-  <link rel="preload" as="image" href="assets/frames/f0001.jpg?v=1" media="(min-width: 861px)" fetchpriority="high" />
-  <link rel="preload" as="image" href="assets/frames/f0002.jpg?v=1" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0003.jpg?v=1" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0004.jpg?v=1" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0005.jpg?v=1" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0006.jpg?v=1" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0001.webp?v=1" media="(max-width: 860px)" fetchpriority="high" />
-  <link rel="preload" as="image" href="assets/frames-m/f0002.webp?v=1" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0003.webp?v=1" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0004.webp?v=1" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0005.webp?v=1" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0006.webp?v=1" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames/f0001.jpg?v=2" media="(min-width: 861px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames/f0002.jpg?v=2" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0003.jpg?v=2" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0004.jpg?v=2" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0005.jpg?v=2" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0006.jpg?v=2" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0001.webp?v=2" media="(max-width: 860px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames-m/f0002.webp?v=2" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0003.webp?v=2" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0004.webp?v=2" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0005.webp?v=2" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0006.webp?v=2" media="(max-width: 860px)" />
 </head>
 <body>
   <div id="top"></div>
   <div id="fx-glow" aria-hidden="true"></div>
   <div id="fx-grain" aria-hidden="true"></div>
   <div id="world"></div>
+  <div id="hud-chrome" aria-hidden="true">
+    <span class="hud-bracket hud-bracket--tl"></span>
+    <span class="hud-bracket hud-bracket--tr"></span>
+    <span class="hud-bracket hud-bracket--bl"></span>
+    <span class="hud-bracket hud-bracket--br"></span>
+    <div class="hud-stat">San Antonio, TX &middot; Same-Day Dispatch &middot; Insured &amp; Tracked</div>
+  </div>
 
   <!-- ============ TRUST + HOW IT WORKS (below the flight) ============ -->
   <section id="trust" class="trust" aria-label="Why OPM Courier">
@@ -663,7 +695,7 @@ function mountMobileStory(container, config) {
   const panels = S.map((s, i) => {
     const sec = mel('section', 'mv2-panel' + (i === 0 ? ' mv2-panel--hero' : '') + (i === N - 1 ? ' mv2-panel--last' : ''));
     sec.id = ids[i];
-    sec.style.setProperty('--mv2-accent', s.accent || '#c9a84c');
+    sec.style.setProperty('--mv2-accent', s.accent || '#22d3ee');
     const bg = mel('div', 'mv2-panel__bg');
     const img = mel('img', 'mv2-panel__img');
     img.src = s.stillMobile && i === 0 ? s.stillMobile : (s.still || s.stillMobile || '');
@@ -780,7 +812,7 @@ function injectMobileCSS() {
   if (document.getElementById('mv-css')) return;
   const st = document.createElement('style'); st.id = 'mv-css';
   st.textContent = `
-  .mv2-root{position:relative;z-index:1;--mv2-accent:#c9a84c;}
+  .mv2-root{position:relative;z-index:1;--mv2-accent:#22d3ee;}
   .mv2-bar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;
     padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:linear-gradient(180deg,rgba(5,7,12,.66),transparent);}
   .mv2-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2f6fc;}
@@ -796,7 +828,7 @@ function injectMobileCSS() {
     opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .3s,transform .3s;}
   body.mv2-menu-open .mv2-menu{opacity:1;pointer-events:auto;transform:none;}
   .mv2-menu a{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.55rem;color:#f2f6fc;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);}
-  .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#c9a84c);}
+  .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#22d3ee);}
   .mv2-rail{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:65;display:flex;flex-direction:column;gap:9px;pointer-events:none;}
   .mv2-rail i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.24);transition:all .35s ease;}
   .mv2-rail i.on{background:var(--mv2-accent);height:20px;border-radius:3px;box-shadow:0 0 12px color-mix(in srgb,var(--mv2-accent) 70%,transparent);}
@@ -867,7 +899,7 @@ function mountDesktopFlight(container, config) {
   if (!N || !FRAMES) return false;
   injectDFCSS();
   container.classList.add('df-root');
-  container.style.setProperty('--df-accent', S[0].accent || '#c9a84c');
+  container.style.setProperty('--df-accent', S[0].accent || '#22d3ee');
   const FEXT = config.frameExt || 'jpg';
   const FIT = config.fit || 'contain';   // 'contain' = whole frame in view (letterboxed); 'cover' = fill + crop
   // cache-bust: the frame files keep the same names across content updates, so
@@ -1050,7 +1082,7 @@ function mountDesktopFlight(container, config) {
       navItems.forEach((d, k) => d.classList.toggle('is-active', k === near));
       // accent eases between the outgoing and incoming scene colours
     }
-    const a0 = S[near].accent || '#c9a84c';
+    const a0 = S[near].accent || '#22d3ee';
     const a1 = S[Math.min(N - 1, near + 1)].accent || a0;
     const frac = clamp(pn - near - 0.5);
     container.style.setProperty('--df-accent', lerpColor(a0, a1, smooth(frac)));
@@ -1076,7 +1108,7 @@ function injectDFCSS() {
   if (document.getElementById('df-css')) return;
   const st = document.createElement('style'); st.id = 'df-css';
   st.textContent = `
-  .df-root{position:relative;z-index:1;--df-accent:#c9a84c;}
+  .df-root{position:relative;z-index:1;--df-accent:#22d3ee;}
   .df-bg{position:fixed;inset:0;z-index:0;background:#05070c;overflow:hidden;}
   .df-poster,.df-canvas{position:absolute;inset:0;width:100%;height:100%;}
   .df-poster{object-fit:cover;object-position:center 44%;}
@@ -1629,7 +1661,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
     mountScrollWorld(document.getElementById('world'), {
       brand: { name: 'OPM Courier', href: '#top' },
       cta: { label: 'Request a Pickup', href: '#contact' },
-      assetVersion: '1',
+      assetVersion: '2',
       frameCount: 360,
       frameDir: 'assets/frames/',
       frameCountMobile: 360,
@@ -1641,7 +1673,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
       sections: [
         {
           id: 's1', label: 'Dispatched',
-          accent: '#c9a84c',
+          accent: '#22d3ee',
           scroll: 1.7, linger: 0.4,
           eyebrow: 'Where every delivery starts',
           title: 'One call. We’re moving.',
@@ -1650,7 +1682,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
         },
         {
           id: 's2', label: 'In Transit',
-          accent: '#e8c96b',
+          accent: '#67e8f9',
           eyebrow: 'On the road',
           title: 'Your documents, moving.',
           body: 'Real-time updates from pickup to drop-off, across San Antonio and beyond.',
@@ -1658,7 +1690,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
         },
         {
           id: 's3', label: 'The Stop',
-          accent: '#c9a84c',
+          accent: '#22d3ee',
           eyebrow: 'Every handoff matters',
           title: 'Precise, on schedule.',
           body: 'Whether it’s a lab, a courthouse, or a warehouse dock — we’re there on time, every time.',
@@ -1666,7 +1698,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
         },
         {
           id: 's4', label: 'Sorted',
-          accent: '#d9b26a',
+          accent: '#06b6d4',
           eyebrow: 'Nothing gets lost',
           title: 'Tracked, every step.',
           body: 'Proof of pickup, chain of custody, and confirmation at every stage of the run.',
@@ -1674,7 +1706,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
         },
         {
           id: 's5', label: 'Delivered',
-          accent: '#e8c96b',
+          accent: '#67e8f9',
           eyebrow: 'The moment that matters',
           title: 'In the right hands.',
           body: 'Signature confirmed, time-stamped, done — the way a delivery should feel.',
@@ -1682,7 +1714,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
         },
         {
           id: 's6', label: 'Trusted',
-          accent: '#c9a84c',
+          accent: '#22d3ee',
           scroll: 1.7, linger: 0.45,
           eyebrow: 'Why San Antonio businesses call us',
           title: 'Reliable. Insured. Local.',
@@ -1703,7 +1735,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
        (founder + tiers) scrolls into view, and back when you scroll up into the flight. */
     (function () {
       if (!('IntersectionObserver' in window)) return;
-      var outro = ['trust', 'tiers'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      var outro = ['trust', 'services', 'industries', 'tiers', 'contact'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
       if (!outro.length) return;
       var seen = new Set();
       var io = new IntersectionObserver(function (entries) {
