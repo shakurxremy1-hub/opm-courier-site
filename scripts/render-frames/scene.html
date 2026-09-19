@@ -202,6 +202,53 @@
       g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckDimMat));
     });
 
+    // raked windshield — the single detail that most reads as "vehicle front"
+    // instead of "two stacked boxes": a diagonal line from the hood's top
+    // rear edge up to the cabin's top front edge, each side.
+    [-2.15, 2.15].forEach((xx) => {
+      const pts = [
+        new THREE.Vector3(xx, FRAME_Y + 2.2, -10.9),
+        new THREE.Vector3(xx, FRAME_Y + 4.6, -11.1),
+      ];
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckMat));
+    });
+
+    // grille lines on the hood's front face
+    [2.4, 3.1, 3.8].forEach((yy) => {
+      const pts = [new THREE.Vector3(-1.9, yy, -14.28), new THREE.Vector3(1.9, yy, -14.28)];
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckDimMat));
+    });
+    // front bumper, hanging below the frame ahead of the hood
+    {
+      const pts = [new THREE.Vector3(-2.5, FRAME_Y - 0.55, -14.3), new THREE.Vector3(2.5, FRAME_Y - 0.55, -14.3)];
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckMat));
+    }
+
+    // side mirrors on the cabin — small, but an instantly-recognizable tell
+    [-2.65, 2.65].forEach((xx) => {
+      const mirror = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.7, 0.9));
+      const m = new THREE.LineSegments(new THREE.EdgesGeometry(mirror.geometry), truckDimMat);
+      m.position.set(xx, FRAME_Y + 3.6, -10.4);
+      g.add(m);
+    });
+
+    // dual exhaust stacks behind the cabin — classic conventional-semi silhouette
+    [-2.2, 2.2].forEach((xx) => {
+      const stackGeo = new THREE.CylinderGeometry(0.16, 0.16, 5.2, 8);
+      const stack = new THREE.LineSegments(new THREE.EdgesGeometry(stackGeo), truckDimMat);
+      stack.position.set(xx, FRAME_Y + 2.6, -8.0);
+      g.add(stack);
+    });
+
+    // fuel tank along the frame, in the cab-to-trailer gap
+    [-2.5, 2.5].forEach((xx) => {
+      const tankGeo = new THREE.CylinderGeometry(0.85, 0.85, 3.4, 10);
+      const tank = new THREE.LineSegments(new THREE.EdgesGeometry(tankGeo), truckDimMat);
+      tank.rotation.x = Math.PI / 2;
+      tank.position.set(xx, FRAME_Y - 0.3, -4.2);
+      g.add(tank);
+    });
+
     // wheels: small, hanging below the frame so they read as running gear —
     // steer axle under the hood, drive tandem under the cab/gap, trailer tandem at the rear
     const wheelGeo = new THREE.CylinderGeometry(0.95, 0.95, 0.55, 12);
