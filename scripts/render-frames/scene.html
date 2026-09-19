@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>html,body{margin:0;background:#05070c;overflow:hidden;} canvas{display:block;}</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="tjsCanvas"></canvas>
+<script type="module">
+  import * as THREE from 'three';
+  import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+  import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+  import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+  import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+  const params = new URLSearchParams(location.search);
+  const W = parseInt(params.get('w') || '1440', 10);
+  const H = parseInt(params.get('h') || '810', 10);
+
+  const canvas = document.getElementById('tjsCanvas');
+
+  const RING_SPACING = 26;
+  const TOTAL_LENGTH = RING_SPACING * 130;
+  function pathPoint(u, out) {
+    const z = u * TOTAL_LENGTH;
+    const x = 34 * Math.sin(z * 0.012) + 14 * Math.sin(z * 0.031 + 1.1);
+    const y = 20 * Math.sin(z * 0.019 + 0.6);
+    out.set(x, y, -z);
+    return out;
+  }
+  function ringRadius(z) { return 15 + 2.4 * Math.sin(z * 0.05 + 1.7); }
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(1);
+  renderer.setSize(W, H, false);
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x05070c);
+  scene.fog = new THREE.FogExp2(0x05070c, 0.016);
+  const camera = new THREE.PerspectiveCamera(58, W / H, 0.1, 400);
+
+  const composer = new EffectComposer(renderer);
+  composer.setSize(W, H);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 1.35, 0.5, 0.12);
+  composer.addPass(bloom);
+  composer.addPass(new OutputPass());
+
+  const COOL = new THREE.Color(0x38d6f0), WARM = new THREE.Color(0xf0be5a);
+  const lineMat = new THREE.LineBasicMaterial({ color: COOL.clone(), transparent: true, opacity: 0.85 });
+  const dimMat = new THREE.LineBasicMaterial({ color: COOL.clone(), transparent: true, opacity: 0.3 });
+
+  const SIDES = 8;
+  const N_RINGS = Math.floor(TOTAL_LENGTH / RING_SPACING) + 2;
+  const ringGroup = new THREE.Group(); scene.add(ringGroup);
+  const ringCenters = [];
+  for (let i = 0; i < N_RINGS; i++) {
+    const z = i * RING_SPACING;
+    const u = z / TOTAL_LENGTH;
+    const c = pathPoint(u, new THREE.Vector3());
+    ringCenters.push(c);
+    const r = ringRadius(z);
+    const pts = [];
+    for (let s = 0; s <= SIDES; s++) {
+      const a = (s / SIDES) * Math.PI * 2;
+      pts.push(new THREE.Vector3(c.x + Math.cos(a) * r, c.y + Math.sin(a) * r, c.z));
+    }
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    ringGroup.add(new THREE.Line(geo, lineMat));
+  }
+  for (let s = 0; s < SIDES; s++) {
+    const a = (s / SIDES) * Math.PI * 2;
+    const pts = [];
+    for (let i = 0; i < N_RINGS; i++) {
+      const c = ringCenters[i], r = ringRadius(i * RING_SPACING);
+      pts.push(new THREE.Vector3(c.x + Math.cos(a) * r, c.y + Math.sin(a) * r, c.z));
+    }
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    ringGroup.add(new THREE.Line(geo, dimMat));
+  }
+
+  const N_PTS = 900;
+  const ptPositions = new Float32Array(N_PTS * 3);
+  for (let i = 0; i < N_PTS; i++) {
+    const z = Math.random() * TOTAL_LENGTH;
+    const c = pathPoint(z / TOTAL_LENGTH, new THREE.Vector3());
+    const r = ringRadius(z) * (0.15 + Math.random() * 0.8);
+    const a = Math.random() * Math.PI * 2;
+    ptPositions[i * 3] = c.x + Math.cos(a) * r;
+    ptPositions[i * 3 + 1] = c.y + Math.sin(a) * r;
+    ptPositions[i * 3 + 2] = c.z;
+  }
+  const ptGeo = new THREE.BufferGeometry();
+  ptGeo.setAttribute('position', new THREE.BufferAttribute(ptPositions, 3));
+  const ptMat = new THREE.PointsMaterial({ color: 0x9fe9f5, size: 0.55, transparent: true, opacity: 0.75, sizeAttenuation: true });
+  scene.add(new THREE.Points(ptGeo, ptMat));
+
+  function buildTruck() {
+    const g = new THREE.Group();
+    const cab = new THREE.Mesh(new THREE.BoxGeometry(5.2, 5.6, 4.4));
+    g.add(new THREE.LineSegments(new THREE.EdgesGeometry(cab.geometry), lineMat.clone()).translateY(2.8));
+    const trailer = new THREE.BoxGeometry(6.4, 6.8, 15);
+    const trailerEdges = new THREE.LineSegments(new THREE.EdgesGeometry(trailer), lineMat.clone());
+    trailerEdges.position.set(0, 3.4, -11.2);
+    g.add(trailerEdges);
+    const wheelGeo = new THREE.CylinderGeometry(1.1, 1.1, 0.6, 14);
+    const wheelPositions = [
+      [-2.9, 1.1, 1.2], [2.9, 1.1, 1.2],
+      [-3.4, 1.1, -8], [3.4, 1.1, -8],
+      [-3.4, 1.1, -15], [3.4, 1.1, -15],
+    ];
+    wheelPositions.forEach(([x, y, z]) => {
+      const w = new THREE.LineSegments(new THREE.EdgesGeometry(wheelGeo), dimMat.clone());
+      w.rotation.z = Math.PI / 2; w.position.set(x, y, z);
+      g.add(w);
+    });
+    return g;
+  }
+  const truckStops = [[0.22, 1], [0.58, -1]];
+  truckStops.forEach(([u, side]) => {
+    const z = u * TOTAL_LENGTH;
+    const c = pathPoint(u, new THREE.Vector3());
+    const ahead = pathPoint(u + 0.006, new THREE.Vector3());
+    const fwd = ahead.clone().sub(c).normalize();
+    const up = new THREE.Vector3(0, 1, 0);
+    const right = new THREE.Vector3().crossVectors(fwd, up).normalize();
+    const r = ringRadius(z);
+    const pos = c.clone()
+      .add(right.multiplyScalar(side * r * 0.55))
+      .add(new THREE.Vector3(0, -r * 0.4, 0));
+    const truck = buildTruck();
+    truck.position.copy(pos);
+    truck.lookAt(pos.clone().add(fwd));
+    scene.add(truck);
+  });
+
+  const tmpPos = new THREE.Vector3(), tmpLook = new THREE.Vector3();
+  window.renderFrame = function (u) {
+    pathPoint(u, tmpPos);
+    pathPoint(Math.min(1, u + 0.006), tmpLook);
+    camera.position.copy(tmpPos);
+    camera.lookAt(tmpLook);
+
+    const t = Math.min(1, u * 1.02);
+    lineMat.color.copy(COOL).lerp(WARM, t);
+    dimMat.color.copy(COOL).lerp(WARM, t);
+    const built = 2 + t * (SIDES - 2);
+    ringGroup.children.forEach((obj, i) => {
+      if (i >= N_RINGS) { obj.visible = ((i - N_RINGS) < built); }
+    });
+
+    composer.render();
+  };
+  window.__sceneReady = true;
+</script>
+</body>
+</html>
