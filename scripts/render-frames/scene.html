@@ -27,134 +27,197 @@
 
   const canvas = document.getElementById('tjsCanvas');
 
-  const RING_SPACING = 26;
-  const TOTAL_LENGTH = RING_SPACING * 130;
-  function pathPoint(u, out) {
+  // ---- road centerline: a flat, gently winding path (no tube/tunnel) ----
+  const TOTAL_LENGTH = 26 * 130;
+  const ROAD_W = 13;
+  function roadPoint(u, out) {
     const z = u * TOTAL_LENGTH;
-    const x = 34 * Math.sin(z * 0.012) + 14 * Math.sin(z * 0.031 + 1.1);
-    const y = 20 * Math.sin(z * 0.019 + 0.6);
-    out.set(x, y, -z);
+    const x = 22 * Math.sin(z * 0.010) + 9 * Math.sin(z * 0.026 + 1.1);
+    out.set(x, 0, -z);
     return out;
   }
-  function ringRadius(z) { return 15 + 2.4 * Math.sin(z * 0.05 + 1.7); }
+  function roadTangent(u) {
+    const eps = 0.0015;
+    const a = roadPoint(Math.max(0, u - eps), new THREE.Vector3());
+    const b = roadPoint(Math.min(1, u + eps), new THREE.Vector3());
+    return b.clone().sub(a).normalize();
+  }
+  function roadRight(u) {
+    const fwd = roadTangent(u);
+    return new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();
+  }
+  // the truck runs ahead of the camera along the road; LEAD tapers to ~0 around
+  // the "Stop" stage so the truck appears to slow and let the camera catch up
+  // to it at the dock, then pulls away again.
+  function leadFor(u) {
+    // world-space distance from camera to the truck's pivot (near its cab),
+    // converted to a u-delta — NOT a raw fraction of u (that puts it ~169
+    // units out, past the fog). The trailer trails ~15 units behind the
+    // pivot, so the clearance to its rear doors is this value minus ~15.
+    const baseWorld = 32;
+    const dwellWorld = Math.exp(-Math.pow((u - 0.58) / 0.05, 2)) * 14;
+    const worldDist = Math.max(17, baseWorld - dwellWorld);
+    return worldDist / TOTAL_LENGTH;
+  }
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(1);
   renderer.setSize(W, H, false);
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x05070c);
-  scene.fog = new THREE.FogExp2(0x05070c, 0.016);
-  const camera = new THREE.PerspectiveCamera(58, W / H, 0.1, 400);
+  scene.fog = new THREE.FogExp2(0x05070c, 0.010);
+  const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 500);
 
   const composer = new EffectComposer(renderer);
   composer.setSize(W, H);
   composer.addPass(new RenderPass(scene, camera));
-  const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 1.35, 0.5, 0.12);
+  const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 1.2, 0.55, 0.15);
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
   const COOL = new THREE.Color(0x38d6f0), WARM = new THREE.Color(0xf0be5a);
-  const lineMat = new THREE.LineBasicMaterial({ color: COOL.clone(), transparent: true, opacity: 0.85 });
-  const dimMat = new THREE.LineBasicMaterial({ color: COOL.clone(), transparent: true, opacity: 0.3 });
+  const roadMat = new THREE.LineBasicMaterial({ color: COOL.clone(), transparent: true, opacity: 0.8 });
+  const roadDimMat = new THREE.LineBasicMaterial({ color: COOL.clone(), transparent: true, opacity: 0.34 });
+  const envMats = [roadMat, roadDimMat];
 
-  const SIDES = 8;
-  const N_RINGS = Math.floor(TOTAL_LENGTH / RING_SPACING) + 2;
-  const ringGroup = new THREE.Group(); scene.add(ringGroup);
-  const ringCenters = [];
-  for (let i = 0; i < N_RINGS; i++) {
-    const z = i * RING_SPACING;
-    const u = z / TOTAL_LENGTH;
-    const c = pathPoint(u, new THREE.Vector3());
-    ringCenters.push(c);
-    const r = ringRadius(z);
-    const pts = [];
-    for (let s = 0; s <= SIDES; s++) {
-      const a = (s / SIDES) * Math.PI * 2;
-      pts.push(new THREE.Vector3(c.x + Math.cos(a) * r, c.y + Math.sin(a) * r, c.z));
+  // ---- road surface: edge rails + cross-ties + dashed centerline ----
+  const roadGroup = new THREE.Group(); scene.add(roadGroup);
+  const N_SEG = 420;
+  {
+    const left = [], right = [];
+    for (let i = 0; i <= N_SEG; i++) {
+      const u = i / N_SEG;
+      const c = roadPoint(u, new THREE.Vector3());
+      const r = roadRight(u);
+      left.push(c.clone().add(r.clone().multiplyScalar(-ROAD_W / 2)));
+      right.push(c.clone().add(r.clone().multiplyScalar(ROAD_W / 2)));
     }
-    const geo = new THREE.BufferGeometry().setFromPoints(pts);
-    ringGroup.add(new THREE.Line(geo, lineMat));
-  }
-  for (let s = 0; s < SIDES; s++) {
-    const a = (s / SIDES) * Math.PI * 2;
-    const pts = [];
-    for (let i = 0; i < N_RINGS; i++) {
-      const c = ringCenters[i], r = ringRadius(i * RING_SPACING);
-      pts.push(new THREE.Vector3(c.x + Math.cos(a) * r, c.y + Math.sin(a) * r, c.z));
+    roadGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(left), roadMat));
+    roadGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(right), roadMat));
+    for (let i = 0; i <= N_SEG; i += 6) {
+      roadGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([left[i], right[i]]), roadDimMat));
     }
-    const geo = new THREE.BufferGeometry().setFromPoints(pts);
-    ringGroup.add(new THREE.Line(geo, dimMat));
+    // dashed centerline
+    for (let i = 0; i < N_SEG; i += 4) {
+      const u0 = i / N_SEG, u1 = (i + 2) / N_SEG;
+      const p0 = roadPoint(u0, new THREE.Vector3()), p1 = roadPoint(u1, new THREE.Vector3());
+      roadGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([p0, p1]), roadDimMat));
+    }
   }
 
-  const N_PTS = 900;
+  // ---- ambient floating points for atmosphere/depth ----
+  const N_PTS = 500;
   const ptPositions = new Float32Array(N_PTS * 3);
   for (let i = 0; i < N_PTS; i++) {
-    const z = Math.random() * TOTAL_LENGTH;
-    const c = pathPoint(z / TOTAL_LENGTH, new THREE.Vector3());
-    const r = ringRadius(z) * (0.15 + Math.random() * 0.8);
-    const a = Math.random() * Math.PI * 2;
-    ptPositions[i * 3] = c.x + Math.cos(a) * r;
-    ptPositions[i * 3 + 1] = c.y + Math.sin(a) * r;
-    ptPositions[i * 3 + 2] = c.z;
+    const u = Math.random();
+    const c = roadPoint(u, new THREE.Vector3());
+    const r = roadRight(u);
+    const side = (Math.random() - 0.5) * ROAD_W * 3.2;
+    ptPositions[i * 3] = c.x + r.x * side;
+    ptPositions[i * 3 + 1] = Math.random() * 14 - 1;
+    ptPositions[i * 3 + 2] = c.z + r.z * side;
   }
   const ptGeo = new THREE.BufferGeometry();
   ptGeo.setAttribute('position', new THREE.BufferAttribute(ptPositions, 3));
-  const ptMat = new THREE.PointsMaterial({ color: 0x9fe9f5, size: 0.55, transparent: true, opacity: 0.75, sizeAttenuation: true });
+  const ptMat = new THREE.PointsMaterial({ color: 0x9fe9f5, size: 0.5, transparent: true, opacity: 0.6, sizeAttenuation: true });
   scene.add(new THREE.Points(ptGeo, ptMat));
 
+  // ---- wireframe buildings along the route (depot / warehouse / destination) ----
+  function buildBox(w, h, d, mat) {
+    const geo = new THREE.BoxGeometry(w, h, d);
+    geo.translate(0, h / 2, 0);
+    return new THREE.LineSegments(new THREE.EdgesGeometry(geo), mat);
+  }
+  function placeBuilding(u, side, w, h, d, opts) {
+    opts = opts || {};
+    const c = roadPoint(u, new THREE.Vector3());
+    const r = roadRight(u);
+    const fwd = roadTangent(u);
+    const setback = ROAD_W / 2 + w * 0.5 + (opts.gap || 4);
+    const pos = c.clone().add(r.clone().multiplyScalar(side * setback));
+    const b = buildBox(w, h, d, roadMat);
+    b.position.copy(pos);
+    b.lookAt(pos.clone().add(fwd));
+    roadGroup.add(b);
+    if (opts.door) {
+      const doorW = w * 0.32, doorH = h * 0.55;
+      const door = buildBox(doorW, doorH, 0.2, roadDimMat);
+      const doorPos = pos.clone()
+        .add(fwd.clone().multiplyScalar(0))
+        .add(r.clone().multiplyScalar(-side * (w / 2 + 0.11)));
+      door.position.copy(doorPos);
+      door.lookAt(doorPos.clone().add(fwd));
+      roadGroup.add(door);
+    }
+    return b;
+  }
+  // origin depot — small, near the start (Dispatched)
+  placeBuilding(0.03, -1, 16, 9, 20, {});
+  // the big warehouse the truck pulls up to — matches the "Stop" dwell above
+  placeBuilding(0.58, 1, 30, 15, 34, { door: true, gap: 3 });
+  // a second, smaller structure near the end (Delivered/Trusted)
+  placeBuilding(0.88, -1, 14, 8, 16, {});
+
+  // ---- hero truck: bright constant warm-white so it always reads as the
+  // foreground subject, distinct from the road/building lerp colors ----
+  const truckMat = new THREE.LineBasicMaterial({ color: 0xfff4e0, transparent: true, opacity: 0.97 });
+  const truckDimMat = new THREE.LineBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0.6 });
+  // Local convention: the group faces -Z (its travel direction). The cab
+  // leads at the most-negative z; the trailer trails behind it toward +Z,
+  // which is the side a chase camera (positioned behind, at larger u) sees.
   function buildTruck() {
     const g = new THREE.Group();
     const cab = new THREE.Mesh(new THREE.BoxGeometry(5.2, 5.6, 4.4));
-    g.add(new THREE.LineSegments(new THREE.EdgesGeometry(cab.geometry), lineMat.clone()).translateY(2.8));
+    const cabEdges = new THREE.LineSegments(new THREE.EdgesGeometry(cab.geometry), truckMat);
+    cabEdges.position.set(0, 2.8, -8);
+    g.add(cabEdges);
     const trailer = new THREE.BoxGeometry(6.4, 6.8, 15);
-    const trailerEdges = new THREE.LineSegments(new THREE.EdgesGeometry(trailer), lineMat.clone());
-    trailerEdges.position.set(0, 3.4, -11.2);
+    const trailerEdges = new THREE.LineSegments(new THREE.EdgesGeometry(trailer), truckMat);
+    trailerEdges.position.set(0, 3.4, 4);
     g.add(trailerEdges);
+    [2, 4, 6].forEach((yy) => {
+      const pts = [new THREE.Vector3(-3.2, yy, -3.5), new THREE.Vector3(-3.2, yy, 11.5)];
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckDimMat));
+      const pts2 = [new THREE.Vector3(3.2, yy, -3.5), new THREE.Vector3(3.2, yy, 11.5)];
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts2), truckDimMat));
+    });
     const wheelGeo = new THREE.CylinderGeometry(1.1, 1.1, 0.6, 14);
     const wheelPositions = [
-      [-2.9, 1.1, 1.2], [2.9, 1.1, 1.2],
-      [-3.4, 1.1, -8], [3.4, 1.1, -8],
-      [-3.4, 1.1, -15], [3.4, 1.1, -15],
+      [-2.9, 1.1, -6.8], [2.9, 1.1, -6.8],
+      [-3.4, 1.1, 1], [3.4, 1.1, 1],
+      [-3.4, 1.1, 8], [3.4, 1.1, 8],
     ];
     wheelPositions.forEach(([x, y, z]) => {
-      const w = new THREE.LineSegments(new THREE.EdgesGeometry(wheelGeo), dimMat.clone());
+      const w = new THREE.LineSegments(new THREE.EdgesGeometry(wheelGeo), truckDimMat);
       w.rotation.z = Math.PI / 2; w.position.set(x, y, z);
       g.add(w);
     });
     return g;
   }
-  const truckStops = [[0.22, 1], [0.58, -1]];
-  truckStops.forEach(([u, side]) => {
-    const z = u * TOTAL_LENGTH;
-    const c = pathPoint(u, new THREE.Vector3());
-    const ahead = pathPoint(u + 0.006, new THREE.Vector3());
-    const fwd = ahead.clone().sub(c).normalize();
-    const up = new THREE.Vector3(0, 1, 0);
-    const right = new THREE.Vector3().crossVectors(fwd, up).normalize();
-    const r = ringRadius(z);
-    const pos = c.clone()
-      .add(right.multiplyScalar(side * r * 0.55))
-      .add(new THREE.Vector3(0, -r * 0.4, 0));
-    const truck = buildTruck();
-    truck.position.copy(pos);
-    truck.lookAt(pos.clone().add(fwd));
-    scene.add(truck);
-  });
+  const truck = buildTruck();
+  scene.add(truck);
 
-  const tmpPos = new THREE.Vector3(), tmpLook = new THREE.Vector3();
+  const tmpCam = new THREE.Vector3(), tmpTruck = new THREE.Vector3(), tmpLook = new THREE.Vector3();
   window.renderFrame = function (u) {
-    pathPoint(u, tmpPos);
-    pathPoint(Math.min(1, u + 0.006), tmpLook);
-    camera.position.copy(tmpPos);
+    const camR = roadRight(u);
+    const camFwd = roadTangent(u);
+    roadPoint(u, tmpCam);
+    // camera: elevated, offset to one side, behind-and-above for a 3/4 chase angle
+    tmpCam.add(camR.clone().multiplyScalar(-4.2)).add(new THREE.Vector3(0, 5.4, 0));
+    camera.position.copy(tmpCam);
+
+    const truckU = Math.min(1, u + leadFor(u));
+    roadPoint(truckU, tmpTruck);
+    const truckFwd = roadTangent(truckU);
+    truck.position.copy(tmpTruck);
+    truck.lookAt(tmpTruck.clone().add(truckFwd));
+
+    tmpLook.copy(tmpTruck).add(new THREE.Vector3(0, 2.4, 0));
     camera.lookAt(tmpLook);
 
     const t = Math.min(1, u * 1.02);
-    lineMat.color.copy(COOL).lerp(WARM, t);
-    dimMat.color.copy(COOL).lerp(WARM, t);
-    const built = 2 + t * (SIDES - 2);
-    ringGroup.children.forEach((obj, i) => {
-      if (i >= N_RINGS) { obj.visible = ((i - N_RINGS) < built); }
-    });
+    roadMat.color.copy(COOL).lerp(WARM, t);
+    roadDimMat.color.copy(COOL).lerp(WARM, t);
 
     composer.render();
   };
