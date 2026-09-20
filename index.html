@@ -1651,6 +1651,18 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
       frameDirMobile: 'assets/frames-m/',
       frameExtMobile: 'jpg',
       hint: 'scroll to start the run',
+      // tighter scroll-to-frame tracking (default chase 0.16 feels laggy —
+      // this makes the visible frame catch up to your actual scroll position
+      // much faster) plus more aggressive prefetch so fast scrolling doesn't
+      // outrun the frame loader and show a stale/mismatched frame.
+      scrollPer: 1.2,
+      chase: 0.35,
+      maxParallel: 20,
+      lookAhead: 28,
+      scrollPerMobile: 1.0,
+      chaseMobile: 0.3,
+      maxParallelMobile: 28,
+      lookAheadMobile: 34,
       sections: [
         {
           id: 's1', label: 'Dispatched',

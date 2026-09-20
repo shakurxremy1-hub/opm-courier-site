@@ -8,10 +8,29 @@ import { chromium } from 'playwright';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
+import http from 'http';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../..');
 const FRAME_COUNT = 384;
+
+const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript',
+  '.glb': 'model/gltf-binary', '.gltf': 'model/gltf+json', '.bin': 'application/octet-stream',
+  '.png': 'image/png', '.jpg': 'image/jpeg' };
+// scene.html loads the GLTF truck via fetch(), which file:// URLs block under
+// Chromium's CORS rules — serve this directory over HTTP instead.
+const server = http.createServer((req, res) => {
+  const reqPath = decodeURIComponent(req.url.split('?')[0]);
+  const filePath = path.join(__dirname, reqPath === '/' ? 'scene.html' : reqPath);
+  if (!filePath.startsWith(__dirname)) { res.writeHead(403); res.end(); return; }
+  fs.readFile(filePath, (err, data) => {
+    if (err) { res.writeHead(404); res.end(); return; }
+    res.writeHead(200, { 'Content-Type': MIME[path.extname(filePath)] || 'application/octet-stream' });
+    res.end(data);
+  });
+});
+await new Promise((resolve) => server.listen(0, resolve));
+const PORT = server.address().port;
 
 const targets = [
   { dir: path.join(ROOT, 'assets/frames'), w: 1440, h: 810, prefix: 'f', ext: 'jpg', quality: 78 },
@@ -21,7 +40,7 @@ const targets = [
 async function renderSet(browser, target) {
   fs.mkdirSync(target.dir, { recursive: true });
   const page = await browser.newPage({ viewport: { width: target.w, height: target.h } });
-  const url = `file://${path.join(__dirname, 'scene.html')}?w=${target.w}&h=${target.h}`;
+  const url = `http://localhost:${PORT}/scene.html?w=${target.w}&h=${target.h}`;
   await page.goto(url);
   await page.waitForFunction('window.__sceneReady === true', { timeout: 30000 });
   const canvas = await page.$('#tjsCanvas');
@@ -44,4 +63,5 @@ for (const target of targets) {
   await renderSet(browser, target);
 }
 await browser.close();
+server.close();
 console.log('Done. Frame count:', FRAME_COUNT);

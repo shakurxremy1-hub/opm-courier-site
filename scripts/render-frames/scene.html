@@ -20,6 +20,7 @@
   import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
   import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
   import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
   const params = new URLSearchParams(location.search);
   const W = parseInt(params.get('w') || '1440', 10);
@@ -71,7 +72,7 @@
   const composer = new EffectComposer(renderer);
   composer.setSize(W, H);
   composer.addPass(new RenderPass(scene, camera));
-  const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 1.2, 0.55, 0.15);
+  const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), params.get('nobloom') ? 0 : 1.2, 0.55, 0.15);
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
@@ -158,114 +159,48 @@
   // a second, smaller structure near the end (Delivered/Trusted)
   placeBuilding(0.88, -1, 14, 8, 16, {});
 
-  // ---- hero truck: bright constant warm-white so it always reads as the
-  // foreground subject, distinct from the road/building lerp colors ----
-  const truckMat = new THREE.LineBasicMaterial({ color: 0xfff4e0, transparent: true, opacity: 0.97 });
-  const truckDimMat = new THREE.LineBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0.6 });
-  // Local convention: the group faces -Z (its travel direction). The cab
-  // leads at the most-negative z; the trailer trails behind it toward +Z,
-  // which is the side a chase camera (positioned behind, at larger u) sees.
-  // Chassis (frame-rail) height above ground — everything sits on top of
-  // this, wheels hang below it, so the silhouette reads as "body on wheels"
-  // instead of circles pasted mid-way up a box.
-  const FRAME_Y = 2.0;
-  function buildTruck() {
-    const g = new THREE.Group();
+  // ---- hero truck: a real CC0 low-poly box-truck model (Quaternius, via
+  // poly.pizza), converted to wireframe edges so it matches the site's
+  // glow style instead of being solid-shaded. ----
+  const truckMat = new THREE.LineBasicMaterial({ color: 0xfff4e0, transparent: true, opacity: 0.3 });
+  const truckDimMat = new THREE.LineBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0.18 });
 
-    // sloped hood (a low front box + narrower nose) + tall cabin behind it —
-    // a stepped conventional-semi silhouette, not a single plain box.
-    const hood = new THREE.Mesh(new THREE.BoxGeometry(4.4, 2.2, 3.4));
-    const hoodEdges = new THREE.LineSegments(new THREE.EdgesGeometry(hood.geometry), truckMat);
-    hoodEdges.position.set(0, FRAME_Y + 1.1, -12.6);
-    g.add(hoodEdges);
-    const cabin = new THREE.Mesh(new THREE.BoxGeometry(4.9, 4.6, 3.0));
-    const cabinEdges = new THREE.LineSegments(new THREE.EdgesGeometry(cabin.geometry), truckMat);
-    cabinEdges.position.set(0, FRAME_Y + 2.3, -9.6);
-    g.add(cabinEdges);
-
-    // long box trailer, well behind the cab with a visible coupling gap
-    const trailer = new THREE.BoxGeometry(6.2, 6.4, 18);
-    const trailerEdges = new THREE.LineSegments(new THREE.EdgesGeometry(trailer), truckMat);
-    trailerEdges.position.set(0, FRAME_Y + 3.2, 6);
-    g.add(trailerEdges);
-    // ridge lines along the trailer flank so it reads as a container, not a block
-    [FRAME_Y + 1.6, FRAME_Y + 3.2, FRAME_Y + 4.8].forEach((yy) => {
-      [-3.05, 3.05].forEach((xx) => {
-        const pts = [new THREE.Vector3(xx, yy, -3), new THREE.Vector3(xx, yy, 15)];
-        g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckDimMat));
-      });
-    });
-
-    // frame rail connecting hood → cab → trailer along the chassis line
-    [-2.35, 2.35].forEach((xx) => {
-      const pts = [new THREE.Vector3(xx, FRAME_Y, -14.2), new THREE.Vector3(xx, FRAME_Y, 15)];
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckDimMat));
-    });
-
-    // raked windshield — the single detail that most reads as "vehicle front"
-    // instead of "two stacked boxes": a diagonal line from the hood's top
-    // rear edge up to the cabin's top front edge, each side.
-    [-2.15, 2.15].forEach((xx) => {
-      const pts = [
-        new THREE.Vector3(xx, FRAME_Y + 2.2, -10.9),
-        new THREE.Vector3(xx, FRAME_Y + 4.6, -11.1),
-      ];
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckMat));
-    });
-
-    // grille lines on the hood's front face
-    [2.4, 3.1, 3.8].forEach((yy) => {
-      const pts = [new THREE.Vector3(-1.9, yy, -14.28), new THREE.Vector3(1.9, yy, -14.28)];
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckDimMat));
-    });
-    // front bumper, hanging below the frame ahead of the hood
-    {
-      const pts = [new THREE.Vector3(-2.5, FRAME_Y - 0.55, -14.3), new THREE.Vector3(2.5, FRAME_Y - 0.55, -14.3)];
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), truckMat));
-    }
-
-    // side mirrors on the cabin — small, but an instantly-recognizable tell
-    [-2.65, 2.65].forEach((xx) => {
-      const mirror = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.7, 0.9));
-      const m = new THREE.LineSegments(new THREE.EdgesGeometry(mirror.geometry), truckDimMat);
-      m.position.set(xx, FRAME_Y + 3.6, -10.4);
-      g.add(m);
-    });
-
-    // dual exhaust stacks behind the cabin — classic conventional-semi silhouette
-    [-2.2, 2.2].forEach((xx) => {
-      const stackGeo = new THREE.CylinderGeometry(0.16, 0.16, 5.2, 8);
-      const stack = new THREE.LineSegments(new THREE.EdgesGeometry(stackGeo), truckDimMat);
-      stack.position.set(xx, FRAME_Y + 2.6, -8.0);
-      g.add(stack);
-    });
-
-    // fuel tank along the frame, in the cab-to-trailer gap
-    [-2.5, 2.5].forEach((xx) => {
-      const tankGeo = new THREE.CylinderGeometry(0.85, 0.85, 3.4, 10);
-      const tank = new THREE.LineSegments(new THREE.EdgesGeometry(tankGeo), truckDimMat);
-      tank.rotation.x = Math.PI / 2;
-      tank.position.set(xx, FRAME_Y - 0.3, -4.2);
-      g.add(tank);
-    });
-
-    // wheels: small, hanging below the frame so they read as running gear —
-    // steer axle under the hood, drive tandem under the cab/gap, trailer tandem at the rear
-    const wheelGeo = new THREE.CylinderGeometry(0.95, 0.95, 0.55, 12);
-    const axleZs = [-12.2, -8.4, -6.6, 10.5, 13];
-    const axleTrack = [2.25, 2.55, 2.55, 2.85, 2.85];
-    axleZs.forEach((z, i) => {
-      const track = axleTrack[i];
-      [-track, track].forEach((x) => {
-        const w = new THREE.LineSegments(new THREE.EdgesGeometry(wheelGeo), truckDimMat);
-        w.rotation.z = Math.PI / 2; w.position.set(x, FRAME_Y - 1.05, z);
-        g.add(w);
-      });
-    });
-    return g;
-  }
-  const truck = buildTruck();
+  const truck = new THREE.Group();
   scene.add(truck);
+  const modelWrap = new THREE.Group();
+  truck.add(modelWrap);
+
+  async function loadTruckModel() {
+    const gltf = await new GLTFLoader().loadAsync('./models/delivery-truck.glb');
+    const model = gltf.scene;
+
+    // extract edges from every mesh, drop the shaded surfaces entirely
+    const edgeGroup = new THREE.Group();
+    model.updateMatrixWorld(true);
+    model.traverse((o) => {
+      if (!o.isMesh) return;
+      const mat = /rim|glass|window/i.test(o.name) ? truckDimMat : truckMat;
+      const edges = new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 45), mat);
+      edges.matrix.copy(o.matrixWorld);
+      edges.matrix.decompose(edges.position, edges.quaternion, edges.scale);
+      edgeGroup.add(edges);
+    });
+
+    // re-center on the model's own footprint (bottom-center = local origin),
+    // scale to our world units, and correct its authored facing to -Z.
+    const box = new THREE.Box3().setFromObject(edgeGroup);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    edgeGroup.position.set(-center.x, -box.min.y, -center.z);
+    const SCALE = 3.4 / size.x;
+    modelWrap.scale.setScalar(SCALE);
+    modelWrap.rotation.y = Math.PI; // model's authored front faces +Z; flip to -Z
+    modelWrap.add(edgeGroup);
+    window.__debugModel = { size: size.toArray(), scale: SCALE, edgeChildren: edgeGroup.children.length,
+      vertCount: edgeGroup.children.reduce((s,c)=>s+c.geometry.attributes.position.count,0) };
+    return size;
+  }
+  const truckReady = loadTruckModel();
 
   const tmpCam = new THREE.Vector3(), tmpTruck = new THREE.Vector3(), tmpLook = new THREE.Vector3();
   window.renderFrame = function (u) {
@@ -291,7 +226,7 @@
 
     composer.render();
   };
-  window.__sceneReady = true;
+  truckReady.then(() => { window.__sceneReady = true; }).catch((e) => { window.__sceneError = e.message || String(e); });
 </script>
 </body>
 </html>
