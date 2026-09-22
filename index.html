@@ -3,15 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!-- ✏️ EDIT everything from <title> down to the favicon links: title, description,
+       og:/twitter: tags, og:url + og:image (your domain), theme-color. -->
   <title>OPM Courier: San Antonio's Same-Day Courier Service</title>
   <meta name="description" content="Same-day courier for medical labs, law firms, title companies, and corporate teams across San Antonio, TX. HIPAA-aware, fully insured, dispatched in minutes. Your deadline is not negotiable, and neither are we." />
   <meta property="og:title" content="OPM Courier: Same-Day Courier, San Antonio TX" />
   <meta property="og:description" content="Your documents. On time. Every time. Medical, legal, title, and corporate courier service across San Antonio." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://shakurxremy1-hub.github.io/opm-courier-site/" />
+  <meta property="og:image" content="https://shakurxremy1-hub.github.io/opm-courier-site/assets/img/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="OPM Courier: Same-Day Courier, San Antonio TX" />
   <meta name="twitter:description" content="Your documents. On time. Every time." />
+  <meta name="twitter:image" content="https://shakurxremy1-hub.github.io/opm-courier-site/assets/img/og.jpg" />
   <meta name="theme-color" content="#05070c" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png" />
@@ -59,136 +65,75 @@
 
     .sw-sky__glow { opacity: .5; }
 
-    /* ============ TRUST + HOW IT WORKS ============ */
-    .trust {
-      position: relative; z-index: 45;
+    /* ============ FOUNDER SECTION ============ */
+    .founder {
+      position: relative; z-index: 45;  /* above route(40)/hint(30)/stage(10)/sky(0); below topbar(50) so the brand bar stays */
+      /* top ~34vh is see-through so the flight's last frame dissolves straight into
+         this section — no seam, one continuous space into the face and beyond */
       background:
         linear-gradient(180deg, transparent 0, rgba(5,7,12,.55) 16vh, #05070c 40vh),
-        radial-gradient(62% 58% at 50% 10%, color-mix(in srgb, #22d3ee 14%, transparent), transparent 64%);
+        radial-gradient(62% 58% at 82% 24%, color-mix(in srgb, #22d3ee 16%, transparent), transparent 64%);
       color: #f2f6fc;
-      padding: clamp(120px, 22vh, 240px) clamp(20px, 6vw, 80px) clamp(72px, 10vh, 130px);
-      text-align: center;
+      padding: clamp(120px, 24vh, 260px) clamp(20px, 6vw, 80px) clamp(72px, 12vh, 150px);
     }
-    .trust__eyebrow {
-      display: block; font-family: var(--sw-font-display); font-weight: 700;
-      font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9;
+    .founder__inner {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(240px, 360px) minmax(0, 560px);
+      gap: clamp(32px, 6vw, 96px); align-items: center; justify-content: center;
     }
-    .trust__title {
+    .founder__portrait {
+      position: relative; align-self: center;
+      padding: 4% 6% 0;
+    }
+    .founder__portrait::before {   /* soft glow behind the head — no frame */
+      content: ""; position: absolute; inset: -6% -4% -2%;
+      background: radial-gradient(56% 52% at 50% 40%, color-mix(in srgb, #22d3ee 24%, transparent), transparent 72%);
+      pointer-events: none;
+    }
+    .founder__portrait::after {    /* warm pedestal so the face is grounded, not floating */
+      content: ""; position: absolute; left: 50%; bottom: 1%; width: 76%; height: 22%;
+      transform: translateX(-50%);
+      background: radial-gradient(60% 100% at 50% 0%, color-mix(in srgb, #e4c064 28%, transparent), transparent 70%);
+      filter: blur(6px); pointer-events: none;
+    }
+    .founder__portrait img {
+      position: relative; z-index: 1;
+      display: block; width: 100%; height: auto;
+      filter: drop-shadow(0 30px 55px rgba(0,0,0,.6));
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .founder__portrait img { animation: founder-float 7s ease-in-out infinite; }
+      @keyframes founder-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+    }
+    .founder__eyebrow {
+      display: block; font-family: var(--sw-font-display);
+      font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase;
+      color: #67e8f9;
+    }
+    .founder__title {
       font-family: var(--sw-font-display); font-weight: 700;
-      font-size: clamp(1.7rem, 3.6vw, 2.7rem); line-height: 1.08;
-      margin: 14px auto 0; max-width: 26ch; letter-spacing: -.01em;
+      font-size: clamp(1.7rem, 3.6vw, 2.7rem); line-height: 1.05;
+      margin: 14px 0 20px; letter-spacing: -.01em;
     }
-    .trust__bar {
-      max-width: 1080px; margin: 40px auto 0; display: flex; flex-wrap: wrap;
-      justify-content: center; gap: 12px;
+    .founder__body p {
+      margin: 0 0 16px; max-width: 46ch;
+      font-size: clamp(1rem, 1.2vw, 1.12rem); line-height: 1.6;
+      color: color-mix(in srgb, #f2f6fc 82%, #8898ac);
     }
-    .trust__badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: .84rem; color: #d7deea; background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 9px 16px;
+    .founder__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+    .founder__btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 13px 24px; border-radius: 999px; text-decoration: none;
+      font-weight: 600; font-size: .95rem; transition: transform .2s ease;
     }
-    .trust__steps {
-      max-width: 900px; margin: 64px auto 0; display: grid;
-      grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left;
+    .founder__btn:hover { transform: translateY(-2px); }
+    .founder__btn--primary { background: #22d3ee; color: #05070c; }
+    .founder__btn--ghost { color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.28); }
+    @media (max-width: 820px) {
+      .founder__inner { grid-template-columns: 1fr; text-align: left; }
+      .founder__portrait { max-width: 320px; margin: 0 0 8px; }
     }
-    .trust__step {
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), #0b1220;
-      border: 1px solid rgba(255,255,255,.10); border-radius: 18px; padding: 24px 20px;
-    }
-    .trust__step-num {
-      font-family: var(--sw-font-display); font-weight: 700; font-size: .85rem;
-      color: #05070c; background: #22d3ee; width: 30px; height: 30px; border-radius: 50%;
-      display: grid; place-items: center; margin-bottom: 14px;
-    }
-    .trust__step h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.05rem; margin: 0 0 6px; }
-    .trust__step p { font-size: .88rem; line-height: 1.5; color: #aab6c8; margin: 0; }
-    @media (max-width: 760px) { .trust__steps { grid-template-columns: 1fr; } }
-
-    /* ============ SERVICES + INDUSTRIES ============ */
-    .services, .industries {
-      position: relative; z-index: 45; background: #05070c; color: #f2f6fc;
-      padding: clamp(50px, 8vh, 100px) clamp(20px, 6vw, 80px);
-    }
-    .svc__head, .ind__head { max-width: 1140px; margin: 0 auto 36px; }
-    .svc__eyebrow, .ind__eyebrow {
-      font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem;
-      letter-spacing: .16em; text-transform: uppercase; color: #67e8f9;
-    }
-    .svc__title, .ind__title {
-      font-family: var(--sw-font-display); font-weight: 700;
-      font-size: clamp(1.6rem, 3.2vw, 2.3rem); line-height: 1.08; margin: 12px 0 0; letter-spacing: -.01em;
-    }
-    .svc__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .svc {
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), #0b1220;
-      border: 1px solid rgba(255,255,255,.10); border-radius: 18px; padding: 24px 22px;
-      position: relative; overflow: hidden; transition: transform .35s cubic-bezier(.22,1,.36,1);
-    }
-    .svc:hover { transform: translateY(-4px); }
-    .svc__icon { font-size: 1.6rem; }
-    .svc h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.05rem; margin: 12px 0 6px; }
-    .svc p { font-size: .86rem; line-height: 1.5; color: #aab6c8; margin: 0 0 12px; }
-    .svc__price { font-size: .8rem; font-weight: 700; color: #67e8f9; }
-    .ind__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .ind {
-      display: flex; gap: 14px; align-items: flex-start;
-      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08);
-      border-radius: 16px; padding: 20px;
-    }
-    .ind__icon { font-size: 1.4rem; flex: 0 0 auto; }
-    .ind h4 { font-family: var(--sw-font-display); font-weight: 700; font-size: .98rem; margin: 0 0 6px; }
-    .ind p { font-size: .85rem; line-height: 1.5; color: #aab6c8; margin: 0; }
-    @media (max-width: 1000px) { .svc__grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 700px)  { .svc__grid, .ind__grid { grid-template-columns: 1fr; } }
-
-    /* ============ STATS BAR ============ */
-    .stats { position: relative; z-index: 45; background: #05070c; padding: clamp(28px, 5vh, 56px) clamp(20px, 6vw, 80px); border-bottom: 1px solid rgba(255,255,255,.06); }
-    .stats__grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; text-align: center; }
-    .stat__num { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.5rem, 3vw, 2.1rem); color: #22d3ee; letter-spacing: -.01em; }
-    .stat__label { font-size: .78rem; color: #8898ac; margin-top: 4px; letter-spacing: .02em; }
-    @media (max-width: 700px) { .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 26px; } }
-
-    /* ============ NETWORK / DISPATCH ============ */
-    .network { position: relative; z-index: 45; background: #05070c; color: #f2f6fc; padding: clamp(60px, 9vh, 110px) clamp(20px, 6vw, 80px); }
-    .network__head { max-width: 720px; margin: 0 auto 44px; text-align: center; }
-    .network__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9; }
-    .network__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin: 12px 0 0; letter-spacing: -.01em; }
-    .network__lead { margin: 16px auto 0; max-width: 56ch; color: #aab6c8; line-height: 1.6; }
-    .network__grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .network__item { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 24px 22px; text-align: center; }
-    .network__icon { font-size: 1.6rem; }
-    .network__item h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1rem; margin: 12px 0 6px; }
-    .network__item p { font-size: .87rem; line-height: 1.55; color: #aab6c8; margin: 0; }
-    @media (max-width: 760px) { .network__grid { grid-template-columns: 1fr; } }
-
-    /* ============ LAST MILE ============ */
-    .lastmile { position: relative; z-index: 45; background: linear-gradient(180deg, #05070c, #071016, #05070c); padding: clamp(60px, 9vh, 110px) clamp(20px, 6vw, 80px); text-align: center; }
-    .lastmile__inner { max-width: 640px; margin: 0 auto; }
-    .lastmile__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9; }
-    .lastmile__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin: 12px 0 0; letter-spacing: -.01em; color: #f2f6fc; }
-    .lastmile__body { margin: 16px auto 0; color: #aab6c8; line-height: 1.6; }
-    .lastmile__callout { margin: 28px auto 0; max-width: 44ch; font-family: var(--sw-font-display); font-size: 1.05rem; font-weight: 600; color: #22d3ee; border-left: 3px solid #22d3ee; padding: 4px 0 4px 18px; text-align: left; }
-
-    /* ============ TRACKING / STATUS ============ */
-    .tracking { position: relative; z-index: 45; background: #05070c; padding: clamp(60px, 9vh, 110px) clamp(20px, 6vw, 80px); max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 70px); align-items: center; }
-    .tracking__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9; }
-    .tracking__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin: 12px 0 0; letter-spacing: -.01em; color: #f2f6fc; }
-    .tracking__body { margin: 16px 0 0; color: #aab6c8; line-height: 1.6; max-width: 42ch; }
-    .tracking__list { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
-    .tracking__list li { font-size: .9rem; color: #d7deea; padding-left: 22px; position: relative; }
-    .tracking__list li::before { content: "▸"; position: absolute; left: 0; color: #22d3ee; }
-    .tracking__panel { background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), #0b1220; border: 1px solid color-mix(in srgb, #22d3ee 30%, transparent); border-radius: 18px; padding: 22px; box-shadow: 0 0 40px -20px color-mix(in srgb, #22d3ee 50%, transparent); }
-    .tracking__panel-head { font-family: ui-monospace, Menlo, monospace; font-size: .72rem; letter-spacing: .1em; color: #67e8f9; text-transform: uppercase; margin-bottom: 18px; }
-    .tracking__timeline { display: grid; gap: 18px; }
-    .tt-step { display: flex; gap: 12px; align-items: flex-start; font-size: .88rem; color: #8898ac; }
-    .tt-step strong { color: #f2f6fc; font-size: .92rem; }
-    .tt-dot { width: 10px; height: 10px; border-radius: 50%; background: #1c2536; border: 2px solid #3a4658; margin-top: 4px; flex: 0 0 auto; }
-    .tt-step--done .tt-dot { background: #22d3ee; border-color: #22d3ee; }
-    .tt-step--active .tt-dot { background: #22d3ee; border-color: #22d3ee; box-shadow: 0 0 0 4px color-mix(in srgb, #22d3ee 25%, transparent); }
-    .tt-step--active strong { color: #22d3ee; }
-    @media (max-width: 860px) { .tracking { grid-template-columns: 1fr; } }
-
-    /* when the outro (trust + services + tiers) is on screen, get the flight's fixed chrome out of the way */
+    /* when the outro (founder + tiers) is on screen, get the flight's fixed chrome out of the way */
     body.past-flight .sw-route,
     body.past-flight .sw-hint { opacity: 0 !important; pointer-events: none; }
     body.past-flight .mv-bg { opacity: 0 !important; transition: opacity .4s ease; }
@@ -203,7 +148,7 @@
     .tiers__head { max-width: 1140px; margin: 0 auto 44px; }
     .tiers__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #67e8f9; }
     .tiers__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.06; margin: 12px 0 0; letter-spacing: -.01em; }
-    .tiers__grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .tiers__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
     .tier {
       display: flex; flex-direction: column;
       background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)) , #0b1220;
@@ -232,7 +177,7 @@
     .tier__blurb { font-size: 13px; color: #8898ac; min-height: 50px; margin-bottom: 4px; }
     .tier__price { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.6rem; margin: 14px 0 2px; }
     .tier__price small { font-family: var(--sw-font-body); font-size: 11px; color: #8898ac; font-weight: 400; }
-    .tier__sub { font-size: 11px; color: #06b6d4; min-height: 15px; margin-bottom: 16px; }
+    .tier__sub { font-size: 11px; color: #e4c064; min-height: 15px; margin-bottom: 16px; }
     .tier ul { list-style: none; margin: 2px 0 20px; padding: 0; flex: 1; }
     .tier li { font-size: 13px; color: #aab6c8; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; gap: 9px; }
     .tier li::before { content: "▪"; color: #67e8f9; flex: 0 0 auto; }
@@ -245,7 +190,7 @@
     .tier__btn:hover { transform: translateY(-2px); }
     .tier__btn--ghost { background: transparent; color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.26); }
     .tier__mini { font-size: 10px; color: #8898ac; margin-top: 10px; text-align: center; }
-    .tier__mini a { color: #06b6d4; }
+    .tier__mini a { color: #67e8f9; }
     .tiers__note { max-width: 1140px; margin: 30px auto 0; font-size: 12px; color: #8898ac; }
 
     /* ============ CONTACT ============ */
@@ -282,8 +227,8 @@
       color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.24); transition: transform .2s ease, border-color .2s ease, background .2s ease;
     }
     .contact__btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.5); }
-    .contact__btn--primary { background: #06b6d4; color: #05070c; border-color: transparent; }
-    .contact__btn--primary:hover { background: #e6c485; }
+    .contact__btn--primary { background: #22d3ee; color: #05070c; border-color: transparent; }
+    .contact__btn--primary:hover { background: #67e8f9; }
     .contact__fine { margin-top: 40px; font-size: 12px; letter-spacing: .04em; color: #7c899f; }
     .contact__fine a { color: #9fb0c6; }
     .contact__top {
@@ -304,7 +249,7 @@
     #fx-glow {
       position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .5s ease;
       background: radial-gradient(360px circle at var(--fx-x, 50%) var(--fx-y, 40%),
-        color-mix(in srgb, var(--df-accent, #22d3ee) 12%, transparent), transparent 62%);
+        color-mix(in srgb, var(--df-accent, #3da9fc) 12%, transparent), transparent 62%);
     }
     @media (hover: hover) and (pointer: fine) { #fx-glow { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { #fx-grain, #fx-glow { display: none; } }
@@ -330,8 +275,8 @@
     .df-bar__cta:active, .tier__btn:active, .contact__btn:active, .founder__btn:active,
     .mv2-btn:active, .contact__top:active { transform: translateY(0) scale(.96); }
     /* brand-tinted text selection + a clean keyboard focus ring */
-    ::selection { background: color-mix(in srgb, #22d3ee 42%, transparent); color: #fff; }
-    :focus-visible { outline: 2px solid #06b6d4; outline-offset: 3px; border-radius: 4px; }
+    ::selection { background: color-mix(in srgb, #3da9fc 42%, transparent); color: #fff; }
+    :focus-visible { outline: 2px solid #d9b26a; outline-offset: 3px; border-radius: 4px; }
     :focus:not(:focus-visible) { outline: none; }
     @media (max-width: 1000px) { .tiers__grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px)  { .tiers__grid { grid-template-columns: 1fr; } .tier__blurb, .tier__sub { min-height: 0; } }
@@ -364,12 +309,12 @@
     .tier__ring {
       position: absolute; inset: -2px; border-radius: calc(18px + 2px); z-index: -1; pointer-events: none;
       background: conic-gradient(from var(--fx-ang),
-        color-mix(in srgb, var(--sw-accent, #22d3ee) 96%, #fff) 0deg,
+        color-mix(in srgb, var(--sw-accent, #3da9fc) 96%, #fff) 0deg,
         transparent 70deg, transparent 180deg,
-        color-mix(in srgb, #67e8f9 96%, #fff) 250deg, transparent 320deg,
-        color-mix(in srgb, var(--sw-accent, #22d3ee) 96%, #fff) 360deg);
+        color-mix(in srgb, #68d0ff 96%, #fff) 250deg, transparent 320deg,
+        color-mix(in srgb, var(--sw-accent, #3da9fc) 96%, #fff) 360deg);
     }
-    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #22d3ee) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #22d3ee) 65%, transparent); }
+    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #3da9fc) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #3da9fc) 65%, transparent); }
     @media (prefers-reduced-motion: no-preference) {
       .tier__ring { animation: fx-ring 5.5s linear infinite; }
       @keyframes fx-ring { to { --fx-ang: 360deg; } }
@@ -390,9 +335,6 @@
       }
       .fx-rise.fx-in { opacity: 1; transform: none; }
     }
-
-    /* hide the "01 / 06" scene counter in the flythrough */
-    .df-copy__num, .sw-copy__num, .mv2-panel__num { display: none !important; }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -400,189 +342,99 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
         onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
-  <link rel="preload" as="image" href="assets/frames/f0001.jpg" />
-  <link rel="preload" as="image" href="assets/frames-m/f0001.jpg" media="(max-width: 860px)" />
+  <!-- paint the first scene's poster instantly while the engine boots -->
+  <link rel="preload" as="image" href="assets/frames/f0001.jpg" media="(min-width: 861px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames/f0002.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0003.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0004.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0005.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0006.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0001.webp" media="(max-width: 860px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames-m/f0002.webp" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0003.webp" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0004.webp" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0005.webp" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0006.webp" media="(max-width: 860px)" />
 </head>
 <body>
+  <!-- ========================================================================
+       CINEMATIC SCROLL TEMPLATE  ·  how to make a new site from this file
+       ========================================================================
+       Everything below is proven, working code. To rebrand, you only touch
+       CONTENT and ASSETS — never the engine (the big script block after the
+       CONTACT section) or the effects CSS.
+
+       1. HEAD  (top of file)
+          - <title>, <meta name="description">, all og:/twitter: tags
+          - og:image:  URL of assets/img/og.jpg  (1200x630 share card)
+          - <meta name="theme-color">  (your dark bg, must match --sw-bg)
+          - favicon links -> assets/img/favicon-32|180|192.png
+          - (optional) swap the Google Fonts + --sw-font-display / --sw-font-body
+
+       2. ASSETS  (see README.md -> "Frame pipeline" and build-frames.sh)
+          assets/frames/     f0001.jpg ...  desktop landscape frames (~1440w)
+          assets/frames-m/   f0001.webp ... mobile portrait frames  (640x1138)
+          assets/img/logo.png        circular brand mark, ~256px, transparent
+          assets/img/founder.png     cutout portrait, background removed
+          assets/img/og.jpg          1200x630 social card
+          assets/img/favicon-32|180|192.png
+          Keep the frame COUNT identical for desktop + mobile (config below).
+
+       3. SECTION CONTENT  (markup lives right here in <body>)
+          #founder  - portrait img + eyebrow + <h2> + 2 <p> + 2 buttons
+          #tiers    - eyebrow + <h2> + N <div class="tier"> cards
+                      (mark the recommended one class="tier tier--feature"
+                       and give it <span class="tier__badge">Recommended</span>)
+          #contact  - eyebrow + <h2> + lead + 3 buttons + fine print
+
+       4. BOOKING LINK
+          One place: the Calendly IIFE just after the CONTACT section.
+          Set CAL = your scheduling URL. Every <a data-calendly> inherits it.
+
+       5. FLIGHT CONFIG
+          The mountScrollWorld({...}) call at the very bottom of the file:
+          brand.name/logo, cta, frameCount(+Mobile), frameDir(+Mobile),
+          and the 6 `sections` entries (id, label, accent hex, eyebrow,
+          title, body, tags[], and cta on the LAST one only).
+          - accent: hex that tints that scene's UI; it eases scene->scene.
+          - scroll / linger: optional per-scene pacing (see comments there).
+
+       6. DEPLOY  -> DEPLOY.md   |   OPERATE / RECOVER -> RUNBOOK.template.md
+       ======================================================================== -->
+
   <div id="top"></div>
   <div id="fx-glow" aria-hidden="true"></div>
   <div id="fx-grain" aria-hidden="true"></div>
-
-  <!-- ============ HERO: scroll-scrubbed frame flight (mountScrollWorld) ============ -->
   <div id="world"></div>
 
-  <!-- ============ LIVE STATS ============ -->
-  <section id="stats" class="stats" aria-label="At a glance">
-    <div class="stats__grid">
-      <div class="stat"><div class="stat__num">30&ndash;60</div><div class="stat__label">Min Pickup Window</div></div>
-      <div class="stat"><div class="stat__num">7</div><div class="stat__label">Days a Week</div></div>
-      <div class="stat"><div class="stat__num">15</div><div class="stat__label">Min Response Time</div></div>
-      <div class="stat"><div class="stat__num">15mi</div><div class="stat__label">Service Radius</div></div>
-    </div>
-  </section>
-
-  <!-- ============ TRUST + HOW IT WORKS (below the flight) ============ -->
-  <section id="trust" class="trust" aria-label="Why OPM Courier">
-    <span class="trust__eyebrow">San Antonio's Same-Day Courier</span>
-    <h2 class="trust__title">Your documents. On time. Every time.</h2>
-    <div class="trust__bar">
-      <span class="trust__badge">🏥 Medical &amp; HIPAA-Aware</span>
-      <span class="trust__badge">⚖️ Legal Document Specialists</span>
-      <span class="trust__badge">🏠 Title Company Closings</span>
-      <span class="trust__badge">📍 San Antonio, TX</span>
-      <span class="trust__badge">🔒 Insured &amp; Reliable</span>
-    </div>
-    <div class="trust__steps">
-      <div class="trust__step">
-        <div class="trust__step-num">1</div>
-        <h3>Call or text</h3>
-        <p>Tell us what you need picked up, where it's going, and how urgent it is.</p>
+  <!-- ============ FOUNDER (below the flight) ============ -->
+  <!-- ✏️ EDIT: portrait img src/alt, eyebrow, <h2>, the two <p>, both buttons.
+       The section top is deliberately see-through so the last flight frame
+       dissolves into the face — don't add a background or border here. -->
+  <section id="founder" class="founder" aria-label="The dispatcher">
+    <div class="founder__inner">
+      <div class="founder__portrait">
+        <img src="assets/img/founder.png" alt="OPM Courier dispatch, always a real person" decoding="async" loading="lazy" />
       </div>
-      <div class="trust__step">
-        <div class="trust__step-num">2</div>
-        <h3>We pick up</h3>
-        <p>We're at your location within 30–60 minutes. You get a confirmation when we're en route.</p>
-      </div>
-      <div class="trust__step">
-        <div class="trust__step-num">3</div>
-        <h3>Delivered &amp; confirmed</h3>
-        <p>You receive proof of delivery, time-stamped and recipient confirmed. Done.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ NETWORK / DISPATCH ============ -->
-  <section id="network" class="network" aria-label="How dispatch works">
-    <div class="network__head">
-      <span class="network__eyebrow">Behind every pickup</span>
-      <h2 class="network__title">One dispatch. Total visibility.</h2>
-      <p class="network__lead">From the moment you call to the moment it's signed for, every handoff is tracked and confirmed. You are never left guessing where your delivery stands.</p>
-    </div>
-    <div class="network__grid">
-      <div class="network__item">
-        <span class="network__icon">📞</span>
-        <h3>Live Dispatch</h3>
-        <p>A real person answers, confirms pickup details, and assigns a driver within minutes. No ticket queue. No chatbot.</p>
-      </div>
-      <div class="network__item">
-        <span class="network__icon">🛰️</span>
-        <h3>Status Updates</h3>
-        <p>Text or call updates at pickup, en route, and drop-off, so you always know where things stand.</p>
-      </div>
-      <div class="network__item">
-        <span class="network__icon">🧭</span>
-        <h3>Traffic-Aware Routing</h3>
-        <p>Drivers reroute around delays in real time to protect your delivery window.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ LAST MILE ============ -->
-  <section id="lastmile" class="lastmile" aria-label="Last-mile delivery">
-    <div class="lastmile__inner">
-      <span class="lastmile__eyebrow">The final handoff</span>
-      <h2 class="lastmile__title">The last mile, perfected.</h2>
-      <p class="lastmile__body">Fewer failed drop-offs, tighter windows, and a signature-confirmed handoff every time, because the last few minutes of a delivery are the ones that matter most.</p>
-      <div class="lastmile__callout">&ldquo;Proof of delivery, time-stamped and recipient-confirmed, on every single run.&rdquo;</div>
-    </div>
-  </section>
-
-  <!-- ============ SERVICES ============ -->
-  <section id="services" class="services" aria-label="Courier services">
-    <div class="svc__head">
-      <span class="svc__eyebrow">What we deliver</span>
-      <h2 class="svc__title">Courier services built for business.</h2>
-    </div>
-    <div class="svc__grid">
-      <div class="svc">
-        <span class="svc__icon">🧪</span>
-        <h3>Medical Lab Courier</h3>
-        <p>Specimen transport, lab reports, and medical records delivered with care, speed, and discretion between clinics, hospitals, and laboratories. A degraded sample or a HIPAA slip is not a risk you can take, so we do not take it either.</p>
-        <span class="svc__price">From $30/pickup</span>
-      </div>
-      <div class="svc">
-        <span class="svc__icon">⚖️</span>
-        <h3>Legal Document Delivery</h3>
-        <p>Court filings, contracts, deposition packages, and confidential legal documents delivered same-day to attorneys and courthouses. A missed filing deadline can end a case. We make sure that is never your story.</p>
-        <span class="svc__price">From $25/delivery</span>
-      </div>
-      <div class="svc">
-        <span class="svc__icon">🏠</span>
-        <h3>Title &amp; Real Estate</h3>
-        <p>Closing packages, title commitments, and escrow documents handled for title companies, lenders, and real estate offices. A closing that slips by one day can cost the whole deal. We do not let that happen.</p>
-        <span class="svc__price">From $25/delivery</span>
-      </div>
-      <div class="svc">
-        <span class="svc__icon">📦</span>
-        <h3>Corporate Same-Day</h3>
-        <p>Rush deliveries, inter-office transfers, and business documents for companies that need reliable local courier service in San Antonio.</p>
-        <span class="svc__price">From $20/delivery</span>
-      </div>
-      <div class="svc">
-        <span class="svc__icon">🔁</span>
-        <h3>Monthly Route Contracts</h3>
-        <p>Dedicated daily or weekly pickup routes for businesses with consistent courier needs. Flat-rate monthly billing. No surprises.</p>
-        <span class="svc__price">From $300/month</span>
-      </div>
-      <div class="svc">
-        <span class="svc__icon">⚡</span>
-        <h3>STAT / Rush Courier</h3>
-        <p>Time-critical pickups dispatched within 30 minutes. Guaranteed on-time delivery for urgent situations.</p>
-        <span class="svc__price">From $50/run</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ INDUSTRIES ============ -->
-  <section id="industries" class="industries" aria-label="Industries we serve">
-    <div class="ind__head">
-      <span class="ind__eyebrow">Who we serve</span>
-      <h2 class="ind__title">Industries we specialize in.</h2>
-    </div>
-    <div class="ind__grid">
-      <div class="ind">
-        <span class="ind__icon">🏥</span>
-        <div><h4>Medical Labs &amp; Clinics</h4><p>Specimen transport, lab results, prescriptions, and medical records between providers and labs.</p></div>
-      </div>
-      <div class="ind">
-        <span class="ind__icon">⚖️</span>
-        <div><h4>Law Firms</h4><p>Court filings, subpoenas, evidence packages, client documents, and inter-firm transfers.</p></div>
-      </div>
-      <div class="ind">
-        <span class="ind__icon">🏦</span>
-        <div><h4>Title &amp; Escrow Companies</h4><p>Closing packages, lender documents, title insurance commitments, and deed recordings.</p></div>
-      </div>
-      <div class="ind">
-        <span class="ind__icon">🏢</span>
-        <div><h4>Corporate Offices</h4><p>Contracts, HR documents, check deliveries, and anything your business needs moved fast.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TRACKING / STATUS ============ -->
-  <section id="tracking" class="tracking" aria-label="How you stay updated">
-    <div class="tracking__text">
-      <span class="tracking__eyebrow">What you get</span>
-      <h2 class="tracking__title">Updates, without the guesswork.</h2>
-      <p class="tracking__body">No app to download, no portal to log into. You get a real update at every stage, straight to your phone.</p>
-      <ul class="tracking__list">
-        <li>Pickup confirmation the moment we arrive</li>
-        <li>En-route updates on STAT / Rush runs</li>
-        <li>Time-stamped proof of delivery, every time</li>
-        <li>A dispatcher you can call back, not a bot</li>
-      </ul>
-    </div>
-    <div class="tracking__panel">
-      <div class="tracking__panel-head">LIVE STATUS &middot; UNIT NX-0442-SA</div>
-      <div class="tracking__timeline">
-        <div class="tt-step tt-step--done"><span class="tt-dot"></span><div><strong>Picked up</strong><br>Downtown clinic</div></div>
-        <div class="tt-step tt-step--done"><span class="tt-dot"></span><div><strong>En route</strong><br>~8 min to destination</div></div>
-        <div class="tt-step tt-step--active"><span class="tt-dot"></span><div><strong>Delivered</strong><br>Signature pending</div></div>
+      <div class="founder__body">
+        <span class="founder__eyebrow">Who answers the call</span>
+        <h2 class="founder__title">A real person runs every dispatch.</h2>
+        <p>I'm Shakur. I run OPM&nbsp;Courier out of San Antonio. When you call or text, you get me or my dispatcher, not a ticket queue and not a chatbot. I confirm the pickup, assign the driver, and I'm accountable for it landing on time.</p>
+        <p>Medical labs, law firms, title companies, and corporate offices call because a missed pickup costs them more than the fee ever would. That's the only thing I'm actually selling: it won't be late.</p>
+        <div class="founder__cta">
+          <a class="founder__btn founder__btn--primary" href="tel:+16466883442">Call Now</a>
+          <a class="founder__btn founder__btn--ghost" href="#tiers">See pricing</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ TIERS ============ -->
+  <!-- ✏️ EDIT: eyebrow + <h2>, then one <div class="tier"> per plan.
+       Grid auto-fits 1 / 2 / 4 columns. The recommended plan gets
+       class="tier tier--feature" AND <span class="tier__badge">Recommended</span>
+       as its first child. Buttons: class="tier__btn" (filled) or
+       "tier__btn tier__btn--ghost" (outline). data-calendly for a booking link. -->
   <section id="tiers" class="tiers" aria-label="Pricing">
     <div class="tiers__head">
       <span class="tiers__eyebrow">Transparent pricing</span>
@@ -592,8 +444,8 @@
 
       <div class="tier">
         <h3>Standard</h3>
-        <div class="tier__blurb">Within 15 miles of pickup, 1–3 hour window.</div>
-        <div class="tier__price">$20–$30 <small>per run</small></div>
+        <div class="tier__blurb">Within 15 miles of pickup, 1-3 hour window.</div>
+        <div class="tier__price">$20-$30 <small>per run</small></div>
         <div class="tier__sub">&nbsp;</div>
         <ul>
           <li>Documents &amp; small packages</li>
@@ -609,7 +461,7 @@
         <span class="tier__badge">Most Popular</span>
         <h3>STAT / Rush</h3>
         <div class="tier__blurb">Within 30 minutes dispatch, priority handling.</div>
-        <div class="tier__price">$45–$60 <small>per run</small></div>
+        <div class="tier__price">$45-$60 <small>per run</small></div>
         <div class="tier__sub">30-min dispatch guarantee</div>
         <ul>
           <li>Medical &amp; legal priority</li>
@@ -640,18 +492,20 @@
   </section>
 
   <!-- ============ CONTACT ============ -->
+  <!-- ✏️ EDIT: eyebrow, <h2>, lead line, the 3 buttons, and the fine-print
+       line (business name · domain · email). -->
   <section id="contact" class="contact" aria-label="Get in touch">
     <div class="contact__inner">
       <span class="contact__eyebrow">Get started</span>
       <h2 class="contact__title">Let&rsquo;s move something.</h2>
       <p class="contact__lead">Serving San Antonio and surrounding areas, 7 days a week. Response within 15 minutes during business hours.</p>
       <div class="contact__actions">
-        <a class="contact__btn contact__btn--primary" href="tel:+16466883442">📞 Call Now</a>
-        <a class="contact__btn" href="sms:+16466883442">💬 Text Us</a>
+        <a class="contact__btn contact__btn--primary" href="tel:+16466883442">Call Now</a>
+        <a class="contact__btn" href="sms:+16466883442">Text Us</a>
         <a class="contact__btn" href="mailto:shakur@opmventuresllc.com?subject=OPM%20Courier%20pickup%20request">Email</a>
       </div>
-      <p class="contact__fine">(646) 688-3442 &nbsp;·&nbsp; shakur@opmventuresllc.com &nbsp;·&nbsp; San Antonio, TX 78200<br />Mon–Fri 7AM–7PM · Sat 8AM–5PM</p>
-      <p class="contact__fine">OPM&nbsp;Courier &nbsp;·&nbsp; a division of OPM&nbsp;Ventures&nbsp;LLC</p>
+      <p class="contact__fine">(646) 688-3442 &nbsp;&middot;&nbsp; <a href="mailto:shakur@opmventuresllc.com">shakur@opmventuresllc.com</a> &nbsp;&middot;&nbsp; San Antonio, TX 78200<br />Mon-Fri 7AM-7PM &middot; Sat 8AM-5PM</p>
+      <p class="contact__fine">OPM&nbsp;Courier &nbsp;&middot;&nbsp; a division of OPM&nbsp;Ventures&nbsp;LLC</p>
     </div>
     <a class="contact__top" href="#top" aria-label="Back to top">&uarr;</a>
   </section>
@@ -1638,39 +1492,30 @@ if (typeof module !== 'undefined' && module.exports) module.exports = { mountScr
 if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
 
   </script>
-
   <script>
-    /* ✏️ The flight: brand + cta + the 6 scenes. frameCount/frameCountMobile
-       must equal the number of files in assets/frames/ and assets/frames-m/. */
+    /* ✏️ EDIT: this whole object is the flight. brand + cta + the 6 scenes.
+       frameCount / frameCountMobile MUST equal the number of files in
+       assets/frames/ and assets/frames-m/. Keep them equal to each other. */
     mountScrollWorld(document.getElementById('world'), {
-      brand: { name: 'OPM Courier', href: '#top' },
+      brand: { name: 'OPM Courier', href: '#top', logo: 'assets/img/logo.png' },
       cta: { label: 'Request a Pickup', href: '#contact' },
-      frameCount: 384,
+      frameCount: 498,
       frameDir: 'assets/frames/',
-      frameCountMobile: 384,
+      frameCountMobile: 498,
       frameDirMobile: 'assets/frames-m/',
-      frameExtMobile: 'jpg',
+      frameExtMobile: 'webp',
+      scrollPerMobile: 1.15,
       hint: 'scroll to start the run',
-      // tighter scroll-to-frame tracking (default chase 0.16 feels laggy —
-      // this makes the visible frame catch up to your actual scroll position
-      // much faster) plus more aggressive prefetch so fast scrolling doesn't
-      // outrun the frame loader and show a stale/mismatched frame.
-      scrollPer: 1.2,
-      chase: 0.35,
-      maxParallel: 20,
-      lookAhead: 28,
-      scrollPerMobile: 1.0,
-      chaseMobile: 0.3,
-      maxParallelMobile: 28,
-      lookAheadMobile: 34,
+      diveScroll: 1.3,
       sections: [
         {
           id: 's1', label: 'Dispatched',
-          accent: '#48d4e3',
+          accent: '#22d3ee',
+          scroll: 1.7, linger: 0.4,
           eyebrow: 'Where every delivery starts',
           title: "One call. We're moving.",
           body: 'Same-day pickup, scheduled in minutes. No apps. No portals. Just a call or a text.',
-          tags: ['Call or text', '30–60 min pickup'],
+          tags: ['Call or text', '30-60 min pickup'],
         },
         {
           id: 's2', label: 'In Transit',
@@ -1700,32 +1545,34 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           id: 's5', label: 'Delivered',
           accent: '#c5c47d',
           eyebrow: 'The moment that matters',
-          title: 'In the right hands.',
+          title: 'Signature confirmed, done.',
           body: 'Signature confirmed, time-stamped, done. The way a delivery should feel.',
           tags: ['Signature confirmed'],
         },
         {
           id: 's6', label: 'Trusted',
           accent: '#e4c064',
+          scroll: 1.7, linger: 0.45,
           eyebrow: 'Why San Antonio businesses call us',
           title: 'Reliable. Insured. Local.',
           body: 'Medical labs, law firms, title companies, and corporate offices in San Antonio call OPM Courier when the delivery cannot fail.',
           tags: [],
           cta: {
-            primary: { label: 'Call Now', href: 'tel:+16466883442' },
+            primary:   { label: 'Call Now', href: 'tel:+16466883442' },
             secondary: { label: 'See pricing', href: '#tiers' },
           },
         },
       ],
+      /* Architecture A — continuous forward walkthrough. The legs ARE the journey;
+         no fly-over connectors. Empty array = neighbouring scenes crossfade directly. */
       connectors: [],
     });
-  </script>
-  <script>
-    /* Fade the hero's fixed chrome (nav, hint) out once the outro content
-       scrolls into view, and back when you scroll up into the hero. */
+
+    /* Fade the flight's fixed chrome (route rail, scroll hint) out once the outro
+       (founder + tiers) scrolls into view, and back when you scroll up into the flight. */
     (function () {
       if (!('IntersectionObserver' in window)) return;
-      var outro = ['stats', 'trust', 'network', 'lastmile', 'services', 'industries', 'tracking', 'tiers', 'contact'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      var outro = ['founder', 'tiers'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
       if (!outro.length) return;
       var seen = new Set();
       var io = new IntersectionObserver(function (entries) {
@@ -1876,7 +1723,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           if (vis) { size(); if (!run) run = requestAnimationFrame(tick); }
         }, { threshold: 0.02 }).observe(sec);
       }
-      mountMotes(document.getElementById('trust'));
+      mountMotes(document.getElementById('founder'));
       mountMotes(document.getElementById('tiers'));
       mountMotes(document.getElementById('contact'));
 
