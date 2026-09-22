@@ -2,3 +2,5 @@
 __pycache__/
 .claude-flow/
 node_modules/
+src/*.mp4
+assets/gen/

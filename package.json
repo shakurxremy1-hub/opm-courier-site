@@ -1,0 +1,8 @@
+{
+  "name": "opm-courier-site",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@fal-ai/client": "^1.2.3"
+  }
+}
