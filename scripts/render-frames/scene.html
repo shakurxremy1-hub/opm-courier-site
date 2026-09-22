@@ -64,6 +64,7 @@
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(1);
   renderer.setSize(W, H, false);
+  renderer.localClippingEnabled = true;
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x05070c);
   scene.fog = new THREE.FogExp2(0x05070c, 0.010);
@@ -140,22 +141,26 @@
     b.position.copy(pos);
     b.lookAt(pos.clone().add(fwd));
     roadGroup.add(b);
+    const result = { mesh: b };
     if (opts.door) {
       const doorW = w * 0.32, doorH = h * 0.55;
       const door = buildBox(doorW, doorH, 0.2, roadDimMat);
-      const doorPos = pos.clone()
-        .add(fwd.clone().multiplyScalar(0))
-        .add(r.clone().multiplyScalar(-side * (w / 2 + 0.11)));
+      // door sits on the building's near (road-facing) wall — outward normal
+      // points away from the building, back toward the road/open side.
+      const doorNormal = r.clone().multiplyScalar(-side);
+      const doorPos = pos.clone().add(r.clone().multiplyScalar(-side * (w / 2 + 0.11)));
       door.position.copy(doorPos);
       door.lookAt(doorPos.clone().add(fwd));
       roadGroup.add(door);
+      result.doorPos = doorPos;
+      result.doorNormal = doorNormal;
     }
-    return b;
+    return result;
   }
   // origin depot — small, near the start (Dispatched)
   placeBuilding(0.03, -1, 16, 9, 20, {});
   // the big warehouse the truck pulls up to — matches the "Stop" dwell above
-  placeBuilding(0.58, 1, 30, 15, 34, { door: true, gap: 3 });
+  const warehouse = placeBuilding(0.58, 1, 30, 15, 34, { door: true, gap: 3 });
   // a second, smaller structure near the end (Delivered/Trusted)
   placeBuilding(0.88, -1, 14, 8, 16, {});
 
@@ -169,6 +174,11 @@
   scene.add(truck);
   const modelWrap = new THREE.Group();
   truck.add(modelWrap);
+
+  const explodeParts = []; // { obj, dir(Vector3, local space) }
+  const clipPlane = new THREE.Plane(new THREE.Vector3(1, 0, 0), 999); // moved into place once the model loads
+  truckMat.clippingPlanes = [clipPlane];
+  truckDimMat.clippingPlanes = [clipPlane];
 
   async function loadTruckModel() {
     const gltf = await new GLTFLoader().loadAsync('./models/delivery-truck.glb');
@@ -196,29 +206,113 @@
     modelWrap.scale.setScalar(SCALE);
     modelWrap.rotation.y = Math.PI; // model's authored front faces +Z; flip to -Z
     modelWrap.add(edgeGroup);
+
+    // exploded-view directions: each part flies outward from the model's own
+    // bounding-box center, along the vector from that center to the part's
+    // own (pre-recentre) position — generic, needs no per-name hardcoding.
+    edgeGroup.children.forEach((edges) => {
+      edges.userData.basePos = edges.position.clone();
+      const away = edges.position.clone().sub(center);
+      edges.userData.explodeDir = away.lengthSq() > 0.0004 ? away.normalize() : new THREE.Vector3(0, 1, 0);
+      explodeParts.push(edges);
+    });
+
     window.__debugModel = { size: size.toArray(), scale: SCALE, edgeChildren: edgeGroup.children.length,
       vertCount: edgeGroup.children.reduce((s,c)=>s+c.geometry.attributes.position.count,0) };
     return size;
   }
   const truckReady = loadTruckModel();
 
+  // ---- dock: where the truck backs in (the u=0.58 warehouse's real door) ----
+  const DOCK_U = 0.58;
+  const dockFwd = roadTangent(DOCK_U);
+  // truck's parked spot: just outside the door, rear doors against it, nose
+  // pointing back out along the door's outward normal — a genuine reverse-park.
+  const DOCK_STANDOFF = 4.5; // truck half-length-ish clearance off the door plane
+  const DOCK_POS = warehouse.doorPos.clone().add(warehouse.doorNormal.clone().multiplyScalar(DOCK_STANDOFF));
+  const DOCK_FACE = warehouse.doorNormal.clone().normalize();
+  // camera: pulled well back across the road for a wide 3/4 establishing
+  // angle on the whole dock, not jammed up against the wall.
+  const DOCK_CAM_POS = DOCK_POS.clone()
+    .add(warehouse.doorNormal.clone().multiplyScalar(24))
+    .add(dockFwd.clone().multiplyScalar(-14))
+    .add(new THREE.Vector3(0, 8, 0));
+  window.__debugDock = {
+    DOCK_POS: DOCK_POS.toArray(), DOCK_CAM_POS: DOCK_CAM_POS.toArray(), DOCK_FACE: DOCK_FACE.toArray(),
+    doorPos: warehouse.doorPos.toArray(), doorNormal: warehouse.doorNormal.toArray(),
+  };
+
+  // ---- phase windows along u (0..1), one continuous camera move throughout ----
+  const DOCK_U0 = 0.40, DOCK_U1 = 0.60;   // peel off the road, back into the dock
+  const CLIP_U0 = 0.72, CLIP_U1 = 0.87;   // clipping-plane cross-section sweep
+  const EXPL_U0 = 0.87, EXPL_U1 = 1.00;   // explode into parts
+
+  function smoothstep(a, b, x) {
+    const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  }
+
   const tmpCam = new THREE.Vector3(), tmpTruck = new THREE.Vector3(), tmpLook = new THREE.Vector3();
   window.renderFrame = function (u) {
-    const camR = roadRight(u);
-    const camFwd = roadTangent(u);
-    roadPoint(u, tmpCam);
-    // camera: elevated, offset to one side, behind-and-above for a 3/4 chase angle
-    tmpCam.add(camR.clone().multiplyScalar(-4.2)).add(new THREE.Vector3(0, 5.4, 0));
-    camera.position.copy(tmpCam);
+    const dockT = smoothstep(DOCK_U0, DOCK_U1, u);
 
+    // ---- truck position/facing: road-follow, blending into the dock spot ----
     const truckU = Math.min(1, u + leadFor(u));
     roadPoint(truckU, tmpTruck);
     const truckFwd = roadTangent(truckU);
+    if (dockT > 0) tmpTruck.lerp(DOCK_POS, dockT);
     truck.position.copy(tmpTruck);
-    truck.lookAt(tmpTruck.clone().add(truckFwd));
+    const faceDir = dockT > 0 ? truckFwd.clone().lerp(DOCK_FACE, dockT).normalize() : truckFwd;
+    truck.lookAt(tmpTruck.clone().add(faceDir));
 
+    // ---- camera: chase cam, blending into a fixed dock observer angle ----
+    const camR = roadRight(u);
+    roadPoint(u, tmpCam);
+    tmpCam.add(camR.clone().multiplyScalar(-4.2)).add(new THREE.Vector3(0, 5.4, 0));
+    if (dockT > 0) tmpCam.lerp(DOCK_CAM_POS, dockT);
+
+    // push in for the cross-section reveal (see the cutaway detail up close),
+    // then pull back out once parts start exploding (give them room to read)
+    const clipT = smoothstep(CLIP_U0, CLIP_U1, u);
+    const explT = smoothstep(EXPL_U0, EXPL_U1, u);
+    if (explT > 0) {
+      const pushDir = tmpTruck.clone().sub(tmpCam).normalize();
+      tmpCam.add(pushDir.multiplyScalar(10));
+      const pullDir = pushDir.clone().negate();
+      tmpCam.add(pullDir.multiplyScalar(explT * 4));
+    } else if (clipT > 0) {
+      const pushDir = tmpTruck.clone().sub(tmpCam).normalize();
+      tmpCam.add(pushDir.multiplyScalar(clipT * 10));
+    }
+    camera.position.copy(tmpCam);
     tmpLook.copy(tmpTruck).add(new THREE.Vector3(0, 2.4, 0));
     camera.lookAt(tmpLook);
+
+    // ---- cross-section: sweep a clipping plane across the truck's width,
+    // cutting away the near-side wall to reveal the (now-open) interior ----
+    const clipNormal = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), DOCK_FACE).normalize();
+    clipPlane.normal.copy(clipNormal);
+    const centerAlongNormal = clipNormal.dot(DOCK_POS);
+    const OFFSET_START = 3.0;   // clipT=0: plane well clear of the truck, nothing clipped
+    const OFFSET_END = -0.05;   // clipT=1: plane just past centerline, near half sliced away
+    const offset = OFFSET_START + (OFFSET_END - OFFSET_START) * clipT;
+    clipPlane.constant = -centerAlongNormal + offset;
+
+    // ---- explode: parts fly apart from the model's own center ----
+    const explodeDist = explT * 2.6;
+    explodeParts.forEach((edges) => {
+      if (!edges.userData.basePos) return;
+      edges.position.copy(edges.userData.basePos)
+        .add(edges.userData.explodeDir.clone().multiplyScalar(explodeDist / modelWrap.scale.x));
+    });
+
+    // ---- de-glow for the reveal: up close, the same bloom that reads as
+    // "headlights" from a distance turns the truck into a white blob and
+    // hides the cutaway/exploded detail — dial it back as we get close. ----
+    const detailT = Math.max(clipT, explT);
+    truckMat.opacity = 0.30 + (0.20 - 0.30) * detailT;
+    truckDimMat.opacity = 0.18 + (0.11 - 0.18) * detailT;
+    bloom.strength = 1.2 + (0.55 - 1.2) * detailT;
 
     const t = Math.min(1, u * 1.02);
     roadMat.color.copy(COOL).lerp(WARM, t);
