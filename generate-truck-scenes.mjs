@@ -1,13 +1,21 @@
 /**
  * generate-truck-scenes.mjs
  * Cinematic truck story for the OPM Courier scroll hero:
- * Flux Schnell still -> Kling v1.6 image-to-video, one clip per scene,
- * written to src/sceneN.mp4 for build-frames.sh to consume.
+ * Flux Schnell still -> Kling v1.6 image-to-video, one INDEPENDENT clip per
+ * scene, written to src/sceneN.mp4 for build-frames.sh to consume.
+ *
+ * Each scene gets its own purpose-built still so the staged action (reverse
+ * into a dock, dissolve into a blueprint, explode into panels) actually
+ * happens — image-to-video chaining from a moving clip's last frame was
+ * tried and reliably ignores staged actions in favor of continuing the
+ * dominant motion. Continuity across cuts is instead handled by
+ * build-frames.sh, which crossfades between clips rather than hard-cutting.
  *
  * Story: truck approaches -> transit tracking shot -> reverses into a
- * warehouse dock -> settles docked -> cuts to a glowing cyan cross-section
- * blueprint of the truck. Palette matches the site: near-black (#05070c)
- * background, cyan/teal accents (#22d3ee / #67e8f9 / #06b6d4).
+ * warehouse dock -> settles docked -> dissolves into a glowing cyan
+ * cross-section blueprint -> the blueprint explodes open into separated,
+ * evenly spaced service compartments. Palette matches the site: near-black
+ * (#05070c) background, cyan/teal accents (#22d3ee / #67e8f9 / #06b6d4).
  *
  * Run: FAL_KEY=your-key node generate-truck-scenes.mjs
  */
@@ -104,6 +112,25 @@ symmetrical centered composition.
 The blueprint schematic assembles itself: glowing cyan wireframe lines draw
 themselves in from top to bottom as if scanning into existence, holographic
 assembly effect, very slow subtle camera drift inward. Stable, no cuts. 5 seconds.
+    `.trim(),
+  },
+  {
+    id: 'scene6',
+    name: 'Explode',
+    image: `
+A glowing technical exploded-view diagram of the same box truck cutaway blueprint,
+on a near-black background (#05070c). The cargo bay's internal compartments and
+panels are separated and floating apart from each other in a clean exploded
+technical-diagram layout, each piece outlined with thin cyan (#22d3ee) and pale
+teal (#67e8f9) wireframe linework and a faint HUD-style bracket outline. Evenly
+spaced, symmetrical, centered composition, premium automotive engineering
+diagram aesthetic, high contrast, ultra sharp linework, no dense paragraphs of text.
+    `.trim(),
+    motion: `
+The exploded panels drift very slowly apart and then gently settle, camera pulls
+back slowly to reveal the full evenly spaced layout, subtle ambient cyan glow
+pulsing softly across the panels. Smooth, stable, no cuts, no camera shake.
+5 seconds.
     `.trim(),
   },
 ];
