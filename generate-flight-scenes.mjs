@@ -62,12 +62,28 @@ no stutters. 10 seconds.
   },
   {
     id: 'scene2',
+    // Independent still (not chained from scene1): Kling reliably garbles
+    // baked-in text when it has to invent a decal from a text description
+    // alone during a video continuation. Flux placing real vinyl-decal text
+    // on a still first, then Kling only animating that already-correct
+    // image, is far more reliable — validated on stills before spending on
+    // video. This does mean a hard cut after scene1 instead of a chained
+    // one; accepted trade-off for a correctly-branded van.
+    freshStill: true,
+    seed: 1002, // validated against 3 seeds beforehand — this one spells "OPM COURIER" correctly
+    image: `
+Photoreal side-profile shot at dusk of a dark navy-black Mercedes-Sprinter-style
+cargo delivery van (tall single-body panel van, no separate box container)
+driving along a quiet city street. On its side cargo panel: a clean vinyl-cut
+fleet decal reading OPM COURIER in bold white sans-serif letters, professional
+sign lettering, sharp and legible, one line. Motion-blurred buildings behind,
+cyan streetlight reflections on the paint, dark near-black sky (#05070c),
+cinematic color grade, shallow depth of field on the background.
+    `.trim(),
     motion: `
-Continue the same forward push, now low and level just above the highway. Bring
-${TRUCK} into view directly ahead, driving away from camera at matching speed,
-wordmark clearly readable on its rear/side. Wet road, cyan streetlight
-reflections, near-black night sky. Smooth continuous forward glide, no cuts.
-10 seconds.
+Smooth lateral tracking shot moving alongside the van at matching speed, camera
+holds a level side profile framing so the side decal stays readable. Minor
+background parallax. Stable, no cuts. 10 seconds.
     `.trim(),
   },
   {
@@ -116,8 +132,10 @@ no camera shake. 10 seconds.
 
 async function generateStill(scene) {
   console.log(`\n[${scene.id}] still via Flux Schnell...`);
+  const input = { prompt: scene.image, image_size: 'landscape_16_9', num_inference_steps: 4, num_images: 1 };
+  if (scene.seed != null) input.seed = scene.seed;
   const result = await fal.subscribe('fal-ai/flux/schnell', {
-    input: { prompt: scene.image, image_size: 'landscape_16_9', num_inference_steps: 4, num_images: 1 },
+    input,
     logs: true,
     onQueueUpdate(u) { if (u.status === 'IN_PROGRESS') process.stdout.write('.'); }
   });
@@ -176,7 +194,7 @@ try {
       continue;
     }
     let imageUrl;
-    if (!prevVideoPath) {
+    if (!prevVideoPath || scene.freshStill) {
       imageUrl = await generateStill(scene);
     } else {
       console.log(`[${scene.id}] chaining from ${prevVideoPath}'s last frame...`);
